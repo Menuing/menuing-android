@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/searchTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vull menjar:" />
+
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Res :D" />
+
+    <Button
+        android:id="@+id/searchLayoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Veure receptes" />
+
+    <Button
+        android:id="@+id/search_backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tornar" />
+
+</LinearLayout>

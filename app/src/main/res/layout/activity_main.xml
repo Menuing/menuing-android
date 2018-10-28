@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:gravity="center">
+
+
+    <Button
+        android:id="@+id/mainConfigButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Configuracio" />
+
+    <Button
+        android:id="@+id/mainSearchButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BUSCAR" />
+
+    <Button
+        android:id="@+id/mainHistoryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Historic" />
+
+    <Button
+        android:id="@+id/mainExitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sortir" />
+
+</LinearLayout>

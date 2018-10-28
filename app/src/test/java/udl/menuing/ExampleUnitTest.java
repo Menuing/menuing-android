@@ -1,4 +1,4 @@
-package com.example.mrg20.menuing_android;
+package udl.menuing;
 
 import org.junit.Test;
 

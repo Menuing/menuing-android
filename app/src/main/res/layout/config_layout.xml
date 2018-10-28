@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/configAlergiesText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Alergies" />
+
+    <EditText
+        android:id="@+id/configAlergiesEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Alergies" />
+
+    <TextView
+        android:id="@+id/configGustosText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gustos" />
+
+    <EditText
+        android:id="@+id/configGustosEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Gustos" />
+
+    <TextView
+        android:id="@+id/configEtc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Etc." />
+
+    <Button
+        android:id="@+id/configBackButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tornar" />
+</LinearLayout>
