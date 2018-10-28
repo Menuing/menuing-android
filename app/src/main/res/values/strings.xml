@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">menuing-android</string>
+    <string name="gluten">Gluten</string>
+    <string name="milk">Milk Protein</string>
+    <string name="fish">Fish</string>
+    <string name="molluscs">Molluscs</string>
+    <string name="crustaceans">Crustaceans</string>
+    <string name="peanuts">Peanuts</string>
+    <string name="nuts">Nuts</string>
+    <string name="soy">Soy</string>
+    <string name="celery">Celery</string>
+    <string name="mustard">Mustard</string>
+    <string name="sesame">Sesame</string>
 </resources>
