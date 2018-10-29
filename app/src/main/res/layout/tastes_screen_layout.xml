@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/largeText"
+        android:background="@color/colorBackground">
+
+        <TextView
+            android:id="@+id/tastes_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pGustos_MyTastes"
+            android:textSize="@dimen/largeText"
+            android:layout_marginStart="@dimen/normalText"/>
+
+        <ScrollView
+            android:id="@+id/tastes_Scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tastes_textView"
+            android:scrollbars="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarTrackVertical="@dimen/largeText"
+            android:layout_marginStart="@dimen/normalText">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Meat"
+                    android:textColor="@color/colorText"
+                    />
+                <CheckBox
+                    android:id="@+id/checkBox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fish"
+                    android:textColor="@color/colorText"/>
+                <CheckBox
+                    android:id="@+id/checkBox3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eggs"
+                    android:textColor="@color/colorText"
+                    />
+                <CheckBox
+                    android:id="@+id/checkBox4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Milk"
+                    android:textColor="@color/colorText"
+                    />
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/tastes_OtherButton"
+            android:layout_width="@dimen/smallButtonWidth"
+            android:layout_height="@dimen/smallButtonHeight"
+            android:layout_below="@id/tastes_Scrollview"
+            android:background="@color/colorText"
+            android:text="@string/other"
+            android:textColor="@color/colorWhite"
+            android:layout_marginStart="@dimen/largeText"
+            android:layout_marginTop="@dimen/normalText"/>
+
+        <Button
+            android:id="@+id/tastes_SaveButton"
+            android:layout_width="@dimen/smallButtonWidth"
+            android:layout_height="@dimen/smallButtonHeight"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorText"
+            android:text="@string/save"
+            android:textColor="@color/colorWhite"
+            android:layout_margin="@dimen/largeText"/>
+    </RelativeLayout>
+
+</RelativeLayout>
