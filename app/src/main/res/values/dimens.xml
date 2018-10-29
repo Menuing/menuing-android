@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="largeText">30dp</dimen>
+    <dimen name="normalText">15dp</dimen>
+
+    <dimen name="smallButtonWidth">64dp</dimen>
+    <dimen name="smallButtonHeight">32dp</dimen>
+</resources>
