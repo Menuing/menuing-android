@@ -1,5 +1,13 @@
 <resources>
-    <string name="app_name">menuing-android</string>
+    <string name="app_name">Menuing</string>
+
+    <!-- LOGIN TEXTS -->
+    <string name="login_username">Usuari</string>
+    <string name="login_password">Contrasenya</string>
+    <string name="login_button_text">Log in</string>
+    <string name="login_no_account">Crear un compte??</string>
+
+    <!-- ALLERGIES TEXTS -->
     <string name="gluten">Gluten</string>
     <string name="milk">Proteïna de la llet</string>
     <string name="fish">Peix</string>
