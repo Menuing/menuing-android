@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">Menuing</string>
-
+     <!-- LOGIN TEXTS -->
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_button_text">Log in</string>
+    <string name="login_no_account">Create account?</string>
+    <string name="title_activity_register">Menuing</string>
+    <string name="register_button_text">Register</string>
+    <string name="register_email">Email</string>
+    <string name="register_terms_conditions">Terms and Conditions</string>
+    <string name="register_terms_accept">Accept</string>
+    
     <!-- Pagina Gustos -->
     <string name="pGustos_MyTastes">My tastes</string>
-
-    <!-- Altres -->
+     <!-- Altres -->
     <string name="other">Other</string>
     <string name="save">Save</string>
 </resources>
