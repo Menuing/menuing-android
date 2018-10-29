@@ -1,9 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".menuing"
+    >
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/listview_selector"
-        android:descendantFocusability="blocksDescendants">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/background"
+        android:layout_weight="2">
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            >
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/logo"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="40dp"
+                android:background="#fff"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/login_username_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_username"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"/>
+
+                    <EditText
+                        android:id="@+id/login_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+
+                    <TextView
+                        android:id="@+id/login_pw_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_password"
+                        android:layout_marginLeft="10dp"/>
+
+                    <EditText
+                        android:id="@+id/login_pw"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    >
+
+                    <TextView
+                        android:id="@+id/forgotPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_no_account"
+                        android:textColor="#366fd8"
+                        android:layout_marginRight="10dp"
+                        android:clickable="true"/>
+                    <!--android:onClick=""-->
+
+                    <Button
+                        android:id="@+id/page2_OkButton"
+                        android:layout_width="70dp"
+                        android:layout_height="35dp"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/login_button_text"
+                        android:background="#ffbc93"
+                        android:layout_margin="X"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
