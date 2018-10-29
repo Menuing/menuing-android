@@ -113,7 +113,7 @@
                         android:layout_marginRight="10dp"
                         android:text="@string/login_button_text"
                         android:background="#ffbc93"
-                        android:layout_margin="X"
+                        <!--android:layout_margin="X"-->
                         />
 
                 </LinearLayout>
