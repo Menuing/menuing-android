@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menuing"
     >
 
     <LinearLayout
@@ -17,43 +16,67 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="30dp"
-            >
+            android:layout_margin="30dp"
+            android:orientation="vertical"
+            android:background="@color/colorBackground">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/logo"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            >
-            <LinearLayout
+            <TextView
+                android:id="@+id/AllergiesTittle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginBottom="40dp"
-                android:background="#fff"
-                android:layout_weight="4"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                style="@style/Tittle"
+                android:text="@string/allergiesTittle" />
 
-                
+            <CheckBox
+                android:id="@+id/allergy1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/celery" />
 
-            </LinearLayout>
+            <CheckBox
+                android:id="@+id/allergy2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/crustaceans" />
 
+            <CheckBox
+                android:id="@+id/allergy3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fish" />
+
+            <CheckBox
+                android:id="@+id/allergy4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/molluscs" />
+
+            <CheckBox
+                android:id="@+id/allergy5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/milk" />
+
+            <CheckBox
+                android:id="@+id/allergy6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/mustard" />
+
+            <CheckBox
+                android:id="@+id/allergy7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nuts" />
+
+            <CheckBox
+                android:id="@+id/allergy8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/peanuts" />
         </LinearLayout>
+
+
     </LinearLayout>
 
 

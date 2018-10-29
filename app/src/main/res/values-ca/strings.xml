@@ -6,8 +6,21 @@
     <string name="login_password">Contrasenya</string>
     <string name="login_button_text">Log in</string>
     <string name="login_no_account">Crear un compte??</string>
+    <string name="title_activity_register">Menuing</string>
+    <string name="register_button_text">Register</string>
+    <string name="register_email">Email</string>
+    <string name="register_terms_conditions">Terms and Conditions</string>
+    <string name="register_terms_accept">Accept</string>
+
+    <!-- Pagina Gustos -->
+    <string name="pGustos_MyTastes">My tastes</string>
+
+    <!-- Altres -->
+    <string name="other">Other</string>
+    <string name="save">Save</string>
 
     <!-- ALLERGIES TEXTS -->
+    <string name="allergiesTittle">Les meves alergies</string>
     <string name="gluten">Gluten</string>
     <string name="milk">Proteïna de la llet</string>
     <string name="fish">Peix</string>

@@ -19,6 +19,7 @@
     <string name="save">Save</string>
 
     <!-- ALLERGIES TEXTS -->
+    <string name="allergiesTittle">My Allergies</string>
     <string name="gluten">Gluten</string>
     <string name="milk">Milk Protein</string>
     <string name="fish">Fish</string>
