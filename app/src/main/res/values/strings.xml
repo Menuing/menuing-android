@@ -31,4 +31,10 @@
                                         Lorem ipsum i estes coses
                                         Lorem ipsum i estes coses
                                         Lorem ipsum i estes coses</string>
+
+    <!-- Review una recepta -->
+    <string name="reviewRecipe_Title">Recipe name</string>
+    <string name="reviewRecipe_IngredientTitle">Ingredients</string>
+    <string name="reviewRecipe_StepsTitle">Steps to follow</string>
+    
 </resources>
