@@ -17,6 +17,19 @@
     <!-- Altres -->
     <string name="other">Other</string>
     <string name="save">Save</string>
+    <string name="X">X</string>
+
+    <!-- Termes i condicions -->
+    <string name="termsconditions_Title">Terms and conditions</string>
+    <string name="termsconditions_bulk">Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses</string>
 
     <!-- ALLERGIES TEXTS -->
     <string name="allergiesTittle">My Allergies</string>
@@ -32,4 +45,3 @@
     <string name="mustard">Mustard</string>
     <string name="sesame">Sesame</string>
 </resources>
-
