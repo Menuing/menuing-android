@@ -19,6 +19,9 @@
     <string name="other">Other</string>
     <string name="save">Save</string>
 
+    <!-- TASTES TEXTS -->
+    <string name="tastesTittle">Els meus gustos</string>
+
     <!-- ALLERGIES TEXTS -->
     <string name="allergiesTittle">Les meves alergies</string>
     <string name="gluten">Gluten</string>
