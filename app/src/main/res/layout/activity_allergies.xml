@@ -30,98 +30,113 @@
                 android:layout_height="wrap_content"
                 android:text="@string/allergiesTittle"
                 />
+            <ScrollView android:id="@+id/ScrollView01"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent">
 
-            <CheckBox
-                android:id="@+id/allergy1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/celery"
-                style="@style/SmallText"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@android:color/transparent"
+                    android:visibility="visible">
 
-            <CheckBox
-                android:id="@+id/allergy2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/crustaceans"
-                style="@style/SmallText"/>
 
-            <CheckBox
-                android:id="@+id/allergy3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/fish"
-                style="@style/SmallText"/>
+                    <CheckBox
+                        android:id="@+id/allergy1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/celery"
+                        style="@style/SmallText"/>
 
-            <CheckBox
-                android:id="@+id/allergy4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/molluscs"
-                style="@style/SmallText"/>
+                    <CheckBox
+                        android:id="@+id/allergy2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/crustaceans"
+                        style="@style/SmallText"/>
 
-            <CheckBox
-                android:id="@+id/allergy5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/milk"
-                style="@style/SmallText"/>
+                    <CheckBox
+                        android:id="@+id/allergy3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fish"
+                        style="@style/SmallText"/>
 
-            <CheckBox
-                android:id="@+id/allergy6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/mustard"
-                style="@style/SmallText"/>
+                    <CheckBox
+                        android:id="@+id/allergy4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/molluscs"
+                        style="@style/SmallText"/>
 
-            <CheckBox
-                android:id="@+id/allergy7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/nuts"
-                style="@style/SmallText"/>
+                    <CheckBox
+                        android:id="@+id/allergy5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/milk"
+                        style="@style/SmallText"/>
 
-            <CheckBox
-                android:id="@+id/allergy8"
-                style="@style/SmallText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="@string/peanuts" />
-            <LinearLayout
-                android:id="@+id/othersLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@android:color/transparent"
-                android:visibility="visible">
+                    <CheckBox
+                        android:id="@+id/allergy6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mustard"
+                        style="@style/SmallText"/>
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@android:color/transparent"
-                android:visibility="visible">
-                <EditText
-                    android:id="@+id/otherText"
-                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"/>
-                <Button
-                    android:id="@+id/allergies_other"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/other"
-                    android:onClick="onClickOther"/>
-            </LinearLayout>
+                    <CheckBox
+                        android:id="@+id/allergy7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nuts"
+                        style="@style/SmallText"/>
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/save" />
+                    <CheckBox
+                        android:id="@+id/allergy8"
+                        style="@style/SmallText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="@string/peanuts" />
+                    <LinearLayout
+                        android:id="@+id/othersLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@android:color/transparent"
+                        android:visibility="visible">
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@android:color/transparent"
+                        android:visibility="visible">
+                        <EditText
+                            android:id="@+id/otherText"
+                            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"/>
+                        <Button
+                            android:id="@+id/allergies_other"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/other"
+                            android:onClick="onClickOther"/>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/save" />
+                </LinearLayout>
+            </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>
