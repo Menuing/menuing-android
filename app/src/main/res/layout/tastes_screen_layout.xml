@@ -38,27 +38,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Meat"
-                    android:textColor="@color/colorText"
+                    android:textColor="@color/colorBigText"
                     />
                 <CheckBox
                     android:id="@+id/checkBox2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fish"
-                    android:textColor="@color/colorText"/>
+                    android:textColor="@color/colorBigText"/>
                 <CheckBox
                     android:id="@+id/checkBox3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Eggs"
-                    android:textColor="@color/colorText"
+                    android:textColor="@color/colorBigText"
                     />
                 <CheckBox
                     android:id="@+id/checkBox4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Milk"
-                    android:textColor="@color/colorText"
+                    android:textColor="@color/colorBigText"
                     />
             </LinearLayout>
         </ScrollView>
@@ -68,7 +68,7 @@
             android:layout_width="@dimen/smallButtonWidth"
             android:layout_height="@dimen/smallButtonHeight"
             android:layout_below="@id/tastes_Scrollview"
-            android:background="@color/colorText"
+            android:background="@color/colorBigText"
             android:text="@string/other"
             android:textColor="@color/colorWhite"
             android:layout_marginStart="@dimen/largeText"
@@ -80,7 +80,7 @@
             android:layout_height="@dimen/smallButtonHeight"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorText"
+            android:background="@color/colorBigText"
             android:text="@string/save"
             android:textColor="@color/colorWhite"
             android:layout_margin="@dimen/largeText"/>
