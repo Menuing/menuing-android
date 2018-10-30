@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/largeText"
+        android:background="@color/colorBackground">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/largeText">
+
+                <TextView
+                    android:id="@+id/rReview_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reviewRecipe_Title"
+                    android:textSize="@dimen/largeText"
+                    android:layout_marginLeft="@dimen/normalText"/>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/rReview_RecipeImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rReview_TextView"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ic_launcher_round"/>
+
+                <TextView
+                    android:id="@+id/rReview_Ingredient_Title_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reviewRecipe_IngredientTitle"
+                    android:textSize="@dimen/largeText"
+                    android:layout_marginLeft="@dimen/normalText"
+                    android:layout_below="@id/rReview_RecipeImage"/>
+
+                <TextView
+                    android:id="@+id/rReview_Ingredient_List_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/termsconditions_bulk"
+                    android:textSize="@dimen/normalText"
+                    android:layout_marginLeft="@dimen/normalText"
+                    android:layout_below="@id/rReview_Ingredient_Title_TextView"/>
+
+                <TextView
+                    android:id="@+id/rReview_Steps_Title_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reviewRecipe_StepsTitle"
+                    android:textSize="@dimen/largeText"
+                    android:layout_marginLeft="@dimen/normalText"
+                    android:layout_below="@id/rReview_Ingredient_List_TextView"/>
+
+                <TextView
+                    android:id="@+id/rReview_Steps_List_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/termsconditions_bulk"
+                    android:textSize="@dimen/normalText"
+                    android:layout_marginLeft="@dimen/normalText"
+                    android:layout_below="@id/rReview_Steps_Title_TextView"/>
+
+                </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

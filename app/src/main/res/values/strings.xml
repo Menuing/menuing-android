@@ -44,4 +44,10 @@
     <string name="celery">Celery</string>
     <string name="mustard">Mustard</string>
     <string name="sesame">Sesame</string>
+
+    <!-- Review una recepta -->
+    <string name="reviewRecipe_Title">Recipe name</string>
+    <string name="reviewRecipe_IngredientTitle">Ingredients</string>
+    <string name="reviewRecipe_StepsTitle">Steps to follow</string>
+    
 </resources>
