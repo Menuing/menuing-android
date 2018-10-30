@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Menuing</string>
-
     <!-- LOGIN TEXTS -->
     <string name="login_username">Username</string>
     <string name="login_password">Password</string>
@@ -16,7 +15,7 @@
     <string name="pGustos_MyTastes">My tastes</string>
 
     <!-- Altres -->
-    <string name="other">Other</string>
+    <string name="other">Add other</string>
     <string name="save">Save</string>
     <string name="X">X</string>
 
@@ -31,4 +30,18 @@
                                         Lorem ipsum i estes coses
                                         Lorem ipsum i estes coses
                                         Lorem ipsum i estes coses</string>
+
+    <!-- ALLERGIES TEXTS -->
+    <string name="allergiesTittle">My Allergies</string>
+    <string name="gluten">Gluten</string>
+    <string name="milk">Milk Protein</string>
+    <string name="fish">Fish</string>
+    <string name="molluscs">Molluscs</string>
+    <string name="crustaceans">Crustaceans</string>
+    <string name="peanuts">Peanuts</string>
+    <string name="nuts">Nuts</string>
+    <string name="soy">Soy</string>
+    <string name="celery">Celery</string>
+    <string name="mustard">Mustard</string>
+    <string name="sesame">Sesame</string>
 </resources>
