@@ -1,4 +1,4 @@
-package com.example.mrg20.menuing_android;
+package com.example.mrg20.menuing_android.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.app.ActionBar.LayoutParams;
+
+import com.example.mrg20.menuing_android.R;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
