@@ -15,6 +15,12 @@
     <!-- Pagina Gustos -->
     <string name="pGustos_MyTastes">My tastes</string>
 
+    <!-- Profile -->
+    <string name="profile_title">Perfil</string>
+    <string name="profile_edit_button">Editar perfil</string>
+    <string name="profile_allergies_button">Alergies</string>
+    <string name="profile_tastes_button">Gustos</string>
+
     <!-- Altres -->
     <string name="other">Other</string>
     <string name="save">Save</string>
