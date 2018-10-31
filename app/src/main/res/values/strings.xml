@@ -12,6 +12,9 @@
     <string name="register_terms_accept">Accept</string>
 
 
+    <!-- Get a Meal text -->
+    <string name="get_a_meal_preference_text">Choose one of the following preferences</string>
+
     <!-- Altres -->
     <string name="other">Add other</string>
     <string name="save">Save</string>
@@ -54,5 +57,4 @@
     <string name="reviewRecipe_Title">Recipe name</string>
     <string name="reviewRecipe_IngredientTitle">Ingredients</string>
     <string name="reviewRecipe_StepsTitle">Steps to follow</string>
-    
 </resources>
