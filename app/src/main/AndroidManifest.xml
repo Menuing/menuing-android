@@ -19,7 +19,7 @@
         <activity
             android:name=".Register"
             android:label="@string/title_activity_register"></activity>
-        <activity android:name=".UserProfile" />
+        <activity android:name=".activities.UserProfile" />
     </application>
 
 </manifest>
