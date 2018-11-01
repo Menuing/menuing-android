@@ -30,14 +30,14 @@
                                         Lorem ipsum i estes coses</string>
 
     <!-- TASTES TEXTS -->
-    <string name="tastesTittle">My tastes</string>
+    <string name="tastes_tittle">My tastes</string>
     <string name="potatoes">Potatoes</string>
     <string name="vegetables">Vegetables</string>
     <string name="salmon">Salmon</string>
 
 
     <!-- ALLERGIES TEXTS -->
-    <string name="allergiesTittle">My Allergies</string>
+    <string name="allergies_tittle">My Allergies</string>
     <string name="gluten">Gluten</string>
     <string name="milk">Milk Protein</string>
     <string name="fish">Fish</string>
@@ -49,6 +49,9 @@
     <string name="celery">Celery</string>
     <string name="mustard">Mustard</string>
     <string name="sesame">Sesame</string>
+
+    <!-- DIETS TEXTS -->
+    <string name="monthly_tittle">My monthly diet</string>
 
     <!-- Review una recepta -->
     <string name="reviewRecipe_Title">Recipe name</string>

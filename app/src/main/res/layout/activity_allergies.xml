@@ -28,7 +28,7 @@
                 style="@style/SubTittle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/allergiesTittle"
+                android:text="@string/allergies_tittle"
                 />
             <ScrollView android:id="@+id/ScrollView01"
                 android:layout_width="match_parent"
