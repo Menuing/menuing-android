@@ -15,7 +15,7 @@
     <string name="pGustos_MyTastes">My tastes</string>
 
     <!-- Profile -->
-    <string name="profile_title">Profile</string>
+    <string name="profile_title">User Profile</string>
     <string name="profile_edit_button">Edit profile</string>
     <string name="profile_allergies_button">My allergies</string>
     <string name="profile_tastes_button">My tastes</string>
@@ -58,5 +58,8 @@
     <string name="reviewRecipe_Title">Recipe name</string>
     <string name="reviewRecipe_IngredientTitle">Ingredients</string>
     <string name="reviewRecipe_StepsTitle">Steps to follow</string>
-    
+    <string name="info_name">Name:</string>
+    <string name="info_email">Email:</string>
+    <string name="info_number">Number:</string>
+
 </resources>
