@@ -30,8 +30,6 @@
     <string name="nuti_desc3">Vegetarian nutrition</string>
     <string name="nuti_oferta3">15€*/40 minuts de chat</string>
 
-    <!-- Pagina Gustos -->
-    <string name="pGustos_MyTastes">Els meus gustos</string>
 
     <!-- Profile -->
     <string name="profile_title">Perfil d\'usuari</string>
@@ -55,7 +53,7 @@
 
 
     <!-- ALLERGIES TEXTS -->
-    <string name="allergiesTittle">Les meves alergies</string>
+    <string name="allergies_tittle">Les meves alergies</string>
     <string name="gluten">Gluten</string>
     <string name="milk">Proteïna de la llet</string>
     <string name="fish">Peix</string>
@@ -67,4 +65,14 @@
     <string name="celery">Api</string>
     <string name="mustard">Mostassa</string>
     <string name="sesame">Sèsam</string>
+
+
+    <!--WEEK days-->
+    <string name="monday">Dilluns</string>
+    <string name="tuesday">Dimarts</string>
+    <string name="wednesday">Dimecres</string>
+    <string name="thursday">Dijous</string>
+    <string name="friday">Divendres</string>
+    <string name="saturday">Dissabte</string>
+    <string name="sunday">Diumenge</string>
 </resources>
