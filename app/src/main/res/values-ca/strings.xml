@@ -7,10 +7,10 @@
     <string name="login_button_text">Log in</string>
     <string name="login_no_account">Crear un compte??</string>
     <string name="title_activity_register">Menuing</string>
-    <string name="register_button_text">Register</string>
+    <string name="register_button_text">Registre</string>
     <string name="register_email">Email</string>
-    <string name="register_terms_conditions">Terms and Conditions</string>
-    <string name="register_terms_accept">Accept</string>
+    <string name="register_terms_conditions">Termes i condicions</string>
+    <string name="register_terms_accept">Acceptar</string>
 
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Escolleix una de les següents preferències</string>
@@ -46,11 +46,28 @@
     <string name="delete_profile">Eliminar informació</string>
 
     <!-- Altres -->
-    <string name="other">Other</string>
-    <string name="save">Save</string>
+    <string name="other">Afegir un altre</string>
+    <string name="save">Guardar</string>
+    <string name="X">X</string>
+    <string name="go_Back">Tornar</string>
+
+    <!-- Termes i condicions -->
+    <string name="termsconditions_Title">Termes i condicions</string>
+    <string name="termsconditions_bulk">Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses
+                                        Lorem ipsum i estes coses</string>
 
     <!-- TASTES TEXTS -->
-
+    <string name="pGustos_MyTastes">Els meus gustos</string>
+    <string name="potatoes">Patates</string>
+    <string name="vegetables">Vegetals</string>
+    <string name="salmon">Salmó</string>
 
     <!-- ALLERGIES TEXTS -->
     <string name="allergies_tittle">Les meves alergies</string>
@@ -75,4 +92,12 @@
     <string name="friday">Divendres</string>
     <string name="saturday">Dissabte</string>
     <string name="sunday">Diumenge</string>
+    <!-- Review una recepta -->
+    <string name="reviewRecipe_Title">Nom de la recepta</string>
+    <string name="reviewRecipe_IngredientTitle">Ingredients</string>
+    <string name="reviewRecipe_StepsTitle">Passos a seguir</string>
+
+    <!-- Menu contextual -->
+    <string name="delete_element">Borrar element</string>
+
 </resources>

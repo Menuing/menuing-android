@@ -28,7 +28,7 @@
                 style="@style/SubTittle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/tastes_tittle"
+                android:text="@string/pGustos_MyTastes"
                 />
 
             <ScrollView android:id="@+id/ScrollView01"

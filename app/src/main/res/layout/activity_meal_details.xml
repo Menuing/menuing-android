@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.MealDetails">
+
+    <Button
+        android:id="@+id/first_recipe2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_recipe"
+        tools:layout_editor_absoluteX="249dp"
+        tools:layout_editor_absoluteY="330dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_meal_title"
+        android:textSize="35sp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="37dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/first_dish_example"
+        android:textSize="25sp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="94dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/second_dish_example"
+        android:textSize="25sp"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="276dp" />
+
+    <Button
+        android:id="@+id/first_recipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_recipe"
+        tools:layout_editor_absoluteX="249dp"
+        tools:layout_editor_absoluteY="143dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="208dp"
+        android:layout_height="144dp"
+        app:srcCompat="@drawable/primer_plat"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="128dp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="208dp"
+        android:layout_height="144dp"
+        app:srcCompat="@drawable/segon_plat"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="310dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ratio_example"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="249dp"
+        tools:layout_editor_absoluteY="199dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ratio_example"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="249dp"
+        tools:layout_editor_absoluteY="385dp" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="80dp"
+        android:layout_height="52dp"
+        app:srcCompat="@drawable/carrito_simbolo"
+        tools:layout_editor_absoluteX="257dp"
+        tools:layout_editor_absoluteY="37dp" />
+
+
+</android.support.constraint.ConstraintLayout>
