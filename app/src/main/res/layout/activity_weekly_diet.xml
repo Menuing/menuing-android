@@ -51,7 +51,8 @@
                             android:layout_weight="1"
                             android:text="@string/monday"
                             android:layout_margin="4dp"
-                            style="@style/SmallText"/>
+                            style="@style/SmallText"
+                            android:tag="day"/>
 
                     </TableRow>
 

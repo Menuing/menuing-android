@@ -26,6 +26,8 @@
         <activity android:name=".NutritionistsListActivity" />
         <activity android:name=".NutritionistChat"></activity>
         <activity android:name=".activities.ViewMealActivity"></activity>
+        <activity android:name=".activities.MonthlyDietActivity"></activity>
+        <activity android:name=".activities.WeeklyDietActivity"></activity>
     </application>
 
 </manifest>
