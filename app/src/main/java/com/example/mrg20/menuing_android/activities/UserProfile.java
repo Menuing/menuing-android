@@ -26,8 +26,8 @@ public class UserProfile extends AppCompatActivity {
     }
 
     public void seeTermsAndConditions(View view) {
-        // Intent intent = new Intent(UserProfile.this, .class);
-        // startActivity(intent);
+        Intent intent = new Intent(UserProfile.this, TermsAndConditionActivity.class);
+        startActivity(intent);
     }
 
 }
