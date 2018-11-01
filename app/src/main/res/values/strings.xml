@@ -91,6 +91,7 @@
     <string name="first_dish_example">First dish</string>
     <string name="second_dish_example">Second dish</string>
     <string name="ratio_example">Ratio: 4.5/5</string>
+    <string name="first_dish_name">Eggplant with tomato</string>
 
 
 </resources>
