@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".menuing"
+    tools:context=".LoginActivity"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:background="@drawable/background"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="70dp"
         tools:layout_editor_absoluteY="0dp">
@@ -139,7 +138,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_marginRight="10dp"
-                        android:background="#ffbc93"
+                        android:background="#ff9c60"
                         android:text="@string/register_button_text"
                         android:layout_marginLeft="10dp"
                         android:layout_marginBottom="20dp"/>
