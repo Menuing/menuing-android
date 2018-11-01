@@ -2,21 +2,14 @@ package com.example.mrg20.menuing_android.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CalendarView;
 
 import com.example.mrg20.menuing_android.R;
-import com.example.mrg20.menuing_android.ViewMealActivity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class MonthlyDietActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener {
 

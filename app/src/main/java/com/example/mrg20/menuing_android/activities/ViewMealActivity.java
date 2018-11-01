@@ -1,4 +1,4 @@
-package com.example.mrg20.menuing_android;
+package com.example.mrg20.menuing_android.activities;
 
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.mrg20.menuing_android.R;
 
 public class ViewMealActivity extends AppCompatActivity implements View.OnLongClickListener {
 

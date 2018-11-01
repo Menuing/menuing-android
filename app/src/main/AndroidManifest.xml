@@ -20,7 +20,7 @@
             android:name=".Register"
             android:label="@string/title_activity_register"></activity>
         <activity
-            android:name=".ViewMealActivity"
+            android:name=".activities.ViewMealActivity"
             android:label="My meal"></activity>
     </application>
 
