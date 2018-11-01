@@ -1,4 +1,4 @@
-package com.example.mrg20.menuing_android;
+package com.example.mrg20.menuing_android.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.app.ActionBar.LayoutParams;
+
+
+import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.utils.CheckboxUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,7 +41,7 @@ public class AllergiesActivity  extends AppCompatActivity{
             newAllergy = newAllergy.toLowerCase();
             String firstLetter = newAllergy.substring(0, 1).toUpperCase();
             newAllergy = firstLetter + newAllergy.substring(1);
-            CheckBox ckbx = createNewCheckBox(newAllergy);
+            CheckBox ckbx = CheckboxUtils.createNewCheckBox(newAllergy, this);
             otherLayout.addView(ckbx);
             otherText.setText("");
         }else{
@@ -46,14 +50,4 @@ public class AllergiesActivity  extends AppCompatActivity{
 
     }
 
-
-    private CheckBox createNewCheckBox(String text) {
-        final LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        final CheckBox checkBox = new CheckBox(this);
-        checkBox.setLayoutParams(lparams);
-        checkBox.setText(text);
-        checkBox.setChecked(true);
-        checkBox.setTextAppearance(this, R.style.SmallText);
-        return checkBox;
-    }
 }
