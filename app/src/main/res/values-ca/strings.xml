@@ -32,13 +32,21 @@
     <string name="nuti_oferta3">15€*/40 minuts de chat</string>
 
     <!-- Pagina Gustos -->
-    <string name="pGustos_MyTastes">My tastes</string>
+    <string name="pGustos_MyTastes">Els meus gustos</string>
 
     <!-- Profile -->
-    <string name="profile_title">Perfil</string>
-    <string name="profile_edit_button">Editar perfil</string>
-    <string name="profile_allergies_button">Alergies</string>
-    <string name="profile_tastes_button">Gustos</string>
+    <string name="profile_title">Perfil d\'usuari</string>
+    <string name="profile_save_button">Guardar</string>
+    <string name="profile_allergies_button">Les meves alergies</string>
+    <string name="profile_tastes_button">Els meus gustos</string>
+    <string name="nom_proba">Oivle Lao</string>
+    <string name="email_proba">oivle@lao.com</string>
+    <string name="numero_proba">623564234</string>
+    <string name="info_name">Nom:</string>
+    <string name="info_email">Email:</string>
+    <string name="info_number">Numero:</string>
+    <string name="info_terms_and_conditions">Termes i condicions</string>
+    <string name="delete_profile">Eliminar informació</string>
 
     <!-- Altres -->
     <string name="other">Other</string>
