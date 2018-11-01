@@ -14,7 +14,7 @@
 
     <!-- Profile -->
     <string name="profile_title">User Profile</string>
-    <string name="profile_edit_button">Edit profile</string>
+    <string name="profile_save_button">Save profile</string>
     <string name="profile_allergies_button">My allergies</string>
     <string name="profile_tastes_button">My tastes</string>
     <string name="nom_proba">Oivle Lao</string>
@@ -67,5 +67,6 @@
     <string name="info_email">Email:</string>
     <string name="info_number">Number:</string>
     <string name="info_terms_and_conditions">terms and conditions</string>
+    <string name="delete_profile">Delete profile</string>
 
 </resources>
