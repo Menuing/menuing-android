@@ -12,6 +12,39 @@
     <string name="register_terms_conditions">Terms and Conditions</string>
     <string name="register_terms_accept">Accept</string>
 
+    <!-- Profile -->
+    <string name="profile_title">User Profile</string>
+    <string name="profile_save_button">Save profile</string>
+    <string name="profile_allergies_button">My allergies</string>
+    <string name="profile_tastes_button">My tastes</string>
+    <string name="nom_proba">Oivle Lao</string>
+    <string name="email_proba">oivle@lao.com</string>
+    <string name="numero_proba">623564234</string>
+    <string name="info_name">Name:</string>
+    <string name="info_email">Email:</string>
+    <string name="info_number">Number:</string>
+    <string name="info_terms_and_conditions">terms and conditions</string>
+    <string name="delete_profile">Delete profile</string>
+
+
+    <!-- Get a Meal text -->
+    <string name="get_a_meal_preference_text">Choose one of the following preferences</string>
+
+    <!-- Nutritionists -->
+    <string name="nutritionists_list">Nutritionists List</string>
+
+    <string name="nuti_name1">Georgia Jordan</string>
+    <string name="nuti_desc1">Sport Nutrition</string>
+    <string name="nuti_oferta1">10€*/30\' of chat</string>
+
+    <string name="nuti_name2">Malcom Mix</string>
+    <string name="nuti_desc2">Geiatric nutrition</string>
+    <string name="nuti_oferta2">20€*/30\' of chat</string>
+
+    <string name="nuti_name3">Coresito</string>
+    <string name="nuti_desc3">Vegetarian nutrition</string>
+    <string name="nuti_oferta3">15€*/40\' of chat</string>
+
     <!-- Altres -->
     <string name="other">Add other</string>
     <string name="save">Save</string>
@@ -58,4 +91,11 @@
     <!-- Menu contextual -->
     <string name="delete_element">Delete element</string>
     
+    <!-- Recipe details -->
+    <string name="get_recipe">Recipe</string>
+    <string name="my_meal_title">My meal</string>
+    <string name="first_dish_example">First dish</string>
+    <string name="second_dish_example">Second dish</string>
+    <string name="ratio_example">Ratio: 4.5/5</string>
+    <string name="first_dish_name">Eggplant with tomato</string>
 </resources>
