@@ -86,6 +86,11 @@
     <string name="reviewRecipe_Title">Recipe name</string>
     <string name="reviewRecipe_IngredientTitle">Ingredients</string>
     <string name="reviewRecipe_StepsTitle">Steps to follow</string>
+    <string name="get_recipe">Recipe</string>
+    <string name="my_meal_title">My meal</string>
+    <string name="first_dish_example">First dish</string>
+    <string name="second_dish_example">Second dish</string>
+    <string name="ratio_example">Ratio: 4.5/5</string>
 
 
 </resources>

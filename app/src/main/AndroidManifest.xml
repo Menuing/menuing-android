@@ -24,7 +24,8 @@
         <activity android:name=".MealScheduleActivity" />
         <activity android:name=".NutritionistsListActivity" />
         <activity android:name=".NutritionistChat" />
-        <activity android:name=".activities.MealDetails"></activity>
+        <activity android:name=".activities.MealDetails" />
+        <activity android:name=".activities.RecipeDetails"></activity>
     </application>
 
 </manifest>
