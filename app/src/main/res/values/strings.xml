@@ -66,5 +66,6 @@
     <string name="info_name">Name:</string>
     <string name="info_email">Email:</string>
     <string name="info_number">Number:</string>
+    <string name="info_terms_and_conditions">terms and conditions</string>
 
 </resources>

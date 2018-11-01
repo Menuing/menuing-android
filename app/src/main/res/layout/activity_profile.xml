@@ -146,6 +146,17 @@
             android:hint="@string/profile_tastes_button"
             android:textSize="25sp" />
 
+        <Button
+            android:id="@+id/info_terms_conditions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="505dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/info_terms_and_conditions"
+            android:textSize="15sp" />
+
 
     </RelativeLayout>
 
