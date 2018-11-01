@@ -12,10 +12,13 @@ import android.widget.ListView;
 
 import com.example.mrg20.menuing_android.R;
 
+import java.util.ArrayList;
+
 public class ViewMealActivity extends AppCompatActivity implements View.OnLongClickListener {
 
     private ListView listView;
-    private ArrayAdapter<String> arrayAdapter;
+    private ArrayList<String> arrayList;
+    private ArrayAdapter<String> listAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,18 +32,18 @@ public class ViewMealActivity extends AppCompatActivity implements View.OnLongCl
         int mes = bundle.getInt("mes");
         int any = bundle.getInt("any");
 
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_daily_meal);
+        arrayList = new ArrayList<String>();
         String meal = "Lunch";
         String first = "Fish and chips";
         String acompaigment = "Salad";
-        arrayAdapter.add(meal + "\n" + first + "\n" +acompaigment);
+        arrayList.add(meal + "\n" + first + "\n" +acompaigment);
 
         meal = "Dinner";
         first = "Soup";
         acompaigment = "Grilled chicken";
-        arrayAdapter.add(meal + "\n" + first + "\n" +acompaigment);
-        listView.setAdapter(arrayAdapter);
-        this.finish();
+        arrayList.add(meal + "\n" + first + "\n" +acompaigment);
+        listAdapter = new ArrayAdapter<>(this,  R.layout.meal_row, R.id.rowMeal, arrayList);
+        listView.setAdapter(listAdapter);
     }
 
     @Override
