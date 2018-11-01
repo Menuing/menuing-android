@@ -30,8 +30,6 @@
     <string name="nuti_desc3">Vegetarian nutrition</string>
     <string name="nuti_oferta3">15€*/40 minuts de chat</string>
 
-    <!-- Pagina Gustos -->
-    <string name="pGustos_MyTastes">Els meus gustos</string>
 
     <!-- Profile -->
     <string name="profile_title">Perfil d\'usuari</string>
@@ -68,7 +66,7 @@
     <!-- TASTES TEXTS -->
     <string name="pGustos_MyTastes">Els meus gustos</string>
     <string name="potatoes">Patates</string>
-    <string name="vegetables">Vegetables</string>
+    <string name="vegetables">Vegetals</string>
     <string name="salmon">Salmó</string>
 
     <!-- ALLERGIES TEXTS -->
