@@ -15,6 +15,21 @@
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Choose one of the following preferences</string>
 
+    <!-- Nutritionists -->
+    <string name="nutritionists_list">Nutritionists List</string>
+
+    <string name="nuti_name1">Georgia Jordan</string>
+    <string name="nuti_desc1">Sport Nutrition</string>
+    <string name="nuti_oferta1">10€*/30\' of chat</string>
+
+    <string name="nuti_name2">Malcom Mix</string>
+    <string name="nuti_desc2">Geiatric nutrition</string>
+    <string name="nuti_oferta2">20€*/30\' of chat</string>
+
+    <string name="nuti_name3">Coresito</string>
+    <string name="nuti_desc3">Vegetarian nutrition</string>
+    <string name="nuti_oferta3">15€*/40\' of chat</string>
+
     <!-- Altres -->
     <string name="other">Add other</string>
     <string name="save">Save</string>
