@@ -138,7 +138,7 @@
             android:textSize="25sp" />
 
         <Button
-            android:id="@+id/allergies"
+            android:id="@+id/my_allergies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -150,7 +150,7 @@
             android:textSize="25sp" />
 
         <Button
-            android:id="@+id/taster"
+            android:id="@+id/my_tastes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
