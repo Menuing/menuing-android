@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CheckMealsActivity"></activity>
+        <activity android:name=".activities.CheckMealsActivity" />
         <activity android:name=".activities.UserProfile" />
         android:name=".RegisterActivity"
         android:label="@string/title_activity_register" />
@@ -24,12 +24,13 @@
         <activity android:name=".GetMealPageActivity" />
         <activity android:name=".MealScheduleActivity" />
         <activity android:name=".NutritionistsListActivity" />
-        <activity android:name=".NutritionistChat"></activity>
-        <activity android:name=".activities.ViewMealActivity"></activity>
-        <activity android:name=".activities.MonthlyDietActivity"></activity>
-        <activity android:name=".activities.WeeklyDietActivity"></activity>
+        <activity android:name=".NutritionistChat" />
+        <activity android:name=".activities.ViewMealActivity" />
+        <activity android:name=".activities.MonthlyDietActivity" />
+        <activity android:name=".activities.WeeklyDietActivity" />
         <activity android:name=".activities.MealDetails" />
-        <activity android:name=".activities.RecipeDetails"></activity>
+        <activity android:name=".activities.RecipeDetails" />
+        <activity android:name=".MealHour"></activity>
     </application>
 
 </manifest>

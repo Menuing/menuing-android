@@ -107,7 +107,7 @@
                     android:orientation="horizontal">
 
 
-                    <TextView
+                    <Button
                         android:id="@+id/termsconditions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -115,6 +115,7 @@
                         android:clickable="true"
                         android:text="@string/register_terms_conditions"
                         android:textColor="#366fd8"
+                        android:background="@android:color/transparent"
                         android:layout_marginLeft="10dp"/>
                     <!--android:onClick=""-->
 
@@ -134,7 +135,7 @@
                     >
 
                     <Button
-                        android:id="@+id/page2_OkButton"
+                        android:id="@+id/register_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_marginRight="10dp"

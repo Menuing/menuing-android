@@ -86,7 +86,7 @@
 
     <!-- Menu contextual -->
     <string name="delete_element">Delete element</string>
-    
+
     <!-- Recipe details -->
     <string name="get_recipe">Recipe</string>
     <string name="my_meal_title">My meal</string>
@@ -109,6 +109,8 @@
     <string name="nuti_name3">Coresito</string>
     <string name="nuti_desc3">Vegetarian nutrition</string>
     <string name="nuti_oferta3">15€*/40\' of chat</string>
+
+    <string name="nutritionist_conversation">Malcom Mix</string>
 
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Choose one of the following preferences</string>
