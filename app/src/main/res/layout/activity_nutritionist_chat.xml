@@ -21,7 +21,7 @@
             style="@style/SubTittle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/nutritionists_list" />
+            android:text="@string/nutritionist_conversation" />
 
         <ScrollView
             android:id="@+id/ScrollView01"
