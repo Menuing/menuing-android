@@ -70,7 +70,7 @@
     <string name="salmon">Salmó</string>
 
     <!-- ALLERGIES TEXTS -->
-    <string name="allergiesTittle">Les meves alergies</string>
+    <string name="allergies_tittle">Les meves alergies</string>
     <string name="gluten">Gluten</string>
     <string name="milk">Proteïna de la llet</string>
     <string name="fish">Peix</string>
@@ -83,6 +83,15 @@
     <string name="mustard">Mostassa</string>
     <string name="sesame">Sèsam</string>
 
+
+    <!--WEEK days-->
+    <string name="monday">Dilluns</string>
+    <string name="tuesday">Dimarts</string>
+    <string name="wednesday">Dimecres</string>
+    <string name="thursday">Dijous</string>
+    <string name="friday">Divendres</string>
+    <string name="saturday">Dissabte</string>
+    <string name="sunday">Diumenge</string>
     <!-- Review una recepta -->
     <string name="reviewRecipe_Title">Nom de la recepta</string>
     <string name="reviewRecipe_IngredientTitle">Ingredients</string>

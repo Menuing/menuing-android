@@ -24,7 +24,10 @@
         <activity android:name=".GetMealPageActivity" />
         <activity android:name=".MealScheduleActivity" />
         <activity android:name=".NutritionistsListActivity" />
-        <activity android:name=".NutritionistChat" />
+        <activity android:name=".NutritionistChat"></activity>
+        <activity android:name=".activities.ViewMealActivity"></activity>
+        <activity android:name=".activities.MonthlyDietActivity"></activity>
+        <activity android:name=".activities.WeeklyDietActivity"></activity>
         <activity android:name=".activities.MealDetails" />
         <activity android:name=".activities.RecipeDetails"></activity>
     </application>

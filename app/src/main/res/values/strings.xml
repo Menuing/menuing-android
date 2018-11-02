@@ -27,24 +27,6 @@
     <string name="delete_profile">Delete profile</string>
 
 
-    <!-- Get a Meal text -->
-    <string name="get_a_meal_preference_text">Choose one of the following preferences</string>
-
-    <!-- Nutritionists -->
-    <string name="nutritionists_list">Nutritionists List</string>
-
-    <string name="nuti_name1">Georgia Jordan</string>
-    <string name="nuti_desc1">Sport Nutrition</string>
-    <string name="nuti_oferta1">10€*/30\' of chat</string>
-
-    <string name="nuti_name2">Malcom Mix</string>
-    <string name="nuti_desc2">Geiatric nutrition</string>
-    <string name="nuti_oferta2">20€*/30\' of chat</string>
-
-    <string name="nuti_name3">Coresito</string>
-    <string name="nuti_desc3">Vegetarian nutrition</string>
-    <string name="nuti_oferta3">15€*/40\' of chat</string>
-
     <!-- Altres -->
     <string name="other">Add other</string>
     <string name="save">Save</string>
@@ -64,13 +46,14 @@
                                         Lorem ipsum i estes coses</string>
 
     <!-- TASTES TEXTS -->
+    <string name="tastes_tittle">My tastes</string>
     <string name="pGustos_MyTastes">My tastes</string>
     <string name="potatoes">Potatoes</string>
     <string name="vegetables">Vegetables</string>
     <string name="salmon">Salmon</string>
 
     <!-- ALLERGIES TEXTS -->
-    <string name="allergiesTittle">My Allergies</string>
+    <string name="allergies_tittle">My Allergies</string>
     <string name="gluten">Gluten</string>
     <string name="milk">Milk Protein</string>
     <string name="fish">Fish</string>
@@ -83,10 +66,23 @@
     <string name="mustard">Mustard</string>
     <string name="sesame">Sesame</string>
 
+    <!-- DIETS TEXTS -->
+    <string name="monthly_tittle">My monthly diet</string>
+
     <!-- Review una recepta -->
     <string name="reviewRecipe_Title">Recipe name</string>
     <string name="reviewRecipe_IngredientTitle">Ingredients</string>
     <string name="reviewRecipe_StepsTitle">Steps to follow</string>
+
+    <!--WEEK days-->
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
 
     <!-- Menu contextual -->
     <string name="delete_element">Delete element</string>
@@ -98,4 +94,22 @@
     <string name="second_dish_example">Second dish</string>
     <string name="ratio_example">Ratio: 4.5/5</string>
     <string name="first_dish_name">Eggplant with tomato</string>
+
+    <!-- Nutritionists -->
+    <string name="nutritionists_list">Nutritionists List</string>
+
+    <string name="nuti_name1">Georgia Jordan</string>
+    <string name="nuti_desc1">Sport Nutrition</string>
+    <string name="nuti_oferta1">10€*/30\' of chat</string>
+
+    <string name="nuti_name2">Malcom Mix</string>
+    <string name="nuti_desc2">Geiatric nutrition</string>
+    <string name="nuti_oferta2">20€*/30\' of chat</string>
+
+    <string name="nuti_name3">Coresito</string>
+    <string name="nuti_desc3">Vegetarian nutrition</string>
+    <string name="nuti_oferta3">15€*/40\' of chat</string>
+
+    <!-- Get a Meal text -->
+    <string name="get_a_meal_preference_text">Choose one of the following preferences</string>
 </resources>
