@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="16dp">
 
 
         <TextView
@@ -116,7 +116,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="47dp"
             android:layout_marginLeft="47dp"
-            android:layout_marginTop="442dp"
+            android:layout_marginTop="415dp"
             android:background="@color/colorPrimary"
             android:hint="@string/profile_save_button"
             android:textSize="25sp" />
@@ -130,7 +130,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="203dp"
             android:layout_marginLeft="203dp"
-            android:layout_marginTop="442dp"
+            android:layout_marginTop="417dp"
             android:background="@color/colorPrimary"
             android:hint="@string/delete_profile"
             android:textColor="@android:color/holo_red_dark"
@@ -166,9 +166,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="505dp"
+            android:layout_marginTop="473dp"
             android:background="@color/colorPrimary"
             android:text="@string/info_terms_and_conditions"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/contact_admins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/title"
+            android:layout_alignRight="@+id/title"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="537dp"
+            android:layout_marginEnd="-41dp"
+            android:layout_marginRight="-41dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/contact_gmail"
             android:textSize="15sp" />
 
 

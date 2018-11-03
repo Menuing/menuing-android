@@ -114,4 +114,5 @@
 
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Choose one of the following preferences</string>
+    <string name="contact_gmail">Contact us at menuingapp@gmail.com</string>
 </resources>

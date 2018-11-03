@@ -14,6 +14,7 @@
 
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Escolleix una de les següents preferències</string>
+    <string name="contact_gmail">Contactans menuingapp@gmail.com</string>
 
     <!-- Nutritionists -->
     <string name="nutritionists_list">Llista de nutricionistes</string>
@@ -100,5 +101,13 @@
 
     <!-- Menu contextual -->
     <string name="delete_element">Borrar element</string>
+
+    <!-- Recipe details -->
+    <string name="get_recipe">Recepta</string>
+    <string name="my_meal_title">Apat</string>
+    <string name="first_dish_example">Primer plat</string>
+    <string name="second_dish_example">Segon plat</string>
+    <string name="ratio_example">Puntuació: 4.5/5</string>
+    <string name="first_dish_name">Alberginia amb tomaquet</string>
 
 </resources>
