@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.activities.CheckMealsActivity;
 import com.example.mrg20.menuing_android.activities.HistoryFrag;
 
 
@@ -42,7 +43,8 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
                 intent = new Intent(MainPageActivity.this, NutritionistsListActivity.class);
                 break;
             case R.id.imageView4:
-                intent = new Intent(MainPageActivity.this, HistoryFrag.class);
+                //intent = new Intent(MainPageActivity.this, HistoryFrag.class);
+                intent = new Intent(MainPageActivity.this, CheckMealsActivity.class);
                 break;
         }
         startActivity(intent);
