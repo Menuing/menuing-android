@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="2">
+        android:layout_weight="2"
+        android:layout_margin="30dp">
 
         <TextView
             android:id="@+id/allergiesTittle"
@@ -22,8 +23,8 @@
         <HorizontalScrollView android:id="@+id/ScrollView01"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="30dp"
-            android:background="@android:color/transparent">
+            android:background="@android:color/transparent"
+            android:layout_marginTop="@dimen/fab_margin">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -90,6 +91,18 @@
                                 android:text="Dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Grilled chicken"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Soup"
+                                android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
                 </TableLayout>
@@ -149,6 +162,18 @@
                                 android:text="Dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Grilled chicken"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Soup"
+                                android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
                 </TableLayout>
@@ -209,6 +234,18 @@
                                 android:text="Dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Grilled chicken"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Soup"
+                                android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
                 </TableLayout>
@@ -269,6 +306,18 @@
                                 android:text="Dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Grilled chicken"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Soup"
+                                android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
                 </TableLayout>
@@ -329,6 +378,18 @@
                                 android:text="Dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Grilled chicken"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Soup"
+                                android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
                 </TableLayout>
@@ -387,6 +448,18 @@
                                 android:layout_weight="1"
                                 android:text="Dinner"
                                 style="@style/weekly_meal_tittle"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Grilled chicken"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Soup"
                                 android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
@@ -448,6 +521,18 @@
                                 android:text="Dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Grilled chicken"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Soup"
+                                android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
 

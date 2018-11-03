@@ -8,16 +8,41 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.mrg20.menuing_android.R;
 
-public class WeeklyDietActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class WeeklyDietActivity extends AppCompatActivity implements TableLayout.OnClickListener {
+    TableLayout tlMonday;
+    TableLayout tlTuesday;
+    TableLayout tlWednesday;
+    TableLayout tlThursday;
+    TableLayout tlFriday;
+    TableLayout tlSaturday;
+    TableLayout tlSunday;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_weekly_diet);
+        tlMonday = findViewById(R.id.monday_column);
+        tlTuesday = findViewById(R.id.tuesday_column);
+        tlWednesday = findViewById(R.id.wednesday_column);
+        tlThursday = findViewById(R.id.thursday_column);
+        tlFriday = findViewById(R.id.friday_column);
+        tlSaturday = findViewById(R.id.saturday_column);
+        tlSunday = findViewById(R.id.sunday_column);
+
+        tlMonday.setOnClickListener(this);
+        tlTuesday.setOnClickListener(this);
+        tlWednesday.setOnClickListener(this);
+        tlThursday.setOnClickListener(this);
+        tlFriday.setOnClickListener(this);
+        tlSaturday.setOnClickListener(this);
+        tlSunday.setOnClickListener(this);
+
     }
 
     @Override
@@ -37,8 +62,6 @@ public class WeeklyDietActivity extends AppCompatActivity implements View.OnClic
                             bundle.putString("dia", ((TextView)view.findViewWithTag("day")).getText().toString());
                             intent.putExtra("data", bundle);
                             startActivity(intent);
-                        }else{
-                            return;
                         }
                     }
                 });
