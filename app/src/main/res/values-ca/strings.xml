@@ -66,6 +66,7 @@
                                         Lorem ipsum i estes coses</string>
 
     <!-- TASTES TEXTS -->
+    <string name="tastes_tittle">Els meus gustos</string>
     <string name="pGustos_MyTastes">Els meus gustos</string>
     <string name="potatoes">Patates</string>
     <string name="vegetables">Vegetals</string>
