@@ -67,6 +67,7 @@
     <string name="sesame">Sesame</string>
 
     <!-- DIETS TEXTS -->
+    <string name="weekly_title">My weekly diet</string>
     <string name="monthly_tittle">My monthly diet</string>
 
     <!-- Review una recepta -->

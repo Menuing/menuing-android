@@ -14,11 +14,11 @@
         android:layout_margin="30dp">
 
         <TextView
-            android:id="@+id/allergiesTittle"
+            android:id="@+id/weeklyTitle"
             style="@style/SubTittle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/monthly_tittle"
+            android:text="@string/weekly_title"
             />
         <HorizontalScrollView android:id="@+id/ScrollView01"
             android:layout_width="match_parent"

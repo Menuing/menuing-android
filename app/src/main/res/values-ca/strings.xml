@@ -112,4 +112,8 @@
     <string name="ratio_example">Puntuació: 4.5/5</string>
     <string name="first_dish_name">Alberginia amb tomaquet</string>
 
+    <!-- DIETS TEXTS -->
+    <string name="weekly_title">Dieta setmanal</string>
+    <string name="monthly_tittle">Dieta mensual</string>
+
 </resources>

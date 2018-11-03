@@ -25,7 +25,6 @@
         <activity android:name=".MealScheduleActivity" />
         <activity android:name=".NutritionistsListActivity" />
         <activity android:name=".NutritionistChat" />
-        <activity android:name=".activities.ViewMealActivity" />
         <activity android:name=".activities.MonthlyDietActivity" />
         <activity android:name=".activities.WeeklyDietActivity" />
         <activity android:name=".activities.MealDetails" />
