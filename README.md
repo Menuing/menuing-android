@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="150" src="app/main/res/drawable/logo.png" alt="Menuing">
+  <img width="150" src="https://github.com/Menuing/menuing-android/blob/master/app/src/main/res/drawable/logo.png" alt="Menuing">
 </p>
 
 # Menuing Android
