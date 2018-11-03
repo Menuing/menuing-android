@@ -16,7 +16,8 @@ public class MealDetails extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_meal_details);
 
         Button recipe = (Button) findViewById(R.id.first_recipe);
-
+        recipe.setOnClickListener(this);
+        recipe = (Button) findViewById(R.id.first_recipe2);
         recipe.setOnClickListener(this);
     }
 
@@ -24,7 +25,10 @@ public class MealDetails extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         Intent intent = null;
         switch(view.getId()) {
-            case R.id.info_terms_conditions:
+            case R.id.first_recipe:
+                intent = new Intent(MealDetails.this, RecipeDetails.class);
+                break;
+            case R.id.first_recipe2:
                 intent = new Intent(MealDetails.this, RecipeDetails.class);
                 break;
         }
