@@ -35,7 +35,7 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 intent = new Intent(UserProfile.this, AllergiesActivity.class);
                 break;
             case R.id.my_tastes:
-                intent = new Intent(UserProfile.this, MealDetails.class);
+                intent = new Intent(UserProfile.this, TastesActivity.class);
                 break;
         }
         startActivity(intent);

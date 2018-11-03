@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    >
+    tools:context=".LoginActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_weight="3"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="70dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,12 +113,12 @@
                         android:id="@+id/termsconditions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
+                        android:background="@android:color/transparent"
                         android:clickable="true"
                         android:text="@string/register_terms_conditions"
-                        android:textColor="#366fd8"
-                        android:background="@android:color/transparent"
-                        android:layout_marginLeft="10dp"/>
+                        android:textColor="#366fd8" />
                     <!--android:onClick=""-->
 
                     <CheckBox
@@ -131,18 +133,17 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/register_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:layout_marginRight="10dp"
-                        android:background="#ff9c60"
-                        android:text="@string/register_button_text"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="#ff9c60"
+                        android:text="@string/register_button_text" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -150,7 +151,16 @@
         </LinearLayout>
     </LinearLayout>
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/register_contact_admins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 
 </android.support.constraint.ConstraintLayout>

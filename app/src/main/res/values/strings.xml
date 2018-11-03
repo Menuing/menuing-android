@@ -67,6 +67,7 @@
     <string name="sesame">Sesame</string>
 
     <!-- DIETS TEXTS -->
+    <string name="weekly_title">My weekly diet</string>
     <string name="monthly_tittle">My monthly diet</string>
 
     <!-- Review una recepta -->
@@ -115,4 +116,5 @@
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Choose one of the following preferences</string>
     <string name="contact_gmail">Contact us at menuingapp@gmail.com</string>
+    <string name="meal_historic">Meal history</string>
 </resources>

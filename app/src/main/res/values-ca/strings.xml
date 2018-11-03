@@ -15,6 +15,7 @@
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Escolleix una de les següents preferències</string>
     <string name="contact_gmail">Contactans menuingapp@gmail.com</string>
+    <string name="meal_historic">Historic de receptes</string>
 
     <!-- Nutritionists -->
     <string name="nutritionists_list">Llista de nutricionistes</string>
@@ -110,5 +111,9 @@
     <string name="second_dish_example">Segon plat</string>
     <string name="ratio_example">Puntuació: 4.5/5</string>
     <string name="first_dish_name">Alberginia amb tomaquet</string>
+
+    <!-- DIETS TEXTS -->
+    <string name="weekly_title">Dieta setmanal</string>
+    <string name="monthly_tittle">Dieta mensual</string>
 
 </resources>

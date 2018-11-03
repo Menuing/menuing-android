@@ -8,82 +8,111 @@
 
     <ImageView
         android:id="@+id/dish_image"
-        android:layout_width="316dp"
-        android:layout_height="172dp"
-        app:srcCompat="@drawable/primer_plat"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="64dp" />
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
+        android:layout_marginBottom="331dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carrito_details"
+        app:srcCompat="@drawable/primer_plat" />
 
     <ImageView
         android:id="@+id/carrito_details"
-        android:layout_width="71dp"
-        android:layout_height="59dp"
-        app:srcCompat="@drawable/carrito_simbolo"
-        tools:layout_editor_absoluteX="279dp"
-        tools:layout_editor_absoluteY="5dp" />
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
+        app:layout_constraintBottom_toTopOf="@+id/dish_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dish_detail_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/carrito_simbolo" />
 
     <TextView
         android:id="@+id/dish_detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
         android:text="@string/first_dish_name"
         android:textSize="25sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintEnd_toStartOf="@+id/carrito_details"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Ingredients:"
         android:textSize="25sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="252dp" />
+        app:layout_constraintStart_toStartOf="@+id/dish_image"
+        app:layout_constraintTop_toBottomOf="@+id/dish_image" />
 
     <TextView
         android:id="@+id/ingredient1_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginBottom="11dp"
         android:text="Eggplants"
         android:textSize="15sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="303dp" />
+        app:layout_constraintBottom_toTopOf="@+id/ingredient2_detail"
+        app:layout_constraintStart_toStartOf="@+id/ingredient2_detail" />
 
     <TextView
         android:id="@+id/ingredient2_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="49dp"
         android:text="Tomato"
         android:textSize="15sp"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="335dp" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
 
     <TextView
         android:id="@+id/ingredient3_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="14dp"
         android:text="Salt"
         android:textSize="15sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="370dp" />
+        app:layout_constraintStart_toStartOf="@+id/ingredient2_detail"
+        app:layout_constraintTop_toBottomOf="@+id/ingredient2_detail" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:text="Steps to follow:"
         android:textSize="25sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="396dp" />
+        app:layout_constraintStart_toStartOf="@+id/ingredient3_detail"
+        app:layout_constraintTop_toBottomOf="@+id/ingredient3_detail" />
 
     <TextView
         android:id="@+id/steps_recipe_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Use your imagination"
         android:textSize="15sp"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="440dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 </android.support.constraint.ConstraintLayout>

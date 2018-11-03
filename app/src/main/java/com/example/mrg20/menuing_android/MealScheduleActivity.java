@@ -31,13 +31,13 @@ public class MealScheduleActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         Intent intent = null;
         switch(view.getId()) {
-            case R.id.info_terms_conditions:
+            case R.id.day:
                 intent = new Intent(MealScheduleActivity.this, MealHour.class);
                 break;
-            case R.id.my_allergies:
+            case R.id.week:
                 intent = new Intent(MealScheduleActivity.this, WeeklyDietActivity.class);
                 break;
-            case R.id.my_tastes:
+            case R.id.month:
                 intent = new Intent(MealScheduleActivity.this, MonthlyDietActivity.class);
                 break;
         }
