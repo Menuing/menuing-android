@@ -111,4 +111,8 @@
     <string name="ratio_example">Puntuació: 4.5/5</string>
     <string name="first_dish_name">Alberginia amb tomaquet</string>
 
+    <!--Shopping list-->
+    <string name="shopping_list">La meva llista de la compra</string>
+
+
 </resources>

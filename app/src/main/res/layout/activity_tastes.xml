@@ -8,135 +8,125 @@
     >
 
     <LinearLayout
+        android:id="@+id/tastesLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin"
         android:orientation="vertical"
-        android:layout_weight="2">
+        android:background="@android:color/transparent"
+        android:visibility="visible">
 
-        <LinearLayout
-            android:id="@+id/tastesLayout"
+        <TextView
+            android:id="@+id/tastesTittle"
+            style="@style/SubTittle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pGustos_MyTastes"
+            />
+
+        <ScrollView android:id="@+id/ScrollView01"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin"
-            android:orientation="vertical"
-            android:background="@android:color/transparent"
-            android:visibility="visible">
+            android:background="@android:color/transparent">
 
-            <TextView
-                android:id="@+id/tastesTittle"
-                style="@style/SubTittle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/pGustos_MyTastes"
-                />
-
-            <ScrollView android:id="@+id/ScrollView01"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:background="@android:color/transparent">
 
+                <CheckBox
+                    android:id="@+id/taste1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/potatoes"
+                    style="@style/SmallText"/>
+
+                <CheckBox
+                    android:id="@+id/taste2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vegetables"
+                    style="@style/SmallText"/>
+
+                <CheckBox
+                    android:id="@+id/taste3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/salmon"
+                    style="@style/SmallText"/>
+
+                <CheckBox
+                    android:id="@+id/taste4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/molluscs"
+                    style="@style/SmallText"/>
+
+                <CheckBox
+                    android:id="@+id/taste5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/milk"
+                    style="@style/SmallText"/>
+
+                <CheckBox
+                    android:id="@+id/taste6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mustard"
+                    style="@style/SmallText"/>
+
+                <CheckBox
+                    android:id="@+id/taste7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nuts"
+                    style="@style/SmallText"/>
+
+                <CheckBox
+                    android:id="@+id/taste8"
+                    style="@style/SmallText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="@string/peanuts" />
+                <LinearLayout
+                    android:id="@+id/othersLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@android:color/transparent"
+                    android:visibility="visible">
+
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@android:color/transparent">
-
-                    <CheckBox
-                        android:id="@+id/taste1"
-                        android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@android:color/transparent"
+                    android:visibility="visible">
+                    <EditText
+                        android:id="@+id/otherText"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/potatoes"
-                        style="@style/SmallText"/>
-
-                    <CheckBox
-                        android:id="@+id/taste2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/vegetables"
-                        style="@style/SmallText"/>
-
-                    <CheckBox
-                        android:id="@+id/taste3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/salmon"
-                        style="@style/SmallText"/>
-
-                    <CheckBox
-                        android:id="@+id/taste4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/molluscs"
-                        style="@style/SmallText"/>
-
-                    <CheckBox
-                        android:id="@+id/taste5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/milk"
-                        style="@style/SmallText"/>
-
-                    <CheckBox
-                        android:id="@+id/taste6"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/mustard"
-                        style="@style/SmallText"/>
-
-                    <CheckBox
-                        android:id="@+id/taste7"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/nuts"
-                        style="@style/SmallText"/>
-
-                    <CheckBox
-                        android:id="@+id/taste8"
-                        style="@style/SmallText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="@string/peanuts" />
-                    <LinearLayout
-                        android:id="@+id/othersLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@android:color/transparent"
-                        android:visibility="visible">
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@android:color/transparent"
-                        android:visibility="visible">
-                        <EditText
-                            android:id="@+id/otherText"
-                            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"/>
-                        <Button
-                            android:id="@+id/tastes_other"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/other"
-                            android:onClick="onClickOther"/>
-                    </LinearLayout>
-
+                        android:layout_weight="2"/>
                     <Button
-                        android:id="@+id/button2"
-                        android:layout_width="match_parent"
+                        android:id="@+id/tastes_other"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/save" />
+                        android:layout_weight="1"
+                        android:text="@string/other"
+                        android:onClick="onClickOther"/>
                 </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
 
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
-
 </android.support.constraint.ConstraintLayout>
