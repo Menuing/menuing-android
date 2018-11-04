@@ -34,6 +34,11 @@
 
     <string name="nutritionist_conversation">Malcom Mix</string>
 
+
+    <!-- Get a meal by ingredient and money -->
+    <string name="ingredientTitleMeal">Especifica els ingredients</string>
+    <string name="moneyTitleMeal">Quants diners vols utilitzar?</string>
+
     <!-- Profile -->
     <string name="profile_title">Perfil d\'usuari</string>
     <string name="profile_save_button">Guardar</string>

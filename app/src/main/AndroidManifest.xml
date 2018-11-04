@@ -28,10 +28,12 @@
         <activity android:name=".activities.WeeklyDietActivity" />
         <activity android:name=".activities.MealDetails" />
         <activity android:name=".activities.RecipeDetails" />
-        <activity android:name=".MealHour"></activity>
+        <activity android:name=".MealHour" />
         <activity android:name=".activities.TastesActivity" />
         <activity android:name=".activities.AllergiesActivity" />
-        <activity android:name=".activities.TermsAndConditionActivity"/>
+        <activity android:name=".activities.TermsAndConditionActivity" />
+        <activity android:name=".MealByIngredients" />
+        <activity android:name=".MealByMoney"></activity>
     </application>
 
 </manifest>

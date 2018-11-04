@@ -36,10 +36,10 @@ public class GetMealPageActivity extends AppCompatActivity  implements View.OnCl
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
                 break;
             case R.id.img2:
-                intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent = new Intent(GetMealPageActivity.this, MealByMoney.class);
                 break;
             case R.id.img3:
-                intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent = new Intent(GetMealPageActivity.this, MealByIngredients.class);
                 break;
         }
         startActivity(intent);
