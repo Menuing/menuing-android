@@ -56,10 +56,10 @@ public class WeeklyDietActivity extends AppCompatActivity implements TableLayout
     public void onClick(final View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         CharSequence []items = new CharSequence[2];
-        items[0] = "Ver";
-        items[1] = "Cancelar";
+        items[0] = getString(R.string.see_meal);
+        items[1] = getString(R.string.cancel);
 
-        builder.setTitle("Selecciona una tarea")
+        builder.setTitle(getString(R.string.select_option))
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

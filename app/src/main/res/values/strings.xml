@@ -120,4 +120,10 @@
     <string name="meal_historic">Meal history</string>
     <!--Shopping list-->
     <string name="shopping_list">My shopping list</string>
+
+    <!--diets-->
+    <string name="see_meal">See meal</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_option">Select an option</string>
+
 </resources>
