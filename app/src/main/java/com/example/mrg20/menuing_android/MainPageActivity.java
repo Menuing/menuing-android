@@ -2,15 +2,12 @@ package com.example.mrg20.menuing_android;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.mrg20.menuing_android.R;
-import com.example.mrg20.menuing_android.activities.CheckMealsActivity;
-import com.example.mrg20.menuing_android.activities.HistoryFrag;
+import com.example.mrg20.menuing_android.activities.mealsHistory.CheckMealsActivity;
 import com.example.mrg20.menuing_android.activities.UserProfile;
 
 

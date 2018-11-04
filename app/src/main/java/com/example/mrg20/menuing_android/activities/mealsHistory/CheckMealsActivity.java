@@ -1,4 +1,4 @@
-package com.example.mrg20.menuing_android.activities;
+package com.example.mrg20.menuing_android.activities.mealsHistory;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.activities.MealDetails;
 
 import java.util.ArrayList;
 import java.util.List;
