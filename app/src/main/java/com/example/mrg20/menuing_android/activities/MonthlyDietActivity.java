@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CalendarView;
 
+import com.example.mrg20.menuing_android.MealHour;
 import com.example.mrg20.menuing_android.R;
 
 import java.util.Calendar;
@@ -47,7 +48,7 @@ public class MonthlyDietActivity extends AppCompatActivity implements CalendarVi
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(which==0){
-                            Intent intent = new Intent(MonthlyDietActivity.this,ViewMealActivity.class);
+                            Intent intent = new Intent(MonthlyDietActivity.this,MealHour.class);
                             Bundle bundle = new Bundle();
                             bundle.putInt("dia", dayOfMonth);
                             bundle.putInt("mes", month);

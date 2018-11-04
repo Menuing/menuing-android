@@ -11,14 +11,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/profile_logo"
+                android:layout_weight="4"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                app:srcCompat="@drawable/profile_logo" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="30dp"
-            android:layout_weight="4">
+            android:layout_weight="4"
+            android:gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,8 +42,8 @@
 
                 <Button
                     android:id="@+id/imageView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="130dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/mainpagebtn1"
@@ -41,8 +56,8 @@
                 android:layout_weight="1">
                 <Button
                     android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
@@ -55,8 +70,8 @@
                 android:layout_weight="1">
                 <Button
                     android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="80dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"

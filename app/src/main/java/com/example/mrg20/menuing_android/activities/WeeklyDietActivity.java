@@ -11,6 +11,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.mrg20.menuing_android.MealHour;
 import com.example.mrg20.menuing_android.R;
 
 
@@ -57,7 +58,7 @@ public class WeeklyDietActivity extends AppCompatActivity implements TableLayout
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(which==0){
-                            Intent intent = new Intent(WeeklyDietActivity.this,ViewMealActivity.class);
+                            Intent intent = new Intent(WeeklyDietActivity.this,MealHour.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("dia", ((TextView)view.findViewWithTag("day")).getText().toString());
                             intent.putExtra("data", bundle);

@@ -18,19 +18,20 @@
         </activity>
         <activity android:name=".activities.CheckMealsActivity" />
         <activity android:name=".activities.UserProfile" />
-        android:name=".RegisterActivity"
-        android:label="@string/title_activity_register" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".MainPageActivity" />
         <activity android:name=".GetMealPageActivity" />
         <activity android:name=".MealScheduleActivity" />
         <activity android:name=".NutritionistsListActivity" />
         <activity android:name=".NutritionistChat" />
-        <activity android:name=".activities.ViewMealActivity" />
         <activity android:name=".activities.MonthlyDietActivity" />
         <activity android:name=".activities.WeeklyDietActivity" />
         <activity android:name=".activities.MealDetails" />
         <activity android:name=".activities.RecipeDetails" />
         <activity android:name=".MealHour"></activity>
+        <activity android:name=".activities.TastesActivity" />
+        <activity android:name=".activities.AllergiesActivity" />
+        <activity android:name=".activities.TermsAndConditionActivity"/>
     </application>
 
 </manifest>
