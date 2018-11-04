@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import com.example.mrg20.menuing_android.R;
 
-public class TermsAndConditionActivity extends AppCompatActivity implements View.OnClickListener{
+public class TermsAndConditionActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,17 +19,9 @@ public class TermsAndConditionActivity extends AppCompatActivity implements View
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Button closeButton = (Button) findViewById(R.id.termsconditions_CrossButton);
-        closeButton.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.termsconditions_CrossButton:
-                finish();
-        }
-    }
+
 
     @Override
     public boolean onSupportNavigateUp() {

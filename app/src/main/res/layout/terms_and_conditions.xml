@@ -1,44 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/largeText"
-        android:background="@color/colorBackground">
+        android:layout_margin="@dimen/margin"
+        android:background="@color/colorBackground"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/termsconditions_CrossButton"
-            android:layout_width="@dimen/largeText"
-            android:layout_height="@dimen/largeText"
-            android:layout_alignParentEnd="true"
-            android:text="@string/X"
-            android:textColor="@color/colorWhite"
-            android:layout_margin="@dimen/normalText"
-            android:background="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/termsconditions_titleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/termsconditions_Title"
-            android:textSize="@dimen/largeText"
-            android:layout_marginStart="@dimen/normalText"
-            android:layout_below="@id/termsconditions_CrossButton"/>
+            android:textSize="@dimen/largeText"/>
 
         <TextView
             android:id="@+id/termsconditions_bulkTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/termsconditions_bulk"
-            android:textSize="@dimen/normalText"
-            android:layout_marginStart="@dimen/normalText"
-            android:layout_below="@id/termsconditions_titleTextView"/>
+            android:textSize="@dimen/smallText"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
