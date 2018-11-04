@@ -2,6 +2,7 @@ package com.example.mrg20.menuing_android.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,10 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Button allergies = (Button) findViewById(R.id.my_allergies);
         Button tastes = (Button) findViewById(R.id.my_tastes);
@@ -39,5 +44,11 @@ public class UserProfile extends AppCompatActivity implements View.OnClickListen
                 break;
         }
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
