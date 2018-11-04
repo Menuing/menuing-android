@@ -2,6 +2,7 @@ package com.example.mrg20.menuing_android.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,8 +28,12 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_check_previous_meals);
         setContentView(R.layout.mockup_history);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         Button b = (Button) findViewById(R.id.check_previous_meals_button);
         b.setOnClickListener(this);
@@ -149,5 +154,11 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
     private int getMinutes(){
         Random r = new Random();
         return r.nextInt(5)*10;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
