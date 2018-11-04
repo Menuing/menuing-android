@@ -21,10 +21,6 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         Button getAMeal = (Button) findViewById(R.id.imageView1);
         Button checkMeals = (Button) findViewById(R.id.imageView2);
         Button nutri = (Button) findViewById(R.id.imageView3);
@@ -62,9 +58,5 @@ public class MainPageActivity extends AppCompatActivity implements View.OnClickL
         startActivity(intent);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
+
 }
