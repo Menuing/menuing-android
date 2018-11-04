@@ -27,7 +27,7 @@ public class MealDetails extends AppCompatActivity implements View.OnClickListen
         recipe = (Button) findViewById(R.id.first_recipe2);
         recipe.setOnClickListener(this);
 
-        shoppinListIcon = findViewById(R.id.details_shopping_list_icon);
+        shoppinListIcon = findViewById(R.id.meal_shopping_list_icon);
         shoppinListIcon.setOnClickListener(this);
     }
 
@@ -41,7 +41,7 @@ public class MealDetails extends AppCompatActivity implements View.OnClickListen
             case R.id.first_recipe2:
                 intent = new Intent(MealDetails.this, RecipeDetails.class);
                 break;
-            case R.id.details_shopping_list_icon:
+            case R.id.meal_shopping_list_icon:
                 intent = new Intent(MealDetails.this, ShoppingListActivity.class);
                 break;
         }
