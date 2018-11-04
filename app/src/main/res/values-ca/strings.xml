@@ -121,4 +121,12 @@
     <string name="weekly_title">Dieta setmanal</string>
     <string name="monthly_tittle">Dieta mensual</string>
 
+    <!--Shopping list-->
+    <string name="shopping_list">La meva llista de la compra</string>
+
+    <!--diets-->
+    <string name="see_meal">Veure àpat</string>
+    <string name="cancel">Cancel·lar</string>
+    <string name="select_option">Seleccciona una opció</string>
+
 </resources>

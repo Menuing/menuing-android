@@ -1,6 +1,7 @@
 package com.example.mrg20.menuing_android.activities;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
@@ -23,6 +24,11 @@ public class TastesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tastes);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         otherLayout = findViewById(R.id.othersLayout);
         otherText = (EditText)findViewById(R.id.otherText);
         onlyLettersAndSpaces = Pattern.compile("^[A-Za-z]+((\\s)*[A-Za-z])*$");
@@ -43,6 +49,11 @@ public class TastesActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "I'm not able to add void text", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

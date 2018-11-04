@@ -2,6 +2,7 @@ package com.example.mrg20.menuing_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,10 @@ public class MealScheduleActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_schedule);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Button day = (Button) findViewById(R.id.day);
         Button week = (Button) findViewById(R.id.week);
@@ -42,5 +47,11 @@ public class MealScheduleActivity extends AppCompatActivity implements View.OnCl
                 break;
         }
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

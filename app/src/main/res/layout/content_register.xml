@@ -118,7 +118,7 @@
                         android:background="@android:color/transparent"
                         android:clickable="true"
                         android:text="@string/register_terms_conditions"
-                        android:textColor="#366fd8" />
+                        android:textColor="@color/colorAccent" />
                     <!--android:onClick=""-->
 
                     <CheckBox

@@ -1,4 +1,4 @@
-package com.example.mrg20.menuing_android.activities;
+package com.example.mrg20.menuing_android.activities.mealsHistory;
 
 import android.app.Activity;
 import android.database.Cursor;

@@ -2,6 +2,7 @@ package com.example.mrg20.menuing_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,10 @@ public class MealHour extends AppCompatActivity  implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_hour);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         ImageView day = (ImageView) findViewById(R.id.day);
         ImageView night = (ImageView) findViewById(R.id.night);
@@ -37,5 +42,11 @@ public class MealHour extends AppCompatActivity  implements View.OnClickListener
 
         }
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

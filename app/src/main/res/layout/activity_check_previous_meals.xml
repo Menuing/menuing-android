@@ -5,7 +5,7 @@ android:layout_height="match_parent">
     <fragment
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:name="com.example.mrg20.menuing_android.activities.HistoryFrag"
+        android:name="com.example.mrg20.menuing_android.activities.mealsHistory.HistoryFrag"
         android:id="@+id/QueryFrag"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
