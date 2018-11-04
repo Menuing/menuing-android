@@ -27,6 +27,10 @@
     <string name="delete_profile">Delete profile</string>
 
 
+    <!-- Get a meal by ingredient and money -->
+    <string name="ingredientTitleMeal">Specify your ingredients</string>
+    <string name="moneyTitleMeal">How much money do you want to use</string>
+
     <!-- Altres -->
     <string name="other">Add other</string>
     <string name="save">Save</string>
