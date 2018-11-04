@@ -18,8 +18,7 @@
             android:layout_height="wrap_content"
             android:text="@string/meal_historic"
             android:textColor="@color/colorBigText"
-            android:textSize="@dimen/largeText"
-            android:gravity="center_horizontal"/>
+            android:textSize="@dimen/largeText"/>
 
         <ListView
             android:id="@+id/listDB"
@@ -41,20 +40,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/other"
+                style="@style/button_style"
                 android:layout_alignParentLeft="true"/>
             <Button
                 android:id="@+id/delete_previous_meals_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delete_element"
+                style="@style/button_style"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/check_previous_meals_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/go_Back"
-            android:layout_gravity="center"/>
     </LinearLayout>
 </LinearLayout>

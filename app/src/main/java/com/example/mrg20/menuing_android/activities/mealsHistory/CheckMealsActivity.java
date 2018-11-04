@@ -36,9 +36,7 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
         actionBar.setDisplayHomeAsUpEnabled(true);
 
 
-        Button b = (Button) findViewById(R.id.check_previous_meals_button);
-        b.setOnClickListener(this);
-        b = (Button) findViewById(R.id.add_previous_meals_button);
+        Button b = (Button) findViewById(R.id.add_previous_meals_button);
         b.setOnClickListener(this);
         b = (Button) findViewById(R.id.delete_previous_meals_button);
         b.setOnClickListener(this);
@@ -93,9 +91,6 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
 
                 lv.setAdapter(arrayAdapter);
                 break;
-
-            case R.id.check_previous_meals_button:
-                finish();
         }
     }
 
