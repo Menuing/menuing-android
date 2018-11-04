@@ -99,18 +99,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login_no_account"
-                        android:textColor="#366fd8"
+                        android:textColor="@color/colorAccent"
                         android:layout_marginRight="10dp"
                         android:background="@android:color/transparent"/>
 
                     <Button
                         android:id="@+id/login_btn"
-                        android:layout_width="70dp"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/login_button_text"
-                        android:background="#ff9c60"
-                        />
+                        style="@style/button_style"
+                        android:text="@string/login_button_text"/>
 
                 </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +29,11 @@ public class WeeklyDietActivity extends AppCompatActivity implements TableLayout
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_diet);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         tlMonday = findViewById(R.id.monday_column);
         tlTuesday = findViewById(R.id.tuesday_column);
         tlWednesday = findViewById(R.id.wednesday_column);
@@ -50,10 +56,10 @@ public class WeeklyDietActivity extends AppCompatActivity implements TableLayout
     public void onClick(final View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         CharSequence []items = new CharSequence[2];
-        items[0] = "Ver";
-        items[1] = "Cancelar";
+        items[0] = getString(R.string.see_meal);
+        items[1] = getString(R.string.cancel);
 
-        builder.setTitle("Selecciona una tarea")
+        builder.setTitle(getString(R.string.select_option))
                 .setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -69,5 +75,11 @@ public class WeeklyDietActivity extends AppCompatActivity implements TableLayout
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

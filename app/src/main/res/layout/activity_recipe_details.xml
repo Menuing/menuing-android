@@ -18,11 +18,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carrito_details"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_shopping_list_icon"
         app:srcCompat="@drawable/primer_plat" />
 
     <ImageView
-        android:id="@+id/carrito_details"
+        android:id="@+id/recipe_shopping_list_icon"
         android:layout_width="0dp"
         android:layout_height="38dp"
         android:layout_marginTop="5dp"
@@ -45,7 +45,7 @@
         android:layout_marginRight="7dp"
         android:text="@string/first_dish_name"
         android:textSize="25sp"
-        app:layout_constraintEnd_toStartOf="@+id/carrito_details"
+        app:layout_constraintEnd_toStartOf="@+id/recipe_shopping_list_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -2,6 +2,7 @@ package com.example.mrg20.menuing_android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,10 @@ public class NutritionistsListActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nutritionists_list);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         LinearLayout menu_photos = (LinearLayout)findViewById(R.id.chat);
         menu_photos.setOnClickListener(this);
     }
@@ -29,5 +34,11 @@ public class NutritionistsListActivity extends AppCompatActivity implements View
                 break;
         }
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

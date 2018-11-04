@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.CheckMealsActivity" />
+        <activity android:name=".activities.mealsHistory.CheckMealsActivity" />
         <activity android:name=".activities.UserProfile" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainPageActivity" />
@@ -32,6 +32,7 @@
         <activity android:name=".activities.TastesActivity" />
         <activity android:name=".activities.AllergiesActivity" />
         <activity android:name=".activities.TermsAndConditionActivity"/>
+        <activity android:name=".activities.ShoppingListActivity"/>
     </application>
 
 </manifest>

@@ -1,7 +1,8 @@
-package com.example.mrg20.menuing_android.activities;
+package com.example.mrg20.menuing_android.activities.mealsHistory;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.activities.MealDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +29,14 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_check_previous_meals);
         setContentView(R.layout.mockup_history);
 
-        Button b = (Button) findViewById(R.id.check_previous_meals_button);
-        b.setOnClickListener(this);
-        b = (Button) findViewById(R.id.add_previous_meals_button);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
+        Button b = (Button) findViewById(R.id.add_previous_meals_button);
         b.setOnClickListener(this);
         b = (Button) findViewById(R.id.delete_previous_meals_button);
         b.setOnClickListener(this);
@@ -87,9 +91,6 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
 
                 lv.setAdapter(arrayAdapter);
                 break;
-
-            case R.id.check_previous_meals_button:
-                finish();
         }
     }
 
@@ -149,5 +150,11 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
     private int getMinutes(){
         Random r = new Random();
         return r.nextInt(5)*10;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
