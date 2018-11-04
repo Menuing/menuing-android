@@ -21,8 +21,6 @@ public class ShoppingListActivity extends AppCompatActivity{
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-
         shoppingList = findViewById(R.id.shopping_list);
 
         String[] values = new String[] {
