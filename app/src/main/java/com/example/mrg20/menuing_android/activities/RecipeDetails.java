@@ -11,7 +11,7 @@ import com.example.mrg20.menuing_android.R;
 
 public class RecipeDetails extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView shoppingList;
+    ImageView shoppingListIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +21,8 @@ public class RecipeDetails extends AppCompatActivity implements View.OnClickList
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        shoppingList = findViewById(R.id.recipe_shopping_list_icon);
-        shoppingList.setOnClickListener(this);
+        shoppingListIcon = findViewById(R.id.recipe_shopping_list_icon);
+        shoppingListIcon.setOnClickListener(this);
     }
 
     @Override
@@ -39,5 +39,6 @@ public class RecipeDetails extends AppCompatActivity implements View.OnClickList
                 intent = new Intent(RecipeDetails.this, ShoppingListActivity.class);
                 break;
         }
+        startActivity(intent);
     }
 }
