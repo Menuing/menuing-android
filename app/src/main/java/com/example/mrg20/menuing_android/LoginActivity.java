@@ -73,15 +73,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             InputStreamReader in = new InputStreamReader(conn.getInputStream());
             BufferedReader br = new BufferedReader(in);
-            // LLEGIR RESULTAT
-            /*
             String output;
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
             }
-            */
 
-            if(conn.getResponseCode() == 200){
+            if(conn.getResponseCode() == 200 || output != null){
                 conn.disconnect();
                 return true;
             }else{
