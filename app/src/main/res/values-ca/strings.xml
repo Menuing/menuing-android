@@ -6,6 +6,7 @@
     <string name="login_password">Contrasenya</string>
     <string name="login_button_text">Log in</string>
     <string name="login_no_account">Crear un compte??</string>
+    <string name="login_wrong_data">El nom d\'usuari o la contrassenya són incorrectes</string>
     <string name="title_activity_register">Menuing</string>
     <string name="register_button_text">Registre</string>
     <string name="register_email">Email</string>

@@ -9,5 +9,5 @@
     <color name="colorWhite">#FFF</color>
     <color name="colorButtonBackground">#ff9c60</color>
     <color name="colorDelete">#ff222d</color>
-
+    <color name="colorError">#7a0000</color>
 </resources>

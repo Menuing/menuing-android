@@ -53,20 +53,30 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
+
+                    <TextView
+                        android:id="@+id/errorLogin"
+                        android:textColor="@color/colorError"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_wrong_data"
+                        android:layout_marginLeft="10dp"
+                        android:visibility="gone"/>
+
                     <TextView
                         android:id="@+id/login_username_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/login_username"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_marginTop="10dp" />
 
                     <EditText
                         android:id="@+id/login_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"/>
 
                     <TextView
                         android:id="@+id/login_pw_label"
@@ -80,7 +90,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:inputType="textPersonName"/>
+
                 </LinearLayout>
 
 
