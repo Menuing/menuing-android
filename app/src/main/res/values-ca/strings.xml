@@ -11,6 +11,8 @@
     <string name="register_email">Email</string>
     <string name="register_terms_conditions">Termes i condicions</string>
     <string name="register_terms_accept">Acceptar</string>
+    <string name="login_logging">Logging...</string>
+    <string name="user_registered">Usuari registrat correctament</string>
 
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Escolleix una de les següents preferències</string>
@@ -134,7 +136,10 @@
     <string name="err_wrong_mail">Introdueix un correu valid</string>
     <string name="err_no_name">Introdueix un usuari</string>
     <string name="err_no_password">Introdueix una contrasenya</string>
+    <string name="err_short_password">La contrasenya es massa curta</string>
     <string name="err_no_terms_and_conditions">Per favor accepta termes i condicions</string>
+    <string name="err_login_fail">Credentials incorrectes, el login ha fallat</string>
+    <string name="err_register">Error when registering</string>
 
     <!-- coses del firebase -->
     <string name="testTopic">newRecords</string>

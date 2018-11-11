@@ -60,15 +60,12 @@ public class GlobalActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        mAuth.signOut();
     }
 
     //USER FUNCTIONS
     public boolean isLoggedIn() {
         return mAuth.getCurrentUser() != null;
-    }
-
-    public void loggOff() {
-        mAuth.signOut();
     }
 
     @NonNull
@@ -85,9 +82,9 @@ public class GlobalActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()){
-                            Toast.makeText(GlobalActivity.this, "ERROR :(", Toast.LENGTH_LONG).show();
+                            Toast.makeText(GlobalActivity.this, getString(R.string.err_register), Toast.LENGTH_LONG).show();
                         }else{
-                            Toast.makeText(GlobalActivity.this, "USER CREAT BE :D", Toast.LENGTH_LONG).show();
+                            Toast.makeText(GlobalActivity.this, getString(R.string.user_registered), Toast.LENGTH_LONG).show();
                             startActivity(new Intent(new Intent(GlobalActivity.this, MainPageActivity.class)));
                             finish();
                         }

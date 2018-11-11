@@ -109,6 +109,9 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         else if (TextUtils.isEmpty(registerPassword.getText().toString())){
             registerPassword.setError(getString(R.string.err_no_password));
         }//Camp password buit
+        else if (registerPassword.getText().toString().length() < 6){
+            registerPassword.setError(getString(R.string.err_short_password));
+        }//Camp password es massa curt
         else if(TextUtils.isEmpty(mail)){
             registerEmail.setError(getString(R.string.err_no_mail));
         }//Camp mail buit
