@@ -6,7 +6,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
+import com.example.mrg20.menuing_android.LoginActivity;
+import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -74,6 +77,22 @@ public class GlobalActivity extends AppCompatActivity {
             return mAuth.getCurrentUser().getUid();
         else
             return "";
+    }
+
+    public void register(String mail, String password){
+        mAuth.createUserWithEmailAndPassword(mail, password)
+                .addOnCompleteListener(GlobalActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(!task.isSuccessful()){
+                            Toast.makeText(GlobalActivity.this, "ERROR :(", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(GlobalActivity.this, "USER CREAT BE :D", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(new Intent(GlobalActivity.this, MainPageActivity.class)));
+                            finish();
+                        }
+                    }
+                });
     }
 
     public void signedIn(String mail, String password, final Handler h){

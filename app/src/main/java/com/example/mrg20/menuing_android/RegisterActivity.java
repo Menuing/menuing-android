@@ -20,11 +20,12 @@ import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.activities.TermsAndConditionActivity;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegisterActivity extends GlobalActivity implements View.OnClickListener {
 
     private EditText registerUsername;
     private EditText registerPassword;
@@ -33,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private CheckBox acceptCheckBox;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_register);
 
@@ -86,13 +87,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.register_btn:
                 if (fieldsOK()) {
-                    intent = new Intent(RegisterActivity.this, MainPageActivity.class);
-                    startActivity(intent);
-                    finish();
+                    super.register(registerEmail.getText().toString(), registerPassword.getText().toString());
                 }
                 break;
         }
-        //Si no entrem a termes i condicions, tanquem pantalla de registre
     }
 
     @Override
