@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "601284681409",
+    "firebase_url": "https://menuing-87c96.firebaseio.com",
+    "project_id": "menuing-87c96",
+    "storage_bucket": "menuing-87c96.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601284681409:android:ceb4e96c5e459405",
+        "android_client_info": {
+          "package_name": "com.example.mrg20.menuing_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601284681409-rdutd7b2uuhfjhcmjrh21477ip5euqej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX2ezGJ34edqFrp23PJ4Yr2NxWiAJfTEg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

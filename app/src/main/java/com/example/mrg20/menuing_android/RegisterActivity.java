@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Contact us: menuingapp@gmail.com", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, getString(R.string.contact_gmail), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -60,6 +60,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         terms.setOnClickListener(this);
         termsAndConditions.setOnClickListener(this);
+
+        if (savedInstanceState != null){
+            registerUsername.setText(savedInstanceState.getString("user"));
+            registerPassword.setText(savedInstanceState.getString("password"));
+            registerEmail.setText(savedInstanceState.getString("mail"));
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("user",registerUsername.getText().toString());
+        savedInstanceState.putString("password",registerPassword.getText().toString());
+        savedInstanceState.putString("mail",registerEmail.getText().toString());
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

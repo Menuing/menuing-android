@@ -136,4 +136,6 @@
     <string name="err_no_password">Introdueix una contrasenya</string>
     <string name="err_no_terms_and_conditions">Per favor accepta termes i condicions</string>
 
+    <!-- coses del firebase -->
+    <string name="testTopic">newRecords</string>
 </resources>

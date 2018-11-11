@@ -137,4 +137,7 @@
     <string name="err_no_password">Put a password</string>
     <string name="err_no_terms_and_conditions">Please accept terms and conditions</string>
 
+    <!-- coses del firebase -->
+    <string name="testTopic">newRecords</string>
+
 </resources>

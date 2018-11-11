@@ -9,17 +9,19 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+//public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends GlobalActivity implements View.OnClickListener {
 
     private EditText loginUsername;
     private EditText loginPassword;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -30,6 +32,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         createAc.setOnClickListener(this);
         loginbtn.setOnClickListener(this);
+
+        if (savedInstanceState != null){
+            loginUsername.setText(savedInstanceState.getString("user"));
+            loginPassword.setText(savedInstanceState.getString("password"));
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (isLoggedIn()) loginAction();
+    }// si ja estem logejats, que passi directament al menu principal
+
+    private void loginAction(){
+        Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("user",loginUsername.getText().toString());
+        savedInstanceState.putString("password",loginPassword.getText().toString());
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
@@ -38,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch(view.getId()) {
             case R.id.login_btn:
                 if (fieldsOK()) {
+                    //TODO mirar que el mindundi estigui registrat
                     intent = new Intent(LoginActivity.this, MainPageActivity.class);
                     startActivity(intent);
                     finish();
