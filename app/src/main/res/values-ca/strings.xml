@@ -129,4 +129,11 @@
     <string name="cancel">Cancel·lar</string>
     <string name="select_option">Seleccciona una opció</string>
 
+    <!--Errors pantalles login/register -->
+    <string name="err_no_mail">Introdueix un correu</string>
+    <string name="err_wrong_mail">Introdueix un correu valid</string>
+    <string name="err_no_name">Introdueix un usuari</string>
+    <string name="err_no_password">Introdueix una contrasenya</string>
+    <string name="err_no_terms_and_conditions">Per favor accepta termes i condicions</string>
+
 </resources>

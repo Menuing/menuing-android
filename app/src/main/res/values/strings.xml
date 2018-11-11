@@ -130,4 +130,11 @@
     <string name="cancel">Cancel</string>
     <string name="select_option">Select an option</string>
 
+    <!--Errors pantalles login/register -->
+    <string name="err_no_mail">Put a mail</string>
+    <string name="err_wrong_mail">Put a valid mail</string>
+    <string name="err_no_name">Put a user name</string>
+    <string name="err_no_password">Put a password</string>
+    <string name="err_no_terms_and_conditions">Please accept terms and conditions</string>
+
 </resources>
