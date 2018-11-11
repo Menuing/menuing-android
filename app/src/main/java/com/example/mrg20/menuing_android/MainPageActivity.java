@@ -9,12 +9,13 @@ import android.widget.ImageView;
 
 import com.example.mrg20.menuing_android.activities.mealsHistory.CheckMealsActivity;
 import com.example.mrg20.menuing_android.activities.UserProfile;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
 
-public class MainPageActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainPageActivity extends GlobalActivity implements View.OnClickListener{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 

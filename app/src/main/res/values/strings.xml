@@ -11,6 +11,8 @@
     <string name="register_email">Email</string>
     <string name="register_terms_conditions">Terms and Conditions</string>
     <string name="register_terms_accept">Accept</string>
+    <string name="login_logging">Logging...</string>
+    <string name="user_registered">User registered</string>
 
     <!-- Profile -->
     <string name="profile_title">User Profile</string>
@@ -130,4 +132,16 @@
     <string name="cancel">Cancel</string>
     <string name="select_option">Select an option</string>
 
+    <!--Errors pantalles login/register -->
+    <string name="err_no_mail">Put a mail</string>
+    <string name="err_wrong_mail">Put a valid mail</string>
+    <string name="err_no_name">Put a user name</string>
+    <string name="err_no_password">Put a password</string>
+    <string name="err_short_password">Password is too short</string>
+    <string name="err_no_terms_and_conditions">Please accept terms and conditions</string>
+    <string name="err_login_fail">Bad credentials, login failed</string>
+    <string name="err_register">Error al registrar</string>
+
+    <!-- coses del firebase -->
+    <string name="testTopic">newRecords</string>
 </resources>
