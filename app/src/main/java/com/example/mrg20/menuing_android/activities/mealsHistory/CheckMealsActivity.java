@@ -13,12 +13,13 @@ import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.activities.MealDetails;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CheckMealsActivity extends AppCompatActivity implements View.OnClickListener {
+public class CheckMealsActivity extends GlobalActivity implements View.OnClickListener {
 
     private ListView lv;
     private List<String> historicReceptes;
@@ -27,7 +28,7 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
     int counter = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mockup_history);
 
@@ -69,6 +70,7 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
+        vibrate();
         switch(view.getId()) {
             case R.id.add_previous_meals_button:
                 addElementToList();
@@ -150,11 +152,5 @@ public class CheckMealsActivity extends AppCompatActivity implements View.OnClic
     private int getMinutes(){
         Random r = new Random();
         return r.nextInt(5)*10;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }

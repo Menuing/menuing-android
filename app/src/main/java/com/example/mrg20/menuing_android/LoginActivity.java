@@ -65,6 +65,7 @@ public class LoginActivity extends GlobalActivity implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
+        vibrate();
         Intent intent = null;
         switch(view.getId()) {
             case R.id.login_btn:

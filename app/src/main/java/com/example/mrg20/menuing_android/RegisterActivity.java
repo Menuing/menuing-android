@@ -1,6 +1,8 @@
 package com.example.mrg20.menuing_android;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -33,6 +35,8 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
 
     private CheckBox acceptCheckBox;
 
+    private SharedPreferences pref;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                vibrate();
                 Snackbar.make(view, getString(R.string.contact_gmail), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -79,6 +84,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        vibrate();
         Intent intent = null;
         switch(view.getId()) {
             case R.id.termsconditions:
@@ -87,16 +93,16 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
                 break;
             case R.id.register_btn:
                 if (fieldsOK()) {
+                    pref = PreferenceManager.getDefaultSharedPreferences(this);
+                    /*SharedPreferences.Editor eddy = new Editor;
+                    eddy.putString("key", "value");
+                    eddy.commit();
+                    eddy.putString("Username", registerUsername.getText().toString());*/
+                            //TODO MIRAR PERMISSIONGRANTER.JAVA
                     super.register(registerEmail.getText().toString(), registerPassword.getText().toString());
                 }
                 break;
         }
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 
     public boolean fieldsOK(){

@@ -9,11 +9,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
-public class NutritionistsListActivity extends AppCompatActivity implements View.OnClickListener{
+public class NutritionistsListActivity extends GlobalActivity implements View.OnClickListener{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nutritionists_list);
 
@@ -27,6 +28,7 @@ public class NutritionistsListActivity extends AppCompatActivity implements View
 
     @Override
     public void onClick(View view) {
+        vibrate();
         Intent intent = null;
         switch(view.getId()) {
             case R.id.chat:
@@ -34,11 +36,5 @@ public class NutritionistsListActivity extends AppCompatActivity implements View
                 break;
         }
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }

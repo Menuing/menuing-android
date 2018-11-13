@@ -10,12 +10,13 @@ import android.widget.ImageView;
 
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.activities.MealDetails;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
 
-public class GetMealPageActivity extends AppCompatActivity  implements View.OnClickListener{
+public class GetMealPageActivity extends GlobalActivity implements View.OnClickListener{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_meal_page);
 
@@ -35,6 +36,7 @@ public class GetMealPageActivity extends AppCompatActivity  implements View.OnCl
 
     @Override
     public void onClick(View view) {
+        vibrate();
         Intent intent = null;
         switch(view.getId()) {
             case R.id.img1:
@@ -48,11 +50,5 @@ public class GetMealPageActivity extends AppCompatActivity  implements View.OnCl
                 break;
         }
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }

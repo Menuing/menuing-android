@@ -34,6 +34,7 @@ public class MainPageActivity extends GlobalActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        vibrate();
         Intent intent = null;
         switch(view.getId()) {
             case R.id.profile_logo:

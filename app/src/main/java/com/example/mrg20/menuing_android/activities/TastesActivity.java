@@ -10,18 +10,19 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 import com.example.mrg20.menuing_android.utils.CheckboxUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TastesActivity extends AppCompatActivity {
+public class TastesActivity extends GlobalActivity {
     private LinearLayout otherLayout;
     private EditText otherText;
     private Pattern onlyLettersAndSpaces;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tastes);
 
@@ -35,6 +36,7 @@ public class TastesActivity extends AppCompatActivity {
     }
 
     public void onClickOther (View v) {
+        vibrate();
         String newTaste = "";
         // Create new check box in layout
         newTaste = otherText.getText().toString();
@@ -47,13 +49,7 @@ public class TastesActivity extends AppCompatActivity {
             otherLayout.addView(ckbx);
             otherText.setText("");
         }else{
-            Toast.makeText(this, "I'm not able to add void text", Toast.LENGTH_SHORT).show();
+            otherText.setError(getString(R.string.err_empty_field));
         }
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }
