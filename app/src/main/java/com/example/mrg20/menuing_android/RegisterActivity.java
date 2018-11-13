@@ -1,5 +1,6 @@
 package com.example.mrg20.menuing_android;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,8 +23,16 @@ import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.activities.TermsAndConditionActivity;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+
 
 public class RegisterActivity extends GlobalActivity implements View.OnClickListener {
 
@@ -87,6 +96,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
                 break;
             case R.id.register_btn:
                 if (fieldsOK()) {
+                    postUserInfo(registerEmail.getText().toString(), registerPassword.getText().toString());
                     super.register(registerEmail.getText().toString(), registerPassword.getText().toString());
                 }
                 break;
@@ -142,4 +152,62 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         }
         return isValid;
     }
+
+
+    void postUserInfo(String username, String password){
+        UrlConnectorRegister ur = new UrlConnectorRegister();
+        ur.setPw(password);
+        ur.setUsername(username);
+        ur.execute();
+
+    }
+
+    private class UrlConnectorRegister extends AsyncTask<Void,Void,Void> {
+
+        String username;
+        String pw;
+
+        void setUsername(String username) {
+            this.username = username;
+        }
+
+        void setPw(String pw) {
+            this.pw = pw;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                URL url = new URL("http://10.0.2.2:8080/api/resources/users");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                String jsonString = new JSONObject()
+                        .put("username", username)
+                        .put("password", pw)
+                        .toString();
+
+                OutputStream os = conn.getOutputStream();
+                os.write(jsonString.getBytes());
+                os.flush();
+
+                int status = conn.getResponseCode();
+                conn.disconnect();
+
+            } catch (Exception e) {
+                System.out.println("Exception registering the user at the database: " + e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+            super.onPostExecute(result);
+        }
+    }
+
 }
+
