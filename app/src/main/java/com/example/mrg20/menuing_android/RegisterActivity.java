@@ -162,6 +162,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
 
     }
 
+    // Async + thread, class to make the connection to the server
     private class UrlConnectorRegister extends AsyncTask<Void,Void,Void> {
 
         String username;
@@ -178,12 +179,13 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                URL url = new URL("http://10.0.2.2:8080/api/resources/users");
+                URL url = new URL("http://" + ipserver  + "/api/resources/users");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
 
+                // Username is the param name of the request, but mail should be the value
                 String jsonString = new JSONObject()
                         .put("username", username)
                         .put("password", pw)
@@ -192,19 +194,16 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
                 OutputStream os = conn.getOutputStream();
                 os.write(jsonString.getBytes());
                 os.flush();
-
-                int status = conn.getResponseCode();
                 conn.disconnect();
 
             } catch (Exception e) {
-                System.out.println("Exception registering the user at the database: " + e);
+                System.out.println("User could not have been introduced to the database " + e);
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-
             super.onPostExecute(result);
         }
     }
