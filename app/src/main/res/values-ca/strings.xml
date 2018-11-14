@@ -2,7 +2,7 @@
     <string name="app_name">Menuing</string>
 
     <!-- LOGIN TEXTS -->
-    <string name="login_username">Usuari</string>
+    <string name="login_username">Correu de l\'usuari</string>
     <string name="login_password">Contrasenya</string>
     <string name="login_button_text">Log in</string>
     <string name="login_no_account">Crear un compte??</string>
@@ -13,6 +13,7 @@
     <string name="register_terms_accept">Acceptar</string>
     <string name="login_logging">Logging...</string>
     <string name="user_registered">Usuari registrat correctament</string>
+    <string name="logout">Logout</string>
 
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Escolleix una de les següents preferències</string>
