@@ -33,6 +33,7 @@ public class GlobalActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private String userToken;
+    protected String ipserver = "10.0.2.2";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
