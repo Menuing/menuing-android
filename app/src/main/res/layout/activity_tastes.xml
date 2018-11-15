@@ -24,109 +24,25 @@
             android:text="@string/pGustos_MyTastes"
             />
 
-        <ScrollView android:id="@+id/ScrollView01"
+        <ListView android:id="@+id/tastesScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="240dp"
+            android:background="@android:color/transparent">
+        </ListView>
+
+        <ScrollView android:id="@+id/selectedTastesScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent">
 
             <LinearLayout
+                android:id="@+id/selectedTastesCheckboxListLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:background="@android:color/transparent">
-
-                <CheckBox
-                    android:id="@+id/taste1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/potatoes"
-                    style="@style/SmallText"/>
-
-                <CheckBox
-                    android:id="@+id/taste2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/vegetables"
-                    style="@style/SmallText"/>
-
-                <CheckBox
-                    android:id="@+id/taste3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/salmon"
-                    style="@style/SmallText"/>
-
-                <CheckBox
-                    android:id="@+id/taste4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/molluscs"
-                    style="@style/SmallText"/>
-
-                <CheckBox
-                    android:id="@+id/taste5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/milk"
-                    style="@style/SmallText"/>
-
-                <CheckBox
-                    android:id="@+id/taste6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mustard"
-                    style="@style/SmallText"/>
-
-                <CheckBox
-                    android:id="@+id/taste7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/nuts"
-                    style="@style/SmallText"/>
-
-                <CheckBox
-                    android:id="@+id/taste8"
-                    style="@style/SmallText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="@string/peanuts" />
-                <LinearLayout
-                    android:id="@+id/othersLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@android:color/transparent"
-                    android:visibility="visible">
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@android:color/transparent"
-                    android:visibility="visible">
-                    <EditText
-                        android:id="@+id/otherText"
-                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"/>
-                    <Button
-                        android:id="@+id/tastes_other"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/other"
-                        android:onClick="onClickOther"/>
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/save" />
             </LinearLayout>
+
         </ScrollView>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

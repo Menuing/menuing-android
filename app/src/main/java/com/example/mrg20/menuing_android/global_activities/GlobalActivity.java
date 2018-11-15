@@ -2,6 +2,7 @@ package com.example.mrg20.menuing_android.global_activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,11 +34,15 @@ public class GlobalActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private String userToken;
+    public static final String PREFS_NAME = "MyPrefsFile";
+    public SharedPreferences settings;
     protected String ipserver = "10.0.2.2";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        settings = getSharedPreferences(PREFS_NAME, 0);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -60,6 +65,10 @@ public class GlobalActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+        logout();
+    }
+
+    public void logout(){
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
@@ -95,7 +104,7 @@ public class GlobalActivity extends AppCompatActivity {
                 });
     }
 
-    public void signedIn(String mail, String password, final Handler h){
+    public void signedIn(final String mail, String password, final Handler h){
         final Message msg = new Message();
         final boolean[] obj = new boolean[1];
 
@@ -106,6 +115,11 @@ public class GlobalActivity extends AppCompatActivity {
                         obj[0] = true;
                         if (!task.isSuccessful()) {
                             obj[0] = false;
+                        }
+                        else{
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("UserMail", mail);
+                            editor.commit();
                         }
                         msg.what = 0;
                         msg.obj = obj[0];
@@ -178,3 +192,5 @@ public class GlobalActivity extends AppCompatActivity {
         return userToken;
     }
 }
+
+//TODO MIRAR DE FER LO DE QUE NO ES PUGUIN GIRAR LES PANTALLES, I SI ES POT, FER QUE NOMES ES PUGUI FER A LES PANTALLES DE RECEPTES

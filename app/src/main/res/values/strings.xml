@@ -2,7 +2,7 @@
     <string name="app_name">Menuing</string>
 
     <!-- LOGIN TEXTS -->
-    <string name="login_username">Username</string>
+    <string name="login_username">User mail</string>
     <string name="login_password">Password</string>
     <string name="login_button_text">Log in</string>
     <string name="login_no_account">Create account?</string>
@@ -27,7 +27,7 @@
     <string name="info_number">Number:</string>
     <string name="info_terms_and_conditions">terms and conditions</string>
     <string name="delete_profile">Delete profile</string>
-
+    <string name="logout">Logout</string>
 
     <!-- Get a meal by ingredient and money -->
     <string name="ingredientTitleMeal">Specify your ingredients</string>
