@@ -141,6 +141,9 @@
     <string name="err_login_fail">Credentials incorrectes, el login ha fallat</string>
     <string name="err_register">Error when registering</string>
 
+    <!--Errors generals -->
+    <string name="err_empty_field">Aquest camp no pot estar buit</string>
+
     <!-- coses del firebase -->
     <string name="testTopic">newRecords</string>
 </resources>

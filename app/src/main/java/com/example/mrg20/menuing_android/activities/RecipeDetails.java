@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
-public class RecipeDetails extends AppCompatActivity implements View.OnClickListener {
+public class RecipeDetails extends GlobalActivity implements View.OnClickListener {
 
     ImageView shoppingListIcon;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
@@ -26,13 +27,8 @@ public class RecipeDetails extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
-
-    @Override
     public void onClick(View view) {
+        vibrate();
         Intent intent = null;
         switch(view.getId()){
             case R.id.recipe_shopping_list_icon:

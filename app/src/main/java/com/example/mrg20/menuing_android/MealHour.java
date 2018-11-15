@@ -10,11 +10,12 @@ import android.widget.ImageView;
 
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.activities.MealDetails;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
-public class MealHour extends AppCompatActivity  implements View.OnClickListener{
+public class MealHour extends GlobalActivity implements View.OnClickListener{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_hour);
 
@@ -31,6 +32,7 @@ public class MealHour extends AppCompatActivity  implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+        vibrate();
         Intent intent = null;
         switch(view.getId()) {
             case R.id.day:
@@ -42,11 +44,5 @@ public class MealHour extends AppCompatActivity  implements View.OnClickListener
 
         }
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }

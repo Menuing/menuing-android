@@ -11,11 +11,12 @@ import android.widget.ImageView;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.activities.MonthlyDietActivity;
 import com.example.mrg20.menuing_android.activities.WeeklyDietActivity;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
-public class MealScheduleActivity extends AppCompatActivity implements View.OnClickListener{
+public class MealScheduleActivity extends GlobalActivity implements View.OnClickListener{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_schedule);
 
@@ -34,6 +35,7 @@ public class MealScheduleActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View view) {
+        vibrate();
         Intent intent = null;
         switch(view.getId()) {
             case R.id.day:
@@ -47,11 +49,5 @@ public class MealScheduleActivity extends AppCompatActivity implements View.OnCl
                 break;
         }
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }

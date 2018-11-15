@@ -1,25 +1,19 @@
 package com.example.mrg20.menuing_android;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.activities.TermsAndConditionActivity;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
@@ -28,9 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 
 
@@ -41,6 +33,8 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
     private EditText registerEmail;
 
     private CheckBox acceptCheckBox;
+
+    private SharedPreferences pref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +49,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                vibrate();
                 Snackbar.make(view, getString(R.string.contact_gmail), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -88,6 +83,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        vibrate();
         Intent intent = null;
         switch(view.getId()) {
             case R.id.termsconditions:
@@ -96,17 +92,13 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
                 break;
             case R.id.register_btn:
                 if (fieldsOK()) {
+                    pref = PreferenceManager.getDefaultSharedPreferences(this);
+
                     postUserInfo(registerEmail.getText().toString(), registerPassword.getText().toString());
                     super.register(registerEmail.getText().toString(), registerPassword.getText().toString());
                 }
                 break;
         }
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 
     public boolean fieldsOK(){

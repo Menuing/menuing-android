@@ -1,9 +1,11 @@
 package com.example.mrg20.menuing_android.global_activities;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -138,6 +140,18 @@ public class GlobalActivity extends AppCompatActivity {
         };
 
         myRef.addValueEventListener(listener);
+    }
+
+    public void vibrate(){
+        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(100);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        vibrate();
+        finish();
+        return true;
     }
 
     public void subscribeToFCM() {

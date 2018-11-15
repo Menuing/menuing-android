@@ -8,12 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
-public class ShoppingListActivity extends AppCompatActivity{
+public class ShoppingListActivity extends GlobalActivity{
     ListView shoppingList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
 
@@ -34,11 +35,5 @@ public class ShoppingListActivity extends AppCompatActivity{
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
         shoppingList.setAdapter(adapter);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }

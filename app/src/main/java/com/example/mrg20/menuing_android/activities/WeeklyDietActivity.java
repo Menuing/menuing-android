@@ -14,9 +14,10 @@ import android.widget.TextView;
 
 import com.example.mrg20.menuing_android.MealHour;
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
 
-public class WeeklyDietActivity extends AppCompatActivity implements TableLayout.OnClickListener {
+public class WeeklyDietActivity extends GlobalActivity implements TableLayout.OnClickListener {
     TableLayout tlMonday;
     TableLayout tlTuesday;
     TableLayout tlWednesday;
@@ -26,7 +27,7 @@ public class WeeklyDietActivity extends AppCompatActivity implements TableLayout
     TableLayout tlSunday;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_diet);
 
@@ -54,6 +55,7 @@ public class WeeklyDietActivity extends AppCompatActivity implements TableLayout
 
     @Override
     public void onClick(final View view) {
+        vibrate();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         CharSequence []items = new CharSequence[2];
         items[0] = getString(R.string.see_meal);
@@ -75,11 +77,5 @@ public class WeeklyDietActivity extends AppCompatActivity implements TableLayout
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }

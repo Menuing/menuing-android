@@ -7,11 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
-public class TermsAndConditionActivity extends AppCompatActivity{
+public class TermsAndConditionActivity extends GlobalActivity{
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.terms_and_conditions);
 
@@ -19,13 +20,5 @@ public class TermsAndConditionActivity extends AppCompatActivity{
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-    }
-
-
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
     }
 }

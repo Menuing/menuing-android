@@ -1,6 +1,7 @@
 package com.example.mrg20.menuing_android.activities;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,19 +14,20 @@ import android.app.ActionBar.LayoutParams;
 
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 import com.example.mrg20.menuing_android.utils.CheckboxUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AllergiesActivity  extends AppCompatActivity{
+public class AllergiesActivity  extends GlobalActivity{
 
     private LinearLayout otherLayout;
     private EditText otherText;
     private Pattern onlyLettersAndSpaces;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergies);
 
@@ -39,6 +41,7 @@ public class AllergiesActivity  extends AppCompatActivity{
     }
 
     public void onClickOther (View v) {
+        vibrate();
         String newAllergy = "";
         // Create new check box in layout
         newAllergy = otherText.getText().toString();
@@ -51,15 +54,7 @@ public class AllergiesActivity  extends AppCompatActivity{
             otherLayout.addView(ckbx);
             otherText.setText("");
         }else{
-            Toast.makeText(this, "I'm not able to add void text", Toast.LENGTH_SHORT).show();
+            otherText.setError(getString(R.string.err_empty_field));
         }
-
     }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
-
 }
