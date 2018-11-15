@@ -36,6 +36,7 @@ public class GlobalActivity extends AppCompatActivity {
     private String userToken;
     public static final String PREFS_NAME = "MyPrefsFile";
     public SharedPreferences settings;
+    protected String ipserver = "10.0.2.2";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
