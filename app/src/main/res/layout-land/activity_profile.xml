@@ -11,21 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="30dp"
-        android:orientation="vertical"
         android:background="@android:color/transparent"
+        android:orientation="vertical"
         android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:text="@string/profile_title"
-                android:textSize="@dimen/largeText"/>
+                android:textSize="@dimen/largeText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,22 +39,23 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:text="@string/info_name"
-                    android:textSize="@dimen/smallText"/>
+                    android:textSize="@dimen/smallText" />
 
                 <EditText
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fab_margin"
                     android:background="@color/colorPrimary"
                     android:hint="@string/nom_proba"
-                    android:textSize="@dimen/smallText"
-                    android:layout_marginLeft="@dimen/fab_margin"/>
+                    android:textSize="@dimen/smallText" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/info_mail"
                     android:layout_width="wrap_content"
@@ -67,16 +69,17 @@
                     android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fab_margin"
                     android:background="@color/colorPrimary"
                     android:hint="@string/email_proba"
-                    android:textSize="@dimen/smallText"
-                    android:layout_marginLeft="@dimen/fab_margin"/>
+                    android:textSize="@dimen/smallText" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/info_number"
                     android:layout_width="wrap_content"
@@ -89,73 +92,76 @@
                     android:id="@+id/number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fab_margin"
                     android:background="@color/colorPrimary"
                     android:hint="@string/numero_proba"
-                    android:textSize="@dimen/smallText"
-                    android:layout_marginLeft="@dimen/fab_margin"/>
+                    android:textSize="@dimen/smallText" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/fab_margin">
-                <Button
-                    android:id="@+id/my_allergies"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/profile_allergies_button"
-                    style="@style/profile_button_style"/>
 
-                <Button
-                    android:id="@+id/my_tastes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/profile_tastes_button"
-                    android:layout_marginTop="@dimen/fab_margin"
-                    style="@style/profile_button_style"/>
-            </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/margin">
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginTop="@dimen/fab_margin"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/my_allergies"
+                    style="@style/profile_button_style"
+                    android:layout_width="@dimen/buton_width"
+                    android:layout_height="@dimen/smallButtonHeight"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/profile_allergies_button"
+                    android:layout_marginRight="@dimen/fab_margin"/>
+
+                <Button
+                    android:id="@+id/my_tastes"
+                    style="@style/profile_button_style"
+                    android:layout_width="@dimen/buton_width"
+                    android:layout_height="@dimen/smallButtonHeight"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/my_allergies"
+                    android:layout_toRightOf="@id/my_allergies"
+                    android:text="@string/profile_tastes_button"
+                    android:layout_marginRight="@dimen/fab_margin"/>
+
                 <Button
                     android:id="@+id/saveProfile"
-                    android:layout_width="@dimen/buton_width"
-                    android:layout_height="wrap_content"
                     style="@style/profile_button_style"
+                    android:layout_width="@dimen/buton_width"
+                    android:layout_height="@dimen/smallButtonHeight"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
                     android:text="@string/profile_save_button"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_marginLeft="@dimen/fab_margin"/>
 
                 <Button
                     android:id="@+id/deleteProfile"
+                    style="@style/button_delete_style"
                     android:layout_width="@dimen/buton_width"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/smallButtonHeight"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/saveProfile"
+                    android:layout_toRightOf="@id/saveProfile"
                     android:text="@string/delete_profile"
                     android:textColor="@color/colorDelete"
-                    style="@style/button_delete_style"
-                    android:layout_alignParentRight="true"/>
-
-                <Button
-                    android:id="@+id/logoutButton"
-                    android:layout_width="@dimen/buton_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/logout"
-                    style="@style/button_delete_style"
-                    android:layout_toRightOf="@id/saveProfile"
-                    android:layout_below="@id/saveProfile"
-                    android:layout_margin="@dimen/fab_margin"/>
+                    android:layout_marginLeft="@dimen/fab_margin"/>
             </RelativeLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
             <Button
                 android:id="@+id/user_termsconditions"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/smallButtonHeight"
                 android:background="@android:color/transparent"
                 android:text="@string/register_terms_conditions"
                 android:textColor="@color/colorAccent" />
