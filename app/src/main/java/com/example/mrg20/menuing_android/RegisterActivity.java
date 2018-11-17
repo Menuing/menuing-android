@@ -17,13 +17,14 @@ import android.widget.EditText;
 import com.example.mrg20.menuing_android.activities.TermsAndConditionActivity;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.json.JSONObject;
-
 
 
 public class RegisterActivity extends GlobalActivity implements View.OnClickListener {
@@ -95,7 +96,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
                     pref = PreferenceManager.getDefaultSharedPreferences(this);
 
                     postUserInfo(registerEmail.getText().toString(), registerPassword.getText().toString());
-                    super.register(registerEmail.getText().toString(), registerPassword.getText().toString());
+                    //super.register(registerEmail.getText().toString(), registerPassword.getText().toString());
                 }
                 break;
         }
@@ -151,7 +152,6 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         ur.setPw(password);
         ur.setUsername(username);
         ur.execute();
-
     }
 
     // Async + thread, class to make the connection to the server
@@ -171,13 +171,13 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         @Override
         protected Void doInBackground(Void... params) {
             try {
+
                 URL url = new URL("http://" + ipserver  + "/api/resources/users");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
 
-                // Username is the param name of the request, but mail should be the value
                 String jsonString = new JSONObject()
                         .put("username", username)
                         .put("password", pw)
