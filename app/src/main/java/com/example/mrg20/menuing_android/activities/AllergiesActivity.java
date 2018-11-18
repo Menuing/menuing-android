@@ -56,7 +56,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesCBLayout = (LinearLayout) findViewById(R.id.allergiesCheckboxListLayout);
         spinner = (AppCompatSpinner) findViewById(R.id.allergiesSpinner);
         spinner.setOnItemSelectedListener(this);
-        updateUserAllergies(new ArrayList<String>());
+        //updateUserAllergies(new ArrayList<String>());
         fillAllergiesList();
         populateSpinner();
     }
@@ -73,7 +73,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     }*/
 
     private void fillAllergiesList() {
-        allergiesList = new ArrayList<>();
+        allergiesList = new ArrayList<String>();
+
         allergiesList.add("Select an element from the list");
 
         /*
@@ -93,6 +94,16 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesList.add(getString(R.string.vegetables));
         allergiesList.add(getString(R.string.monday));
         */
+
+        AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
+        ur.execute();
+        ArrayList<String> ingredients = new ArrayList<>();
+        ingredients.add("Select an element from the list");
+
+        while(ur.getListOfIngredients().size()==0){}
+
+        ingredients.addAll(ur.getListOfIngredients());
+        allergiesList = ingredients;
     }
 
     private void populateSpinner(){
@@ -149,7 +160,6 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     void updateUserAllergies(ArrayList<String> allergiesSelected){
         AllergiesActivity.UrlConnectorUpdateAllergies ur = new AllergiesActivity.UrlConnectorUpdateAllergies();
-        allergiesSelected.add("pastesdino");
         ur.setAllergies(allergiesSelected);
         ur.execute();
     }
@@ -207,7 +217,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     return null;
                 }
                 conn.disconnect();
-                
+
                 //UPDATE ALLERGIES IN DATABASE
                 url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
                 conn = (HttpURLConnection) url.openConnection();
@@ -233,8 +243,48 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 }
                 System.out.println("CONNECTION CODE: " + conn.getResponseCode());
                 conn.disconnect();
+            } catch (Exception e) {
+                System.out.println("User could not have been introduced to the database " + e);
+            }
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+    }
 
+    // Async + thread, class to make the connection to the server
+    private class UrlConnectorGenIngredientList extends AsyncTask<Void,Void,Void> {
+        ArrayList<String> ingredientList = new ArrayList<>();;
+
+        ArrayList<String> getListOfIngredients() {
+            return ingredientList;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
+                URL url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    JSONArray arr = new JSONArray(output);
+                    for(int i = 0; i<arr.length(); i++){
+                        String ingredientName = arr.getJSONObject(i).getString("name");
+                        ingredientList.add(ingredientName);
+                    }
+                }else{
+                    System.out.println("COULD NOT FIND INGREDIENTS");
+                    return null;
+                }
+                conn.disconnect();
 
             } catch (Exception e) {
                 System.out.println("User could not have been introduced to the database " + e);
