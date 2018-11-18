@@ -75,6 +75,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     private void fillAllergiesList() {
         allergiesList = new ArrayList<>();
         allergiesList.add("Select an element from the list");
+
+        /*
         allergiesList.add(getString(R.string.celery));
         allergiesList.add(getString(R.string.crustaceans));
         allergiesList.add(getString(R.string.fish));
@@ -90,6 +92,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesList.add(getString(R.string.soy));
         allergiesList.add(getString(R.string.vegetables));
         allergiesList.add(getString(R.string.monday));
+        */
     }
 
     private void populateSpinner(){
@@ -144,19 +147,20 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     }
 
 
-    void updateUserAllergies(ArrayList<String> allergies){
+    void updateUserAllergies(ArrayList<String> allergiesSelected){
         AllergiesActivity.UrlConnectorUpdateAllergies ur = new AllergiesActivity.UrlConnectorUpdateAllergies();
-        //ur.setAllergies(allergies);
+        allergiesSelected.add("pastesdino");
+        ur.setAllergies(allergiesSelected);
         ur.execute();
     }
 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorUpdateAllergies extends AsyncTask<Void,Void,Void> {
 
-        ArrayList<String> allergies;
+        ArrayList<String> allergiesSelected;
 
         void setAllergies(ArrayList<String> allergies) {
-            this.allergies = allergies;
+            this.allergiesSelected = allergies;
         }
 
         @Override
@@ -164,7 +168,6 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
             try {
 
                 //GET ACTUAL USER ID
-                System.out.println("MAiL ACTUAL: " + settings.getString("UserMail",""));
                 URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
@@ -176,37 +179,66 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     JSONArray arr = new JSONArray(output);
                     JSONObject user = arr.getJSONObject(0);
                     userID = user.getInt("id");
-                    System.out.println("USER ID " + userID);
                 }else{
-                    System.out.println("BAD CONNECTION");
+                    System.out.println("COULD NOT FIND USER");
                     return null;
                 }
                 conn.disconnect();
                 //////////////////////////////////
 
+                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
+                ArrayList<Integer> ingredientIds = new ArrayList<>();
+                url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    System.out.println(output);
+                    JSONArray arr = new JSONArray(output);
+                    for(int i = 0; i<arr.length(); i++){
+                        String ingredientName = arr.getJSONObject(i).getString("name");
+                        if(allergiesSelected.contains(ingredientName)) {
+                            ingredientIds.add(arr.getJSONObject(i).getInt("id"));
+                        }
+                    }
+                }else{
+                    System.out.println("COULD NOT FIND INGREDIENTS");
+                    return null;
+                }
+                conn.disconnect();
+
                 /*
+                //UPDATE ALLERGIES IN DATABASE
                 url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
 
-                String jsonSubstring = new JSONObject()
-                        .put("userID",userID)
-                        .put("ingredientId",ingredientID)
-                        .toString();
+                for(int i=0; i<ingredientIds.size(); i++) {
+                    String jsonSubstring = new JSONObject()
+                            .put("userID", userID)
+                            .put("ingredientId", ingredientIds.get(i))
+                            .toString();
 
-                String jsonString = new JSONObject()
-                        .put("userId", username)
-                        .put("ingredientId", pw)
-                        .toString();
+                    String jsonString = new JSONObject()
+                            .put("key", jsonSubstring)
+                            .put("taste", false)
+                            .put("allergy", true)
+                            .toString();
 
-                OutputStream os = conn.getOutputStream();
-                os.write(jsonString.getBytes());
-                os.flush();
+                    System.out.println(jsonString);
+                    OutputStream os = conn.getOutputStream();
+                    os.write(jsonString.getBytes());
+                    os.flush();
+                }
                 System.out.println("CONNECTION CODE: " + conn.getResponseCode());
                 conn.disconnect();
-            */
+                */
+
+
             } catch (Exception e) {
                 System.out.println("User could not have been introduced to the database " + e);
             }
