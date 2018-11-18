@@ -1,6 +1,7 @@
 package com.example.mrg20.menuing_android.activities;
 
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
@@ -20,9 +21,18 @@ import android.app.ActionBar.LayoutParams;
 
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.RegisterActivity;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 import com.example.mrg20.menuing_android.utils.CheckboxUtils;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -46,7 +56,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesCBLayout = (LinearLayout) findViewById(R.id.allergiesCheckboxListLayout);
         spinner = (AppCompatSpinner) findViewById(R.id.allergiesSpinner);
         spinner.setOnItemSelectedListener(this);
-
+        updateUserAllergies(new ArrayList<String>());
         fillAllergiesList();
         populateSpinner();
     }
@@ -131,5 +141,82 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
         finish();
         return true;
+    }
+
+
+    void updateUserAllergies(ArrayList<String> allergies){
+        AllergiesActivity.UrlConnectorUpdateAllergies ur = new AllergiesActivity.UrlConnectorUpdateAllergies();
+        //ur.setAllergies(allergies);
+        ur.execute();
+    }
+
+    // Async + thread, class to make the connection to the server
+    private class UrlConnectorUpdateAllergies extends AsyncTask<Void,Void,Void> {
+
+        ArrayList<String> allergies;
+
+        void setAllergies(ArrayList<String> allergies) {
+            this.allergies = allergies;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                //GET ACTUAL USER ID
+                System.out.println("MAiL ACTUAL: " + settings.getString("UserMail",""));
+                URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                int userID;
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    JSONArray arr = new JSONArray(output);
+                    JSONObject user = arr.getJSONObject(0);
+                    userID = user.getInt("id");
+                    System.out.println("USER ID " + userID);
+                }else{
+                    System.out.println("BAD CONNECTION");
+                    return null;
+                }
+                conn.disconnect();
+                //////////////////////////////////
+
+                /*
+                url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                String jsonSubstring = new JSONObject()
+                        .put("userID",userID)
+                        .put("ingredientId",ingredientID)
+                        .toString();
+
+                String jsonString = new JSONObject()
+                        .put("userId", username)
+                        .put("ingredientId", pw)
+                        .toString();
+
+                OutputStream os = conn.getOutputStream();
+                os.write(jsonString.getBytes());
+                os.flush();
+                System.out.println("CONNECTION CODE: " + conn.getResponseCode());
+                conn.disconnect();
+            */
+            } catch (Exception e) {
+                System.out.println("User could not have been introduced to the database " + e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
     }
 }
