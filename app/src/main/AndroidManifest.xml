@@ -12,32 +12,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.mealsHistory.CheckMealsActivity" />
+        <activity android:name=".activities.mealsHistory.CheckMealsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.UserProfile" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainPageActivity" />
-        <activity android:name=".GetMealPageActivity" />
-        <activity android:name=".MealScheduleActivity" />
-        <activity android:name=".NutritionistsListActivity" />
-        <activity android:name=".NutritionistChat" />
-        <activity android:name=".activities.MonthlyDietActivity" />
-        <activity android:name=".activities.WeeklyDietActivity" />
-        <activity android:name=".activities.MealDetails" />
-        <activity android:name=".activities.RecipeDetails" />
-        <activity android:name=".MealHour" />
-        <activity android:name=".activities.TastesActivity" />
-        <activity android:name=".activities.AllergiesActivity" />
-        <activity android:name=".activities.TermsAndConditionActivity" />
-        <activity android:name=".MealByIngredients" />
-        <activity android:name=".MealByMoney"></activity>
-        <activity android:name=".activities.ShoppingListActivity"/>
+        <activity android:name=".RegisterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".MainPageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".GetMealPageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".MealScheduleActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".NutritionistsListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".NutritionistChat" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.MonthlyDietActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.WeeklyDietActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.MealDetails" android:screenOrientation="landscape"/>
+        <activity android:name=".activities.RecipeDetails" android:screenOrientation="landscape"/>
+        <activity android:name=".MealHour" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.TastesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.AllergiesActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.TermsAndConditionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".MealByIngredients" android:screenOrientation="portrait"/>
+        <activity android:name=".MealByMoney" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ShoppingListActivity" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
