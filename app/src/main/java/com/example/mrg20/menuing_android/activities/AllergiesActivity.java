@@ -56,7 +56,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesCBLayout = (LinearLayout) findViewById(R.id.allergiesCheckboxListLayout);
         spinner = (AppCompatSpinner) findViewById(R.id.allergiesSpinner);
         spinner.setOnItemSelectedListener(this);
-        //updateUserAllergies(new ArrayList<String>());
+
         fillAllergiesList();
         populateSpinner();
     }
@@ -72,28 +72,15 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesCBLayout.addView(ckbx);
     }*/
 
+
+    /***
+     * Method to create the list of ingredients from database using a GET method
+     */
+
     private void fillAllergiesList() {
         allergiesList = new ArrayList<String>();
 
         allergiesList.add("Select an element from the list");
-
-        /*
-        allergiesList.add(getString(R.string.celery));
-        allergiesList.add(getString(R.string.crustaceans));
-        allergiesList.add(getString(R.string.fish));
-        allergiesList.add(getString(R.string.gluten));
-        allergiesList.add(getString(R.string.milk));
-        allergiesList.add(getString(R.string.molluscs));
-        allergiesList.add(getString(R.string.mustard));
-        allergiesList.add(getString(R.string.nuts));
-        allergiesList.add(getString(R.string.peanuts));
-        allergiesList.add(getString(R.string.potatoes));
-        allergiesList.add(getString(R.string.salmon));
-        allergiesList.add(getString(R.string.sesame));
-        allergiesList.add(getString(R.string.soy));
-        allergiesList.add(getString(R.string.vegetables));
-        allergiesList.add(getString(R.string.monday));
-        */
 
         AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
         ur.execute();
@@ -158,6 +145,11 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     }
 
 
+    /***
+     * Method to update allergies in database
+     * @param allergiesSelected array of the names of the ingredients chose as allergies
+     *                          If they are selected or not is not checked
+     */
     void updateUserAllergies(ArrayList<String> allergiesSelected){
         AllergiesActivity.UrlConnectorUpdateAllergies ur = new AllergiesActivity.UrlConnectorUpdateAllergies();
         ur.setAllergies(allergiesSelected);
