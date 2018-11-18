@@ -195,7 +195,6 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 if(conn.getResponseCode() == 200){
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
-                    System.out.println(output);
                     JSONArray arr = new JSONArray(output);
                     for(int i = 0; i<arr.length(); i++){
                         String ingredientName = arr.getJSONObject(i).getString("name");
@@ -208,8 +207,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     return null;
                 }
                 conn.disconnect();
-
-                /*
+                
                 //UPDATE ALLERGIES IN DATABASE
                 url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
                 conn = (HttpURLConnection) url.openConnection();
@@ -218,13 +216,12 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 conn.setDoOutput(true);
 
                 for(int i=0; i<ingredientIds.size(); i++) {
-                    String jsonSubstring = new JSONObject()
-                            .put("userID", userID)
-                            .put("ingredientId", ingredientIds.get(i))
-                            .toString();
+                    JSONObject subjson = new JSONObject()
+                            .put("userId", userID)
+                            .put("ingredientId", ingredientIds.get(i));
 
                     String jsonString = new JSONObject()
-                            .put("key", jsonSubstring)
+                            .put("key", subjson)
                             .put("taste", false)
                             .put("allergy", true)
                             .toString();
@@ -236,7 +233,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 }
                 System.out.println("CONNECTION CODE: " + conn.getResponseCode());
                 conn.disconnect();
-                */
+
 
 
             } catch (Exception e) {
