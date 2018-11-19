@@ -47,7 +47,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); 
         setContentView(R.layout.activity_allergies);
 
         ActionBar actionBar = getSupportActionBar();
