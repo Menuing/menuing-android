@@ -38,7 +38,7 @@ public class GlobalActivity extends AppCompatActivity {
     public SharedPreferences settings;
 
     //Recordar de posar el port
-    protected String ipserver = "10.0.2.2:8080";
+    protected String ipserver = "4758921a.ngrok.io";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -194,5 +194,3 @@ public class GlobalActivity extends AppCompatActivity {
         return userToken;
     }
 }
-
-//TODO MIRAR DE FER LO DE QUE NO ES PUGUIN GIRAR LES PANTALLES, I SI ES POT, FER QUE NOMES ES PUGUI FER A LES PANTALLES DE RECEPTES
