@@ -43,10 +43,11 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     private LinearLayout allergiesCBLayout;
     private AppCompatSpinner spinner;
     private List<String> allergiesList;
+    private List<String> selectedCheckAllergies = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState); 
         setContentView(R.layout.activity_allergies);
 
         ActionBar actionBar = getSupportActionBar();
@@ -58,6 +59,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         spinner.setOnItemSelectedListener(this);
 
         fillAllergiesList();
+
+
         populateSpinner();
     }
 
@@ -87,7 +90,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         ArrayList<String> ingredients = new ArrayList<>();
         ingredients.add("Select an element from the list");
 
-        while(ur.getListOfIngredients().size()==0){}
+        while(!ur.loaded){}
 
         ingredients.addAll(ur.getListOfIngredients());
         allergiesList = ingredients;
@@ -122,14 +125,17 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     private void addElementToList(String element){
         CheckBox ckbx = CheckboxUtils.createNewCheckBox(element, this);
+
+        ckbx.setTag(element);
         allergiesCBLayout.addView(ckbx);
+        selectedCheckAllergies.add(element);
     }
 
     //DE MOMENT NO SERVEIX DE RES, AMB LA BD POT SERVIR
     @Override
     public boolean onSupportNavigateUp() {
         vibrate();
-
+        /*
         final ProgressDialog dialog = new ProgressDialog(this);
         //dialog.setMessage(getString(R.string.login_logging));
         dialog.setMessage("SAVING...");
@@ -139,6 +145,19 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         for(int i = 0; i < 1000; i++){
             dialog.setProgress((i/10) * 0);
         }
+        */
+        ArrayList<String> allergiesSelected = new ArrayList<>();
+        for(int i = 0; i<selectedCheckAllergies.size(); i++){
+            CheckBox cb = allergiesCBLayout.findViewWithTag(selectedCheckAllergies.get(i));
+            if(cb.isChecked())
+                allergiesSelected.add(selectedCheckAllergies.get(i));
+
+        }
+        System.out.println("LLISTA DE SELECCIONATS" + selectedCheckAllergies);
+        System.out.println("LLISTA DE CHECKEDS" + allergiesSelected);
+        UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
+        ur.setAllergies(allergiesSelected);
+        ur.execute();
 
         finish();
         return true;
@@ -181,10 +200,13 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     JSONArray arr = new JSONArray(output);
                     JSONObject user = arr.getJSONObject(0);
                     userID = user.getInt("id");
+                    System.out.println("USER: " + user);
                 }else{
                     System.out.println("COULD NOT FIND USER");
                     return null;
                 }
+
+
                 conn.disconnect();
                 //////////////////////////////////
 
@@ -204,6 +226,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                             ingredientIds.add(arr.getJSONObject(i).getInt("id"));
                         }
                     }
+                    System.out.println("INGREDIENTS: " + arr);
                 }else{
                     System.out.println("COULD NOT FIND INGREDIENTS");
                     return null;
@@ -247,9 +270,11 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         }
     }
 
+
     // Async + thread, class to make the connection to the server
     private class UrlConnectorGenIngredientList extends AsyncTask<Void,Void,Void> {
         ArrayList<String> ingredientList = new ArrayList<>();;
+        public boolean loaded = false;
 
         ArrayList<String> getListOfIngredients() {
             return ingredientList;
@@ -272,6 +297,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                         String ingredientName = arr.getJSONObject(i).getString("name");
                         ingredientList.add(ingredientName);
                     }
+
+                    loaded = true;
                 }else{
                     System.out.println("COULD NOT FIND INGREDIENTS");
                     return null;

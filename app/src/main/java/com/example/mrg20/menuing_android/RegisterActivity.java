@@ -96,7 +96,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
                     pref = PreferenceManager.getDefaultSharedPreferences(this);
 
                     postUserInfo(registerEmail.getText().toString(), registerPassword.getText().toString());
-                    //super.register(registerEmail.getText().toString(), registerPassword.getText().toString());
+                    super.register(registerEmail.getText().toString(), registerPassword.getText().toString());
                 }
                 break;
         }
@@ -186,6 +186,8 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
                 OutputStream os = conn.getOutputStream();
                 os.write(jsonString.getBytes());
                 os.flush();
+                System.out.println("Connection code " + conn.getResponseCode());
+                System.out.println("Json string" + jsonString);
                 conn.disconnect();
 
             } catch (Exception e) {
