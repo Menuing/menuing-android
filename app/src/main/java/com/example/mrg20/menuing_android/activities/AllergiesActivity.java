@@ -190,6 +190,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
+                System.out.println(url);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
@@ -259,7 +260,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 System.out.println("CONNECTION CODE: " + conn.getResponseCode());
                 conn.disconnect();
             } catch (Exception e) {
-                System.out.println("User could not have been introduced to the database " + e);
+                System.out.println("Allergies could not be saved " + e);
             }
             return null;
         }
