@@ -1,6 +1,7 @@
 package com.example.mrg20.menuing_android.activities;
 
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
@@ -20,9 +21,18 @@ import android.app.ActionBar.LayoutParams;
 
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.RegisterActivity;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 import com.example.mrg20.menuing_android.utils.CheckboxUtils;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -62,24 +72,25 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesCBLayout.addView(ckbx);
     }*/
 
+
+    /***
+     * Method to create the list of ingredients from database using a GET method
+     */
+
     private void fillAllergiesList() {
-        allergiesList = new ArrayList<>();
+        allergiesList = new ArrayList<String>();
+
         allergiesList.add("Select an element from the list");
-        allergiesList.add(getString(R.string.celery));
-        allergiesList.add(getString(R.string.crustaceans));
-        allergiesList.add(getString(R.string.fish));
-        allergiesList.add(getString(R.string.gluten));
-        allergiesList.add(getString(R.string.milk));
-        allergiesList.add(getString(R.string.molluscs));
-        allergiesList.add(getString(R.string.mustard));
-        allergiesList.add(getString(R.string.nuts));
-        allergiesList.add(getString(R.string.peanuts));
-        allergiesList.add(getString(R.string.potatoes));
-        allergiesList.add(getString(R.string.salmon));
-        allergiesList.add(getString(R.string.sesame));
-        allergiesList.add(getString(R.string.soy));
-        allergiesList.add(getString(R.string.vegetables));
-        allergiesList.add(getString(R.string.monday));
+
+        AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
+        ur.execute();
+        ArrayList<String> ingredients = new ArrayList<>();
+        ingredients.add("Select an element from the list");
+
+        while(ur.getListOfIngredients().size()==0){}
+
+        ingredients.addAll(ur.getListOfIngredients());
+        allergiesList = ingredients;
     }
 
     private void populateSpinner(){
@@ -131,5 +142,152 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
         finish();
         return true;
+    }
+
+
+    /***
+     * Method to update allergies in database
+     * @param allergiesSelected array of the names of the ingredients chose as allergies
+     *                          If they are selected or not is not checked
+     */
+    void updateUserAllergies(ArrayList<String> allergiesSelected){
+        AllergiesActivity.UrlConnectorUpdateAllergies ur = new AllergiesActivity.UrlConnectorUpdateAllergies();
+        ur.setAllergies(allergiesSelected);
+        ur.execute();
+    }
+
+    // Async + thread, class to make the connection to the server
+    private class UrlConnectorUpdateAllergies extends AsyncTask<Void,Void,Void> {
+
+        ArrayList<String> allergiesSelected;
+
+        void setAllergies(ArrayList<String> allergies) {
+            this.allergiesSelected = allergies;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                //GET ACTUAL USER ID
+                URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                int userID;
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    JSONArray arr = new JSONArray(output);
+                    JSONObject user = arr.getJSONObject(0);
+                    userID = user.getInt("id");
+                }else{
+                    System.out.println("COULD NOT FIND USER");
+                    return null;
+                }
+                conn.disconnect();
+                //////////////////////////////////
+
+                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
+                ArrayList<Integer> ingredientIds = new ArrayList<>();
+                url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    JSONArray arr = new JSONArray(output);
+                    for(int i = 0; i<arr.length(); i++){
+                        String ingredientName = arr.getJSONObject(i).getString("name");
+                        if(allergiesSelected.contains(ingredientName)) {
+                            ingredientIds.add(arr.getJSONObject(i).getInt("id"));
+                        }
+                    }
+                }else{
+                    System.out.println("COULD NOT FIND INGREDIENTS");
+                    return null;
+                }
+                conn.disconnect();
+
+                //UPDATE ALLERGIES IN DATABASE
+                url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                for(int i=0; i<ingredientIds.size(); i++) {
+                    JSONObject subjson = new JSONObject()
+                            .put("userId", userID)
+                            .put("ingredientId", ingredientIds.get(i));
+
+                    String jsonString = new JSONObject()
+                            .put("key", subjson)
+                            .put("taste", false)
+                            .put("allergy", true)
+                            .toString();
+
+                    System.out.println(jsonString);
+                    OutputStream os = conn.getOutputStream();
+                    os.write(jsonString.getBytes());
+                    os.flush();
+                }
+                System.out.println("CONNECTION CODE: " + conn.getResponseCode());
+                conn.disconnect();
+            } catch (Exception e) {
+                System.out.println("User could not have been introduced to the database " + e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+    }
+
+    // Async + thread, class to make the connection to the server
+    private class UrlConnectorGenIngredientList extends AsyncTask<Void,Void,Void> {
+        ArrayList<String> ingredientList = new ArrayList<>();;
+
+        ArrayList<String> getListOfIngredients() {
+            return ingredientList;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
+                URL url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    JSONArray arr = new JSONArray(output);
+                    for(int i = 0; i<arr.length(); i++){
+                        String ingredientName = arr.getJSONObject(i).getString("name");
+                        ingredientList.add(ingredientName);
+                    }
+                }else{
+                    System.out.println("COULD NOT FIND INGREDIENTS");
+                    return null;
+                }
+                conn.disconnect();
+
+            } catch (Exception e) {
+                System.out.println("User could not have been introduced to the database " + e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
     }
 }
