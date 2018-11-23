@@ -24,6 +24,14 @@
             android:text="@string/pGustos_MyTastes"
             />
 
+        <EditText
+            android:id="@+id/tastesFilterEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/ingredientTitleMeal"/>
+
         <ListView android:id="@+id/tastesScrollView"
             android:layout_width="match_parent"
             android:layout_height="240dp"

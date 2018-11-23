@@ -2,12 +2,16 @@ package com.example.mrg20.menuing_android.activities;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -21,6 +25,14 @@ import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 import com.example.mrg20.menuing_android.utils.CheckboxUtils;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -28,14 +40,18 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TastesActivity extends GlobalActivity implements AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener {
+public class TastesActivity extends GlobalActivity implements AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
     private LinearLayout checkBoxLayout;
 
     private ListView tastesList;
 
+    private List<String> allTastesList;
     private List<String> tastesListString;
 
     ArrayAdapter<String> arrayAdapter;
+    private List<String> selectedCheckTaste = new ArrayList<>();
+
+    private EditText filterEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,53 +64,15 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
         checkBoxLayout = findViewById(R.id.selectedTastesCheckboxListLayout);
 
+        filterEditText = findViewById(R.id.tastesFilterEditText);
+        filterEditText.addTextChangedListener(this);
+
         fillTastesList();
         tastesList = (ListView) findViewById(R.id.tastesScrollView);
-        populateList();
+        filterList("");
         tastesList.setOnItemClickListener(this);
 
     }
-
-    /*@Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences.Editor editor = settings.edit();
-        for(int i = 0; i < tastesListString.size(); i++){
-            editor.putString("Text"+i, tastesListString.get(i));
-        }
-        editor.commit();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //fillTastesList();
-        List<String> currentList = new ArrayList<>();
-        boolean b = false;
-        int i = 0;
-        String s = null;
-
-        while (!b){
-            s = settings.getString("Text"+i, "");
-            if(s.equals(""))
-                b = true;
-            else
-                currentList.add(s);
-            i++;
-        }
-
-        for(i = 0; i < currentList.size();i++){
-            addElementToList(currentList.get(i));
-        }
-
-        for(i = 0; i < tastesListString.size();i++){
-            if(currentList.contains(tastesListString.get(i))){
-                tastesListString.remove(i);
-            }
-        }
-
-        populateList();
-    }*/
 
     private void populateList(){
         arrayAdapter = new ArrayAdapter<String>(
@@ -108,21 +86,16 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
     private void fillTastesList() {
         tastesListString = new ArrayList<>();
-        tastesListString.add(getString(R.string.celery));
-        tastesListString.add(getString(R.string.crustaceans));
-        tastesListString.add(getString(R.string.fish));
-        tastesListString.add(getString(R.string.gluten));
-        tastesListString.add(getString(R.string.milk));
-        tastesListString.add(getString(R.string.molluscs));
-        tastesListString.add(getString(R.string.mustard));
-        tastesListString.add(getString(R.string.nuts));
-        tastesListString.add(getString(R.string.peanuts));
-        tastesListString.add(getString(R.string.potatoes));
-        tastesListString.add(getString(R.string.salmon));
-        tastesListString.add(getString(R.string.sesame));
-        tastesListString.add(getString(R.string.soy));
-        tastesListString.add(getString(R.string.vegetables));
-        tastesListString.add(getString(R.string.monday));
+        allTastesList = new ArrayList<>();
+        /*TastesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
+        ur.execute();
+        while(!ur.loaded){}
+        tastesListString = ur.getListOfIngredients();*/
+        allTastesList.add(getString(R.string.celery));
+        allTastesList.add(getString(R.string.peanuts));
+        allTastesList.add("pastesDino");
+        allTastesList.add(getString(R.string.other));
+        allTastesList.add(getString(R.string.fish));
     }
 
     @Override
@@ -137,6 +110,45 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         CheckBox ckbx = CheckboxUtils.createNewCheckBox(element, this);
         ckbx.setOnCheckedChangeListener(this);
         checkBoxLayout.addView(ckbx);
+        selectedCheckTaste.add(element);
+    }
+
+    private void filterList(String text){
+        if(text.isEmpty()){
+            tastesListString = allTastesList;
+        }
+        else {
+            tastesListString = new ArrayList<>();
+            int listSize = allTastesList.size();
+            for (int i = 0; i < listSize; i++) {
+                if (allTastesList.get(i).toLowerCase().contains(text.toLowerCase()))
+                    tastesListString.add(allTastesList.get(i));
+            }
+        }
+
+        Collections.sort(tastesListString, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s1.compareToIgnoreCase(s2);
+            }
+        });
+
+        populateList();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        filterList(s.toString());
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        filterList(s.toString());
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        filterList(s.toString());
     }
 
     @Override
@@ -171,7 +183,166 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
             dialog.setProgress((i/10) * 0);
         }
 
+
+        ArrayList<String> tastesSelected = new ArrayList<>();
+        for(int i = 0; i<selectedCheckTaste.size(); i++){
+            CheckBox cb = checkBoxLayout.findViewWithTag(selectedCheckTaste.get(i));
+            if(cb != null && cb.isChecked())
+                tastesSelected.add(selectedCheckTaste.get(i));
+
+        }
+        UrlConnectorUpdateTastes ur = new UrlConnectorUpdateTastes();
+        ur.setTastes(new ArrayList<>(selectedCheckTaste));
+        ur.execute();
+
         finish();
         return true;
+    }
+
+
+
+
+    // Async + thread, class to make the connection to the server
+    private class UrlConnectorUpdateTastes extends AsyncTask<Void,Void,Void> {
+
+        ArrayList<String> tastesSelected;
+
+        void setTastes(ArrayList<String> allergies) {
+            this.tastesSelected = allergies;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                //GET ACTUAL USER ID
+                URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
+                System.out.println(url);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                int userID;
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    JSONArray arr = new JSONArray(output);
+                    JSONObject user = arr.getJSONObject(0);
+                    userID = user.getInt("id");
+                    System.out.println("USER: " + user);
+                }else{
+                    System.out.println("COULD NOT FIND USER");
+                    return null;
+                }
+
+
+                conn.disconnect();
+                //////////////////////////////////
+
+                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
+                ArrayList<Integer> ingredientIds = new ArrayList<>();
+                url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    JSONArray arr = new JSONArray(output);
+                    for(int i = 0; i<arr.length(); i++){
+                        String ingredientName = arr.getJSONObject(i).getString("name");
+                        if(tastesSelected.contains(ingredientName)) {
+                            ingredientIds.add(arr.getJSONObject(i).getInt("id"));
+                        }
+                    }
+                    System.out.println("INGREDIENTS: " + arr);
+                }else{
+                    System.out.println("COULD NOT FIND INGREDIENTS");
+                    return null;
+                }
+                conn.disconnect();
+
+                //UPDATE ALLERGIES IN DATABASE
+                url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                for(int i=0; i<ingredientIds.size(); i++) {
+                    JSONObject subjson = new JSONObject()
+                            .put("userId", userID)
+                            .put("ingredientId", ingredientIds.get(i));
+
+                    String jsonString = new JSONObject()
+                            .put("key", subjson)
+                            .put("taste", true)
+                            .put("allergy", false)
+                            .toString();
+
+                    System.out.println(jsonString);
+                    OutputStream os = conn.getOutputStream();
+                    os.write(jsonString.getBytes());
+                    os.flush();
+                }
+                System.out.println("CONNECTION CODE: " + conn.getResponseCode());
+                conn.disconnect();
+            } catch (Exception e) {
+                System.out.println("Tastes could not be saved " + e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+    }
+
+
+    // Async + thread, class to make the connection to the server
+    private class UrlConnectorGenIngredientList extends AsyncTask<Void,Void,Void> {
+        ArrayList<String> ingredientList = new ArrayList<>();;
+        public boolean loaded = false;
+
+        ArrayList<String> getListOfIngredients() {
+            return ingredientList;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
+                URL url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    JSONArray arr = new JSONArray(output);
+                    for(int i = 0; i<arr.length(); i++){
+                        String ingredientName = arr.getJSONObject(i).getString("name");
+                        ingredientList.add(ingredientName);
+                    }
+
+                    loaded = true;
+                }else{
+                    System.out.println("COULD NOT FIND INGREDIENTS");
+                    return null;
+                }
+                conn.disconnect();
+
+            } catch (Exception e) {
+                System.out.println("User could not have been introduced to the database " + e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
     }
 }

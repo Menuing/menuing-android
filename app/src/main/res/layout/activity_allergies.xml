@@ -8,58 +8,49 @@
     >
 
     <LinearLayout
+        android:id="@+id/allergiesLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin"
         android:orientation="vertical"
-        android:layout_weight="2">
+        android:background="@android:color/transparent"
+        android:visibility="visible">
 
-        <LinearLayout
-            android:id="@+id/allergiesLayout"
+        <TextView
+            android:id="@+id/allergiesTittle"
+            style="@style/SubTittle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="30dp"
-            android:orientation="vertical"
-            android:background="@android:color/transparent"
-            android:visibility="visible">
+            android:layout_height="wrap_content"
+            android:text="@string/allergies_tittle"
+            />
 
-            <TextView
-                android:id="@+id/allergiesTittle"
-                style="@style/SubTittle"
+        <EditText
+            android:id="@+id/allergiesFilterEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/ingredientTitleMeal"/>
+
+        <ListView android:id="@+id/allergiesScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="@android:color/transparent">
+        </ListView>
+
+        <ScrollView android:id="@+id/selectedAllergiesScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent">
+
+            <LinearLayout
+                android:id="@+id/selectedAllergiesCheckboxListLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/allergies_tittle"
-                />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/allergiesSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.v7.widget.AppCompatSpinner>
-
-            <ScrollView android:id="@+id/allergiesScrollView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:background="@android:color/transparent">
-                <LinearLayout
-                    android:id="@+id/allergiesCheckboxListLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@android:color/transparent"
-                    android:visibility="visible">
-                </LinearLayout>
+            </LinearLayout>
 
-            </ScrollView>
-            <TextView
-                android:id="@+id/allergiesSaveStatusTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="saving now :D"/>
-        </LinearLayout>
-
+        </ScrollView>
     </LinearLayout>
-
-
 </android.support.constraint.ConstraintLayout>

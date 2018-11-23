@@ -61,6 +61,7 @@
     <string name="save">Guardar</string>
     <string name="X">X</string>
     <string name="go_Back">Tornar</string>
+    <string name="filter">Filtrar</string>
 
     <!-- Termes i condicions -->
     <string name="termsconditions_Title">Termes i condicions</string>

@@ -17,6 +17,8 @@ import android.widget.EditText;
 import com.example.mrg20.menuing_android.activities.TermsAndConditionActivity;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -25,10 +27,8 @@ import java.util.regex.Pattern;
 import org.json.JSONObject;
 
 
-
 public class RegisterActivity extends GlobalActivity implements View.OnClickListener {
 
-    private EditText registerUsername;
     private EditText registerPassword;
     private EditText registerEmail;
 
@@ -58,7 +58,6 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
 
         Button terms = (Button) findViewById(R.id.termsconditions);
         Button termsAndConditions = (Button) findViewById(R.id.register_btn);
-        registerUsername = (EditText) findViewById(R.id.register_username);
         registerPassword = (EditText) findViewById(R.id.register_pw);
         registerEmail = (EditText) findViewById(R.id.register_mail);
         acceptCheckBox = (CheckBox) findViewById(R.id.checkbox_meat);
@@ -67,7 +66,6 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         termsAndConditions.setOnClickListener(this);
 
         if (savedInstanceState != null){
-            registerUsername.setText(savedInstanceState.getString("user"));
             registerPassword.setText(savedInstanceState.getString("password"));
             registerEmail.setText(savedInstanceState.getString("mail"));
         }
@@ -75,7 +73,6 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putString("user",registerUsername.getText().toString());
         savedInstanceState.putString("password",registerPassword.getText().toString());
         savedInstanceState.putString("mail",registerEmail.getText().toString());
         super.onSaveInstanceState(savedInstanceState);
@@ -105,10 +102,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         boolean result = false;
         String mail = registerEmail.getText().toString();
 
-        if (TextUtils.isEmpty(registerUsername.getText().toString())){
-            registerUsername.setError(getString(R.string.err_no_name));
-        }//Camp nom buit
-        else if (TextUtils.isEmpty(registerPassword.getText().toString())){
+        if (TextUtils.isEmpty(registerPassword.getText().toString())){
             registerPassword.setError(getString(R.string.err_no_password));
         }//Camp password buit
         else if (registerPassword.getText().toString().length() < 6){
@@ -151,7 +145,6 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         ur.setPw(password);
         ur.setUsername(username);
         ur.execute();
-
     }
 
     // Async + thread, class to make the connection to the server
@@ -171,13 +164,13 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         @Override
         protected Void doInBackground(Void... params) {
             try {
+
                 URL url = new URL("http://" + ipserver  + "/api/resources/users");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
 
-                // Username is the param name of the request, but mail should be the value
                 String jsonString = new JSONObject()
                         .put("username", username)
                         .put("password", pw)
@@ -186,6 +179,8 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
                 OutputStream os = conn.getOutputStream();
                 os.write(jsonString.getBytes());
                 os.flush();
+                System.out.println("Connection code " + conn.getResponseCode());
+                System.out.println("Json string" + jsonString);
                 conn.disconnect();
 
             } catch (Exception e) {

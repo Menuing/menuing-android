@@ -38,6 +38,7 @@
     <string name="save">Save</string>
     <string name="X">X</string>
     <string name="go_Back">Return</string>
+    <string name="filter">Filter</string>
 
     <!-- Termes i condicions -->
     <string name="termsconditions_Title">Terms and conditions</string>
