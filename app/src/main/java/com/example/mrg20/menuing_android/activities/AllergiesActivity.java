@@ -57,7 +57,6 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     ArrayAdapter<String> arrayAdapter;
     private List<String> selectedCheckAllergy = new ArrayList<>();
 
-
     private EditText filterEditText;
 
     @Override
@@ -85,6 +84,11 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
      * Method to create the list of ingredients from database using a GET method
      */
 
+
+    /***
+     * Method to create the list of ingredients from database using a GET method
+     */
+
     private void fillAllergiesList() {
         allAllergiesList = new ArrayList<String>();
         allergiesListString = new ArrayList<String>();
@@ -95,10 +99,10 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allAllergiesList.add(getString(R.string.other));
         allAllergiesList.add(getString(R.string.fish));
 
-        /*TastesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
+        AllergiesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
         ur.execute();
         while(!ur.loaded){}
-        tastesListString = ur.getListOfIngredients();*/
+        allergiesListString = ur.getListOfIngredients();
     }
 
     private void populateList(){
@@ -184,7 +188,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     @Override
     public boolean onSupportNavigateUp() {
         vibrate();
-
+        /*
         final ProgressDialog dialog = new ProgressDialog(this);
         //dialog.setMessage(getString(R.string.login_logging));
         dialog.setMessage("SAVING...");
@@ -194,6 +198,19 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         for(int i = 0; i < 1000; i++){
             dialog.setProgress((i/10) * 0);
         }
+        */
+        ArrayList<String> allergiesSelected = new ArrayList<>();
+        for(int i = 0; i<selectedCheckAllergies.size(); i++){
+            CheckBox cb = allergiesCBLayout.findViewWithTag(selectedCheckAllergies.get(i));
+            if(cb.isChecked())
+                allergiesSelected.add(selectedCheckAllergies.get(i));
+
+        }
+        System.out.println("LLISTA DE SELECCIONATS" + selectedCheckAllergies);
+        System.out.println("LLISTA DE CHECKEDS" + allergiesSelected);
+        UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
+        ur.setAllergies(allergiesSelected);
+        ur.execute();
 
 
         ArrayList<String> tastesSelected = new ArrayList<>();
@@ -210,7 +227,6 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         finish();
         return true;
     }
-
 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorUpdateTastes extends AsyncTask<Void,Void,Void> {
@@ -260,7 +276,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     JSONArray arr = new JSONArray(output);
                     for(int i = 0; i<arr.length(); i++){
                         String ingredientName = arr.getJSONObject(i).getString("name");
-                        if(tastesSelected.contains(ingredientName)) {
+                        if(allergiesSelected.contains(ingredientName)) {
                             ingredientIds.add(arr.getJSONObject(i).getInt("id"));
                         }
                     }
@@ -285,8 +301,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
                     String jsonString = new JSONObject()
                             .put("key", subjson)
-                            .put("taste", true)
-                            .put("allergy", false)
+                            .put("taste", false)
+                            .put("allergy", true)
                             .toString();
 
                     System.out.println(jsonString);
@@ -297,7 +313,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 System.out.println("CONNECTION CODE: " + conn.getResponseCode());
                 conn.disconnect();
             } catch (Exception e) {
-                System.out.println("Tastes could not be saved " + e);
+                System.out.println("Allergies could not be saved " + e);
             }
             return null;
         }

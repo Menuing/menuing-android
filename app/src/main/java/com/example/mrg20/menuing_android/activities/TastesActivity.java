@@ -50,7 +50,6 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
     ArrayAdapter<String> arrayAdapter;
     private List<String> selectedCheckTaste = new ArrayList<>();
-
     private EditText filterEditText;
 
     @Override
@@ -86,16 +85,10 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
     private void fillTastesList() {
         tastesListString = new ArrayList<>();
-        allTastesList = new ArrayList<>();
-        /*TastesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
+        TastesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
         ur.execute();
         while(!ur.loaded){}
-        tastesListString = ur.getListOfIngredients();*/
-        allTastesList.add(getString(R.string.celery));
-        allTastesList.add(getString(R.string.peanuts));
-        allTastesList.add("pastesDino");
-        allTastesList.add(getString(R.string.other));
-        allTastesList.add(getString(R.string.fish));
+        tastesListString = ur.getListOfIngredients();
     }
 
     @Override
@@ -198,9 +191,6 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         finish();
         return true;
     }
-
-
-
 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorUpdateTastes extends AsyncTask<Void,Void,Void> {
