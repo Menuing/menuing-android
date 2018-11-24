@@ -7,14 +7,19 @@ import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.ActionBar.LayoutParams;
@@ -34,46 +39,46 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AllergiesActivity extends GlobalActivity implements AdapterView.OnItemSelectedListener{
+public class AllergiesActivity extends GlobalActivity implements AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
 
-    private LinearLayout allergiesCBLayout;
-    private AppCompatSpinner spinner;
-    private List<String> allergiesList;
-    private List<String> selectedCheckAllergies = new ArrayList<>();
+    private LinearLayout checkBoxLayout;
+
+    private ListView allergiesList;
+
+    private List<String> allAllergiesList;
+    private List<String> allergiesListString;
+
+    ArrayAdapter<String> arrayAdapter;
+    private List<String> selectedCheckAllergy = new ArrayList<>();
+
+
+    private EditText filterEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergies);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        allergiesCBLayout = (LinearLayout) findViewById(R.id.allergiesCheckboxListLayout);
-        spinner = (AppCompatSpinner) findViewById(R.id.allergiesSpinner);
-        spinner.setOnItemSelectedListener(this);
+        checkBoxLayout = (LinearLayout) findViewById(R.id.selectedAllergiesCheckboxListLayout);
+
+        filterEditText = findViewById(R.id.allergiesFilterEditText);
+        filterEditText.addTextChangedListener(this);
 
         fillAllergiesList();
-
-
-        populateSpinner();
+        allergiesList = (ListView) findViewById(R.id.allergiesScrollView);
+        filterList("");
+        allergiesList.setOnItemClickListener(this);
     }
-
-    /*public void onClickOther (View v) {
-        vibrate();
-        String newAllergy = "";
-        // Create new check box in layout
-        newAllergy = newAllergy.toLowerCase();
-        String firstLetter = newAllergy.substring(0, 1).toUpperCase();
-        newAllergy = firstLetter + newAllergy.substring(1);
-        CheckBox ckbx = CheckboxUtils.createNewCheckBox(newAllergy, this);
-        allergiesCBLayout.addView(ckbx);
-    }*/
 
 
     /***
@@ -81,61 +86,99 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
      */
 
     private void fillAllergiesList() {
-        allergiesList = new ArrayList<String>();
-
-        allergiesList.add("Select an element from the list");
+        allAllergiesList = new ArrayList<String>();
+        allergiesListString = new ArrayList<String>();
 
         AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
         ur.execute();
-        ArrayList<String> ingredients = new ArrayList<>();
-        ingredients.add("Select an element from the list");
-
         while(!ur.loaded){}
-
-        ingredients.addAll(ur.getListOfIngredients());
-        allergiesList = ingredients;
+        allAllergiesList = ur.getListOfIngredients();
     }
 
-    private void populateSpinner(){
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, allergiesList);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        TextView t = findViewById(R.id.allergiesSaveStatusTextView);
-        t.setText("");
-        if(parent.equals(findViewById(R.id.allergiesSpinner)) && position > 0 && id > 0) {
-            addElementToList(allergiesList.get(position));
-            allergiesList.remove(position);
-            if(allergiesList.size() == 1)
-                allergiesList.set(0, "THE LIST IS EMPTY");
-            populateSpinner();
-        }
-        else{
-        }
+    private void populateList(){
+        arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                allergiesListString
+        );
+        allergiesList.setAdapter(arrayAdapter);
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        vibrate();
+        addElementToList(allergiesListString.get(position));
+        allergiesListString.remove(position);
+        populateList();
     }
 
     private void addElementToList(String element){
         CheckBox ckbx = CheckboxUtils.createNewCheckBox(element, this);
+        ckbx.setOnCheckedChangeListener(this);
+        checkBoxLayout.addView(ckbx);
+        selectedCheckAllergy.add(element);
+    }
 
-        ckbx.setTag(element);
-        allergiesCBLayout.addView(ckbx);
-        selectedCheckAllergies.add(element);
+    private void filterList(String text){
+        if(text.isEmpty()){
+            allergiesListString = allAllergiesList;
+        }
+        else {
+            allergiesListString = new ArrayList<>();
+            int listSize = allAllergiesList.size();
+            for (int i = 0; i < listSize; i++) {
+                if (allAllergiesList.get(i).toLowerCase().contains(text.toLowerCase()))
+                    allergiesListString.add(allAllergiesList.get(i));
+            }
+        }
+
+        Collections.sort(allergiesListString, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s1.compareToIgnoreCase(s2);
+            }
+        });
+
+        populateList();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        filterList(s.toString());
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        filterList(s.toString());
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        filterList(s.toString());
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(!isChecked){
+            allergiesListString.add(buttonView.getText().toString());
+
+            Collections.sort(allergiesListString, new Comparator<String>() {
+                @Override
+                public int compare(String s1, String s2) {
+                    return s1.compareToIgnoreCase(s2);
+                }
+            });
+
+            checkBoxLayout.removeView(buttonView);
+            populateList();
+        }
     }
 
     //DE MOMENT NO SERVEIX DE RES, AMB LA BD POT SERVIR
     @Override
     public boolean onSupportNavigateUp() {
         vibrate();
-        /*
+
         final ProgressDialog dialog = new ProgressDialog(this);
         //dialog.setMessage(getString(R.string.login_logging));
         dialog.setMessage("SAVING...");
@@ -145,35 +188,23 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         for(int i = 0; i < 1000; i++){
             dialog.setProgress((i/10) * 0);
         }
-        */
+
+
         ArrayList<String> allergiesSelected = new ArrayList<>();
-        for(int i = 0; i<selectedCheckAllergies.size(); i++){
-            CheckBox cb = allergiesCBLayout.findViewWithTag(selectedCheckAllergies.get(i));
-            if(cb.isChecked())
-                allergiesSelected.add(selectedCheckAllergies.get(i));
+        for(int i = 0; i<selectedCheckAllergy.size(); i++){
+            CheckBox cb = checkBoxLayout.findViewWithTag(selectedCheckAllergy.get(i));
+            if(cb != null && cb.isChecked())
+                allergiesSelected.add(selectedCheckAllergy.get(i));
 
         }
-        System.out.println("LLISTA DE SELECCIONATS" + selectedCheckAllergies);
-        System.out.println("LLISTA DE CHECKEDS" + allergiesSelected);
         UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
-        ur.setAllergies(allergiesSelected);
+        ur.setAllergies(new ArrayList<>(selectedCheckAllergy));
         ur.execute();
 
         finish();
         return true;
     }
 
-
-    /***
-     * Method to update allergies in database
-     * @param allergiesSelected array of the names of the ingredients chose as allergies
-     *                          If they are selected or not is not checked
-     */
-    void updateUserAllergies(ArrayList<String> allergiesSelected){
-        AllergiesActivity.UrlConnectorUpdateAllergies ur = new AllergiesActivity.UrlConnectorUpdateAllergies();
-        ur.setAllergies(allergiesSelected);
-        ur.execute();
-    }
 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorUpdateAllergies extends AsyncTask<Void,Void,Void> {
@@ -188,13 +219,16 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         protected Void doInBackground(Void... params) {
             try {
 
+                if(allergiesSelected.size() == 0)
+                    return null;
+
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
                 System.out.println(url);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
-                int userID;
+                int userID = -1;
                 if(conn.getResponseCode() == 200){
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
@@ -207,8 +241,11 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     return null;
                 }
 
-
                 conn.disconnect();
+                if(userID == -1) {
+                    System.out.println("USER NOT EXISTS");
+                    return null;
+                }
                 //////////////////////////////////
 
                 //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED

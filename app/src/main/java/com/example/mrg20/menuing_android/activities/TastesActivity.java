@@ -6,9 +6,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -37,15 +40,18 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TastesActivity extends GlobalActivity implements AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener {
+public class TastesActivity extends GlobalActivity implements AdapterView.OnItemClickListener, CompoundButton.OnCheckedChangeListener, TextWatcher {
     private LinearLayout checkBoxLayout;
 
     private ListView tastesList;
 
+    private List<String> allTastesList;
     private List<String> tastesListString;
 
     ArrayAdapter<String> arrayAdapter;
     private List<String> selectedCheckTaste = new ArrayList<>();
+
+    private EditText filterEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,53 +64,15 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
         checkBoxLayout = findViewById(R.id.selectedTastesCheckboxListLayout);
 
+        filterEditText = findViewById(R.id.tastesFilterEditText);
+        filterEditText.addTextChangedListener(this);
+
         fillTastesList();
         tastesList = (ListView) findViewById(R.id.tastesScrollView);
-        populateList();
+        filterList("");
         tastesList.setOnItemClickListener(this);
 
     }
-
-    /*@Override
-    protected void onPause() {
-        super.onPause();
-        SharedPreferences.Editor editor = settings.edit();
-        for(int i = 0; i < tastesListString.size(); i++){
-            editor.putString("Text"+i, tastesListString.get(i));
-        }
-        editor.commit();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //fillTastesList();
-        List<String> currentList = new ArrayList<>();
-        boolean b = false;
-        int i = 0;
-        String s = null;
-
-        while (!b){
-            s = settings.getString("Text"+i, "");
-            if(s.equals(""))
-                b = true;
-            else
-                currentList.add(s);
-            i++;
-        }
-
-        for(i = 0; i < currentList.size();i++){
-            addElementToList(currentList.get(i));
-        }
-
-        for(i = 0; i < tastesListString.size();i++){
-            if(currentList.contains(tastesListString.get(i))){
-                tastesListString.remove(i);
-            }
-        }
-
-        populateList();
-    }*/
 
     private void populateList(){
         arrayAdapter = new ArrayAdapter<String>(
@@ -118,10 +86,12 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
     private void fillTastesList() {
         tastesListString = new ArrayList<>();
+        allTastesList = new ArrayList<>();
+
         TastesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
         ur.execute();
         while(!ur.loaded){}
-        tastesListString = ur.getListOfIngredients();
+        allTastesList = ur.getListOfIngredients();
     }
 
     @Override
@@ -137,6 +107,44 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         ckbx.setOnCheckedChangeListener(this);
         checkBoxLayout.addView(ckbx);
         selectedCheckTaste.add(element);
+    }
+
+    private void filterList(String text){
+        if(text.isEmpty()){
+            tastesListString = allTastesList;
+        }
+        else {
+            tastesListString = new ArrayList<>();
+            int listSize = allTastesList.size();
+            for (int i = 0; i < listSize; i++) {
+                if (allTastesList.get(i).toLowerCase().contains(text.toLowerCase()))
+                    tastesListString.add(allTastesList.get(i));
+            }
+        }
+
+        Collections.sort(tastesListString, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s1.compareToIgnoreCase(s2);
+            }
+        });
+
+        populateList();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        filterList(s.toString());
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        filterList(s.toString());
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        filterList(s.toString());
     }
 
     @Override
@@ -179,9 +187,6 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 tastesSelected.add(selectedCheckTaste.get(i));
 
         }
-
-        System.out.println("LLISTA DE SELECCIONATS" + selectedCheckTaste);
-        System.out.println("LLISTA DE CHECKEDS" + tastesSelected);
         UrlConnectorUpdateTastes ur = new UrlConnectorUpdateTastes();
         ur.setTastes(new ArrayList<>(selectedCheckTaste));
         ur.execute();
@@ -191,18 +196,23 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     }
 
 
+
+
     // Async + thread, class to make the connection to the server
     private class UrlConnectorUpdateTastes extends AsyncTask<Void,Void,Void> {
 
         ArrayList<String> tastesSelected;
 
-        void setTastes(ArrayList<String> allergies) {
-            this.tastesSelected = allergies;
+        void setTastes(ArrayList<String> tastes) {
+            this.tastesSelected = tastes;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
+
+                if(tastesSelected.size() == 0)
+                    return null;
 
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
@@ -210,7 +220,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
-                int userID;
+                int userID = -1;
                 if(conn.getResponseCode() == 200){
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
@@ -219,15 +229,20 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                     userID = user.getInt("id");
                     System.out.println("USER: " + user);
                 }else{
-                    System.out.println("COULD NOT FIND USER");
+                    System.out.println("\nCOULD NOT FIND USER\n");
                     return null;
                 }
 
-
                 conn.disconnect();
+
+                if(userID == -1){
+                    System.out.println("\nUSER DOES NOT EXIST\n");
+                    return null;
+                }
+
                 //////////////////////////////////
 
-                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
+                //GET INGREDIENT LIST AND COMPARE WITH THE TASTES SELECTED
                 ArrayList<Integer> ingredientIds = new ArrayList<>();
                 url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
                 conn = (HttpURLConnection) url.openConnection();
@@ -250,7 +265,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 }
                 conn.disconnect();
 
-                //UPDATE ALLERGIES IN DATABASE
+                //UPDATE TASTES IN DATABASE
                 url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");

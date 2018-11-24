@@ -29,7 +29,6 @@ import org.json.JSONObject;
 
 public class RegisterActivity extends GlobalActivity implements View.OnClickListener {
 
-    private EditText registerUsername;
     private EditText registerPassword;
     private EditText registerEmail;
 
@@ -59,7 +58,6 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
 
         Button terms = (Button) findViewById(R.id.termsconditions);
         Button termsAndConditions = (Button) findViewById(R.id.register_btn);
-        registerUsername = (EditText) findViewById(R.id.register_username);
         registerPassword = (EditText) findViewById(R.id.register_pw);
         registerEmail = (EditText) findViewById(R.id.register_mail);
         acceptCheckBox = (CheckBox) findViewById(R.id.checkbox_meat);
@@ -68,7 +66,6 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         termsAndConditions.setOnClickListener(this);
 
         if (savedInstanceState != null){
-            registerUsername.setText(savedInstanceState.getString("user"));
             registerPassword.setText(savedInstanceState.getString("password"));
             registerEmail.setText(savedInstanceState.getString("mail"));
         }
@@ -76,7 +73,6 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putString("user",registerUsername.getText().toString());
         savedInstanceState.putString("password",registerPassword.getText().toString());
         savedInstanceState.putString("mail",registerEmail.getText().toString());
         super.onSaveInstanceState(savedInstanceState);
@@ -106,10 +102,7 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
         boolean result = false;
         String mail = registerEmail.getText().toString();
 
-        if (TextUtils.isEmpty(registerUsername.getText().toString())){
-            registerUsername.setError(getString(R.string.err_no_name));
-        }//Camp nom buit
-        else if (TextUtils.isEmpty(registerPassword.getText().toString())){
+        if (TextUtils.isEmpty(registerPassword.getText().toString())){
             registerPassword.setError(getString(R.string.err_no_password));
         }//Camp password buit
         else if (registerPassword.getText().toString().length() < 6){

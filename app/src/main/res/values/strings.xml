@@ -38,6 +38,7 @@
     <string name="save">Save</string>
     <string name="X">X</string>
     <string name="go_Back">Return</string>
+    <string name="filter">Filter</string>
 
     <!-- Termes i condicions -->
     <string name="termsconditions_Title">Terms and conditions</string>
@@ -53,12 +54,16 @@
 
     <!-- TASTES TEXTS -->
     <string name="tastes_tittle">My tastes</string>
+    <string name="tastes_selected">Selected tastes</string>
+    <string name="tastes_exp">Select your tastes so when you ask for a receipt this ingredients will be considered</string>
     <string name="pGustos_MyTastes">My tastes</string>
     <string name="potatoes">Potatoes</string>
     <string name="vegetables">Vegetables</string>
     <string name="salmon">Salmon</string>
 
     <!-- ALLERGIES TEXTS -->
+    <string name="allergies_selected">Selected allergies</string>
+    <string name="allergies_exp">Select your allergies so when you ask for a receipt this ingredients will not appear</string>
     <string name="allergies_tittle">My Allergies</string>
     <string name="gluten">Gluten</string>
     <string name="milk">Milk Protein</string>
