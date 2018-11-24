@@ -89,16 +89,10 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allAllergiesList = new ArrayList<String>();
         allergiesListString = new ArrayList<String>();
 
-        allAllergiesList.add(getString(R.string.celery));
-        allAllergiesList.add(getString(R.string.peanuts));
-        allAllergiesList.add("PastesDino");
-        allAllergiesList.add(getString(R.string.other));
-        allAllergiesList.add(getString(R.string.fish));
-
-        /*TastesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
+        AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
         ur.execute();
         while(!ur.loaded){}
-        tastesListString = ur.getListOfIngredients();*/
+        allergiesListString = ur.getListOfIngredients();
     }
 
     private void populateList(){
@@ -196,15 +190,15 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         }
 
 
-        ArrayList<String> tastesSelected = new ArrayList<>();
+        ArrayList<String> allergiesSelected = new ArrayList<>();
         for(int i = 0; i<selectedCheckAllergy.size(); i++){
             CheckBox cb = checkBoxLayout.findViewWithTag(selectedCheckAllergy.get(i));
             if(cb != null && cb.isChecked())
-                tastesSelected.add(selectedCheckAllergy.get(i));
+                allergiesSelected.add(selectedCheckAllergy.get(i));
 
         }
-        UrlConnectorUpdateTastes ur = new UrlConnectorUpdateTastes();
-        ur.setTastes(new ArrayList<>(selectedCheckAllergy));
+        UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
+        ur.setAllergies(new ArrayList<>(selectedCheckAllergy));
         ur.execute();
 
         finish();
@@ -213,12 +207,12 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
 
     // Async + thread, class to make the connection to the server
-    private class UrlConnectorUpdateTastes extends AsyncTask<Void,Void,Void> {
+    private class UrlConnectorUpdateAllergies extends AsyncTask<Void,Void,Void> {
 
-        ArrayList<String> tastesSelected;
+        ArrayList<String> allergiesSelected;
 
-        void setTastes(ArrayList<String> allergies) {
-            this.tastesSelected = allergies;
+        void setAllergies(ArrayList<String> allergies) {
+            this.allergiesSelected = allergies;
         }
 
         @Override
@@ -260,7 +254,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     JSONArray arr = new JSONArray(output);
                     for(int i = 0; i<arr.length(); i++){
                         String ingredientName = arr.getJSONObject(i).getString("name");
-                        if(tastesSelected.contains(ingredientName)) {
+                        if(allergiesSelected.contains(ingredientName)) {
                             ingredientIds.add(arr.getJSONObject(i).getInt("id"));
                         }
                     }
@@ -285,8 +279,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
                     String jsonString = new JSONObject()
                             .put("key", subjson)
-                            .put("taste", true)
-                            .put("allergy", false)
+                            .put("taste", false)
+                            .put("allergy", true)
                             .toString();
 
                     System.out.println(jsonString);
@@ -297,7 +291,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 System.out.println("CONNECTION CODE: " + conn.getResponseCode());
                 conn.disconnect();
             } catch (Exception e) {
-                System.out.println("Tastes could not be saved " + e);
+                System.out.println("Allergies could not be saved " + e);
             }
             return null;
         }
