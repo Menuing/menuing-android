@@ -57,11 +57,12 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     ArrayAdapter<String> arrayAdapter;
     private List<String> selectedCheckAllergy = new ArrayList<>();
 
+
     private EditText filterEditText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergies);
 
         ActionBar actionBar = getSupportActionBar();
@@ -84,25 +85,14 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
      * Method to create the list of ingredients from database using a GET method
      */
 
-
-    /***
-     * Method to create the list of ingredients from database using a GET method
-     */
-
     private void fillAllergiesList() {
         allAllergiesList = new ArrayList<String>();
         allergiesListString = new ArrayList<String>();
 
-        allAllergiesList.add(getString(R.string.celery));
-        allAllergiesList.add(getString(R.string.peanuts));
-        allAllergiesList.add("PastesDino");
-        allAllergiesList.add(getString(R.string.other));
-        allAllergiesList.add(getString(R.string.fish));
-
-        AllergiesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
+        AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
         ur.execute();
         while(!ur.loaded){}
-        allergiesListString = ur.getListOfIngredients();
+        allAllergiesList = ur.getListOfIngredients();
     }
 
     private void populateList(){
@@ -188,7 +178,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     @Override
     public boolean onSupportNavigateUp() {
         vibrate();
-        /*
+
         final ProgressDialog dialog = new ProgressDialog(this);
         //dialog.setMessage(getString(R.string.login_logging));
         dialog.setMessage("SAVING...");
@@ -198,48 +188,39 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         for(int i = 0; i < 1000; i++){
             dialog.setProgress((i/10) * 0);
         }
-        */
+
+
         ArrayList<String> allergiesSelected = new ArrayList<>();
-        for(int i = 0; i<selectedCheckAllergies.size(); i++){
-            CheckBox cb = allergiesCBLayout.findViewWithTag(selectedCheckAllergies.get(i));
-            if(cb.isChecked())
-                allergiesSelected.add(selectedCheckAllergies.get(i));
-
-        }
-        System.out.println("LLISTA DE SELECCIONATS" + selectedCheckAllergies);
-        System.out.println("LLISTA DE CHECKEDS" + allergiesSelected);
-        UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
-        ur.setAllergies(allergiesSelected);
-        ur.execute();
-
-
-        ArrayList<String> tastesSelected = new ArrayList<>();
         for(int i = 0; i<selectedCheckAllergy.size(); i++){
             CheckBox cb = checkBoxLayout.findViewWithTag(selectedCheckAllergy.get(i));
             if(cb != null && cb.isChecked())
-                tastesSelected.add(selectedCheckAllergy.get(i));
+                allergiesSelected.add(selectedCheckAllergy.get(i));
 
         }
-        UrlConnectorUpdateTastes ur = new UrlConnectorUpdateTastes();
-        ur.setTastes(new ArrayList<>(selectedCheckAllergy));
+        UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
+        ur.setAllergies(new ArrayList<>(selectedCheckAllergy));
         ur.execute();
 
         finish();
         return true;
     }
 
+
     // Async + thread, class to make the connection to the server
-    private class UrlConnectorUpdateTastes extends AsyncTask<Void,Void,Void> {
+    private class UrlConnectorUpdateAllergies extends AsyncTask<Void,Void,Void> {
 
-        ArrayList<String> tastesSelected;
+        ArrayList<String> allergiesSelected;
 
-        void setTastes(ArrayList<String> allergies) {
-            this.tastesSelected = allergies;
+        void setAllergies(ArrayList<String> allergies) {
+            this.allergiesSelected = allergies;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
+
+                if(allergiesSelected.size() == 0)
+                    return null;
 
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
@@ -247,7 +228,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
-                int userID;
+                int userID = -1;
                 if(conn.getResponseCode() == 200){
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
@@ -260,8 +241,11 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     return null;
                 }
 
-
                 conn.disconnect();
+                if(userID == -1) {
+                    System.out.println("USER NOT EXISTS");
+                    return null;
+                }
                 //////////////////////////////////
 
                 //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
