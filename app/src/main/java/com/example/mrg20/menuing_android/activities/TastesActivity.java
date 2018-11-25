@@ -203,13 +203,16 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
         ArrayList<String> tastesSelected;
 
-        void setTastes(ArrayList<String> allergies) {
-            this.tastesSelected = allergies;
+        void setTastes(ArrayList<String> tastes) {
+            this.tastesSelected = tastes;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
+
+                if(tastesSelected.size() == 0)
+                    return null;
 
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
@@ -217,7 +220,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
-                int userID;
+                int userID = -1;
                 if(conn.getResponseCode() == 200){
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
@@ -226,15 +229,20 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                     userID = user.getInt("id");
                     System.out.println("USER: " + user);
                 }else{
-                    System.out.println("COULD NOT FIND USER");
+                    System.out.println("\nCOULD NOT FIND USER\n");
                     return null;
                 }
 
-
                 conn.disconnect();
+
+                if(userID == -1){
+                    System.out.println("\nUSER DOES NOT EXIST\n");
+                    return null;
+                }
+
                 //////////////////////////////////
 
-                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
+                //GET INGREDIENT LIST AND COMPARE WITH THE TASTES SELECTED
                 ArrayList<Integer> ingredientIds = new ArrayList<>();
                 url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
                 conn = (HttpURLConnection) url.openConnection();
@@ -257,7 +265,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 }
                 conn.disconnect();
 
-                //UPDATE ALLERGIES IN DATABASE
+                //UPDATE TASTES IN DATABASE
                 url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");

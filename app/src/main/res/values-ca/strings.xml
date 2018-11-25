@@ -78,11 +78,15 @@
     <!-- TASTES TEXTS -->
     <string name="tastes_tittle">Els meus gustos</string>
     <string name="pGustos_MyTastes">Els meus gustos</string>
+    <string name="tastes_selected">Gustos sel·leccionats</string>
+    <string name="tastes_exp">Sel·lecciona els teus gustos de forma que quan es demani una recepta aquests seran considerats</string>
     <string name="potatoes">Patates</string>
     <string name="vegetables">Vegetals</string>
     <string name="salmon">Salmó</string>
 
     <!-- ALLERGIES TEXTS -->
+    <string name="allergies_selected">Alergies sel·leccionades</string>
+    <string name="allergies_exp">Sel·lecciona les teves alergies de forma que quan es demani una recepta no aparegui aquest ingredient</string>
     <string name="allergies_tittle">Les meves alergies</string>
     <string name="gluten">Gluten</string>
     <string name="milk">Proteïna de la llet</string>

@@ -62,7 +62,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergies);
 
         ActionBar actionBar = getSupportActionBar();
@@ -219,13 +219,16 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         protected Void doInBackground(Void... params) {
             try {
 
+                if(allergiesSelected.size() == 0)
+                    return null;
+
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
                 System.out.println(url);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
-                int userID;
+                int userID = -1;
                 if(conn.getResponseCode() == 200){
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
@@ -238,8 +241,11 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     return null;
                 }
 
-
                 conn.disconnect();
+                if(userID == -1) {
+                    System.out.println("USER NOT EXISTS");
+                    return null;
+                }
                 //////////////////////////////////
 
                 //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
