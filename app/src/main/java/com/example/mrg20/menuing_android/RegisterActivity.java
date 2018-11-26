@@ -179,8 +179,16 @@ public class RegisterActivity extends GlobalActivity implements View.OnClickList
                 OutputStream os = conn.getOutputStream();
                 os.write(jsonString.getBytes());
                 os.flush();
+
+
+
                 System.out.println("Connection code " + conn.getResponseCode());
                 System.out.println("Json string" + jsonString);
+
+                if(conn.getResponseCode() != 200){
+                    System.out.println("COULDN'T REGISTER USER");
+                }
+
                 conn.disconnect();
 
             } catch (Exception e) {
