@@ -56,7 +56,7 @@
                     android:layout_weight="1"
                     >
                     <ImageView
-                        android:id="@+id/img1"
+                        android:id="@+id/nopref"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -65,17 +65,32 @@
 
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <ImageView
-                        android:id="@+id/img2"
+                        android:id="@+id/healthy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/getyourmealbtn2" />
+                        android:src="@drawable/healthy" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/threeing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/boto3ing" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -83,14 +98,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <ImageView
-                        android:id="@+id/img3"
+                        android:id="@+id/fasttodo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/getyourmealbtn3" />
+                        android:src="@drawable/boto20min" />
                 </LinearLayout>
             </LinearLayout>
+
+
 
 
 
