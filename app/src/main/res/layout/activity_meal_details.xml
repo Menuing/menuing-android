@@ -138,4 +138,6 @@
         app:srcCompat="@drawable/carrito_simbolo" />
 
 
+
+
 </android.support.constraint.ConstraintLayout>

@@ -179,7 +179,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     public boolean onSupportNavigateUp() {
         vibrate();
 
-        final ProgressDialog dialog = new ProgressDialog(this);
+        /*final ProgressDialog dialog = new ProgressDialog(this);
         //dialog.setMessage(getString(R.string.login_logging));
         dialog.setMessage("SAVING...");
         dialog.setCancelable(false);
@@ -187,7 +187,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
         for(int i = 0; i < 1000; i++){
             dialog.setProgress((i/10) * 0);
-        }
+        }*/
 
 
         ArrayList<String> allergiesSelected = new ArrayList<>();
@@ -233,6 +233,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     JSONObject user = arr.getJSONObject(0);
                     userID = user.getInt("id");
                     System.out.println("USER: " + user);
+                    br.close();
                 }else{
                     System.out.println("COULD NOT FIND USER");
                     return null;
@@ -258,6 +259,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                             ingredientIds.add(arr.getJSONObject(i).getInt("id"));
                         }
                     }
+                    br.close();
                     System.out.println("INGREDIENTS: " + arr);
                 }else{
                     System.out.println("COULD NOT FIND INGREDIENTS");
@@ -287,6 +289,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     OutputStream os = conn.getOutputStream();
                     os.write(jsonString.getBytes());
                     os.flush();
+                    os.close();
                 }
                 System.out.println("CONNECTION CODE: " + conn.getResponseCode());
                 conn.disconnect();
@@ -330,6 +333,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                         ingredientList.add(ingredientName);
                     }
 
+                    br.close();
                     loaded = true;
                 }else{
                     System.out.println("COULD NOT FIND INGREDIENTS");

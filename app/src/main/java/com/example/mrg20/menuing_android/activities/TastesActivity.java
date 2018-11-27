@@ -169,7 +169,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     public boolean onSupportNavigateUp() {
         vibrate();
 
-        final ProgressDialog dialog = new ProgressDialog(this);
+        /*final ProgressDialog dialog = new ProgressDialog(this);
         //dialog.setMessage(getString(R.string.login_logging));
         dialog.setMessage("SAVING...");
         dialog.setCancelable(false);
@@ -177,7 +177,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
         for(int i = 0; i < 1000; i++){
             dialog.setProgress((i/10) * 0);
-        }
+        }*/
 
 
         ArrayList<String> tastesSelected = new ArrayList<>();
@@ -236,7 +236,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
                 //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
                 ArrayList<Integer> ingredientIds = new ArrayList<>();
-                url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
+                url = new URL("http://" + ipserver  + "/api/resources/tags/all");
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
@@ -309,7 +309,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
             try {
 
                 //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
-                URL url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
+                URL url = new URL("http://" + ipserver  + "/api/resources/tags/all");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
