@@ -259,10 +259,11 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
                     JSONArray arr = new JSONArray(output);
-                    for (int i = 0; i < arr.length(); i++) {
+                    for(int i = 0; i<arr.length(); i++){
                         String ingredientName = arr.getJSONObject(i).getString("name");
-                        if (tastesSelected.contains(ingredientName)) {
-                            ingredientIds.add(arr.getJSONObject(i).getInt("id"));
+                        for(int j = 0; j < tastesSelected.size(); j++){
+                            if(tastesSelected.get(j).equals(ingredientName))
+                                ingredientIds.add(arr.getJSONObject(i).getInt("id"));
                         }
                     }
                     br.close();
@@ -287,8 +288,8 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
                     String jsonString = new JSONObject()
                             .put("key", subjson)
-                            .put("taste", false)
-                            .put("allergy", true)
+                            .put("taste", true)
+                            .put("allergy", false)
                             .toString();
 
                     System.out.println(jsonString);
@@ -349,7 +350,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 conn.disconnect();
 
             } catch (Exception e) {
-                System.out.println("User could not have been introduced to the database " + e);
+                System.out.println("Ingredients couldn't be loaded: " + e);
             }
 
             return null;

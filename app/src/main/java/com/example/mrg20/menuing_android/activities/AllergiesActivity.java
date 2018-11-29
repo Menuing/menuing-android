@@ -261,12 +261,14 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     JSONArray arr = new JSONArray(output);
                     for(int i = 0; i<arr.length(); i++){
                         String ingredientName = arr.getJSONObject(i).getString("name");
-                        if(allergiesSelected.contains(ingredientName)) {
-                            ingredientIds.add(arr.getJSONObject(i).getInt("id"));
+                        for(int j = 0; j < allergiesSelected.size(); j++){
+                            if(allergiesSelected.get(j).equals(ingredientName))
+                                ingredientIds.add(arr.getJSONObject(i).getInt("id"));
                         }
                     }
                     br.close();
                     System.out.println("INGREDIENTS: " + arr);
+                    System.out.println("SELECTED IDS " + ingredientIds);
                 }else{
                     System.out.println("COULD NOT FIND INGREDIENTS");
                     return null;
@@ -342,13 +344,13 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     br.close();
                     loaded = true;
                 }else{
-                    System.out.println("COULD NOT FIND INGREDIENTS");
+                    System.out.println("Connected but no ingredients found");
                     return null;
                 }
                 conn.disconnect();
 
             } catch (Exception e) {
-                System.out.println("User could not have been introduced to the database " + e);
+                System.out.println("Ingredients couldn't be loaded: " + e);
             }
 
             return null;
