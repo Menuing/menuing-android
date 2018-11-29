@@ -29,8 +29,8 @@
         <activity android:name=".NutritionistChat" android:screenOrientation="portrait"/>
         <activity android:name=".activities.MonthlyDietActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.WeeklyDietActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MealDetails" android:screenOrientation="landscape"/>
-        <activity android:name=".activities.RecipeDetails" android:screenOrientation="landscape"/>
+        <activity android:name=".activities.MealDetails"/>
+        <activity android:name=".activities.RecipeDetails"/>
         <activity android:name=".MealHour" android:screenOrientation="portrait"/>
         <activity android:name=".activities.TastesActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activities.AllergiesActivity" android:screenOrientation="portrait"/>

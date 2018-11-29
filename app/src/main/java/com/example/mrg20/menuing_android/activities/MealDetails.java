@@ -1,6 +1,7 @@
 package com.example.mrg20.menuing_android.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
+import com.example.mrg20.menuing_android.other_classes.Recipe;
 
 public class MealDetails extends GlobalActivity implements View.OnClickListener {
 
@@ -24,9 +26,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Button recipe = (Button) findViewById(R.id.getRecipeButton1);
+        Button recipe = (Button) findViewById(R.id.first_recipe);
         recipe.setOnClickListener(this);
-        recipe = (Button) findViewById(R.id.getRecipeButton2);
+        recipe = (Button) findViewById(R.id.first_recipe2);
         recipe.setOnClickListener(this);
 
         shoppingListIcon = findViewById(R.id.meal_shopping_list_icon);
@@ -38,11 +40,11 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         vibrate();
         Intent intent = null;
         switch(view.getId()) {
-            case R.id.getRecipeButton1:
+            case R.id.first_recipe:
                 intent = new Intent(MealDetails.this, RecipeDetails.class);
                 startActivity(intent);
                 break;
-            case R.id.getRecipeButton2:
+            case R.id.first_recipe2:
                 intent = new Intent(MealDetails.this, RecipeDetails.class);
                 startActivity(intent);
                 break;
