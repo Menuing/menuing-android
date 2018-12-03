@@ -13,14 +13,17 @@ import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class RecipeDetails extends GlobalActivity implements View.OnClickListener, RatingBar.OnRatingBarChangeListener {
 
@@ -59,15 +62,27 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         shoppingListIcon.setOnClickListener(this);
 
         TextView tv = findViewById(R.id.dish_detail_name);
+        TextView ingredients = findViewById(R.id.textView7);
+        TextView instructions = findViewById(R.id.steps_recipe_detail);
         recipeName = (String) tv.getText();
 
         ur = new RecipeDetails.UrlConnectorUpdateRating();
-        ur.setRecipeName(recipeName);
+        //ur.setRecipeName(recipeName);
+        //ur.setRecipeName("Boudin Blanc Terrine with Red Onion Confit ");
         ur.execute();
 
         ratingBar = findViewById(R.id.recipeRatingBar);
         while(!ur.loaded){}
         ratingBar.setRating(ur.getRating());
+        JSONObject recipe = ur.getRecipe();
+
+        try {
+            tv.setText(recipe.getString("name"));
+            ingredients.setText(recipe.getString("proportions"));
+            instructions.setText(recipe.getString("instructions"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         ratingBar.setOnRatingBarChangeListener(this);
     }
 
@@ -93,16 +108,19 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
     @Override
     public boolean onSupportNavigateUp() {
         vibrate();
-        if(ratingChanged)
-            ur.updateToDatabase();
+        if(ratingChanged){
+            ur = new RecipeDetails.UrlConnectorUpdateRating();
+            ur.setRecipeName("Boudin Blanc Terrine with Red Onion Confit ");
+            ur.updateRating(ratingBar.getRating());
+            ur.execute();
+        }
+
         finish();
         return true;
     }
 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorUpdateRating extends AsyncTask<Void, Void, Void> {
-
-        ArrayList<String> allergiesSelected;
 
         public boolean loaded = false;
 
@@ -111,8 +129,10 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         public void setRecipeName(String recipeName) {
             this.recipeName = recipeName;
         }
+        public JSONObject getRecipe(){ return thisRecipe;}
 
         private JSONObject thisRecipe;
+        private JSONObject user;
 
         HttpURLConnection conn;
 
@@ -124,91 +144,63 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
             recipeRating = r;
         }
 
-        //TODO AIXO NO VA AIXI, MIRAR COM VA
-        public void updateToDatabase(){
-            try {
-                URL url = new URL("http://" + ipserver  + "/api/resources/recipes/");
-                System.out.println(url);
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("DELETE");
-                conn.setRequestProperty("Accept", "application/json");
-                conn.connect();
-
-                if(conn.getResponseCode() == 200) {
-                    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-                    wr.write(thisRecipe.toString());
-                    wr.flush();
-                    wr.close();
-                }
-            } catch (Exception e) {
-                System.out.println("ILLO CABESA" + e);
-            } finally {
-                conn.disconnect();
-            }
-
-            try {
-                URL url = new URL("http://" + ipserver  + "/api/resources/recipes/");
-                System.out.println(url);
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setDoOutput(true);
-
-                if(conn.getResponseCode() == 200) {
-                    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-
-                    thisRecipe.remove("averagePuntuation");
-                    thisRecipe.put("averagePuntuation", recipeRating);
-
-                    wr.write(thisRecipe.toString());
-                    wr.flush();
-                    wr.close();
-
-                }
-            } catch (Exception e) {
-                System.out.println("ACHO ACHO ACHO" + e);
-            } finally {
-                conn.disconnect();
-            }
-        }
-
         @Override
         protected Void doInBackground(Void... params) {
-            if(loaded)
-                return null;
+
             try {
 
                 //GET ACTUAL USER ID
-                URL url = new URL("http://" + ipserver  + "/api/resources/recipes/all");
+                URL url = new URL("http://" + ipserver + "/api/resources/users/?username=" + settings.getString("UserMail", ""));
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
-                conn.connect();
+                int userID = -1;
+                System.out.println("BUSCANT USUARI");
+                if (conn.getResponseCode() == 200) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    System.out.println("REDLINE");
+                    JSONArray arr = new JSONArray(output);
+                    System.out.println("ARRRRRRRRRR + OUTPUT: " + output);
+                    user = arr.getJSONObject(0);
+                    System.out.println("JSON_OBJECT");
+                    userID = user.getInt("id");
+                    System.out.println("USER: " + user);
+                    br.close();
+                } else {
+                    System.out.println("COULD NOT FIND USER");
+                    return null;
+                }
+
+                conn.disconnect();
+                if (userID == -1) {
+                    System.out.println("USER NOT EXISTS");
+                    return null;
+                }
+
+                //GET RECIPE
+                Random r = new Random();
+                url = new URL("http://" + ipserver  + "/api/resources/recipes/id/" + r.nextInt(1000));
+                System.out.println(url);
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                //conn.connect();
+
+                System.out.println("OLA K ASE");
 
                 if(conn.getResponseCode() == 200) {
                     InputStreamReader inp = new InputStreamReader(conn.getInputStream());
                     BufferedReader br = new BufferedReader(inp);
-                    while(br.ready()) {
+                    //while(br.ready()) {
                         String output = br.readLine();
-                        JSONArray arr = new JSONArray(output);
-                        System.out.println("RECIPE: " + arr.getJSONObject(0));
-                        if(arr.getJSONObject(0).getString("name").equals(recipeName)) {
-                            recipeRating = (float) arr.getJSONObject(0).get("averagePuntuation");
-                            System.out.print("THIS RECIPE IS: " + thisRecipe.getString("name"));
-                        }
-                    }
-
-                    /*for (int i = 0; i < arr.length(); i++) {
-                        System.out.println("RECIPE: " + arr.getJSONObject(i));
-                        if(arr.getJSONObject(i).getString("name").equals(recipeName)){
-                            thisRecipe = arr.getJSONObject(i);
-                            System.out.print("RECIPE NUMBER " + i + ": " + arr.getJSONObject(i).getString("name"));
-                            recipeRating = (float) arr.getJSONObject(i).get("averagePuntuation");
-                        }
-
-                        System.out.print("THIS RECIPE IS: " + thisRecipe.getString("name"));
-                    }*/
+                        //JSONArray arr = new JSONArray(output);
+                        JSONObject obj = new JSONObject(output);
+                        System.out.println("RECIPE: " + obj);
+                        recipeRating = (float) obj.getDouble("averagePuntuation");
+                        thisRecipe = obj;
+                        System.out.println("THIS RECIPE IS: " + thisRecipe.getString("name"));
 
                     inp.close();
                     br.close();
@@ -216,56 +208,41 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                     System.out.println("COULD NOT FIND RECIPES");
                     return null;
                 }
-                //////////////////////////////////
 
-                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
-                /*ArrayList<Integer> ingredientIds = new ArrayList<>();
-                url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Accept", "application/json");
-                if(conn.getResponseCode() == 200){
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String output = br.readLine();
-                    JSONArray arr = new JSONArray(output);
-                    for(int i = 0; i<arr.length(); i++){
-                        String ingredientName = arr.getJSONObject(i).getString("name");
-                        if(allergiesSelected.contains(ingredientName)) {
-                            ingredientIds.add(arr.getJSONObject(i).getInt("id"));
-                        }
-                    }
-                    System.out.println("INGREDIENTS: " + arr);
-                }else{
-                    System.out.println("COULD NOT FIND INGREDIENTS");
-                    return null;
-                }
-                conn.disconnect();
+                //PUT
+                try{
+                    url = new URL("http://" + ipserver  + "/api/resources/usersRecipes/");
+                    System.out.println(url);
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("PUT");
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setDoOutput(true);
 
-                //UPDATE ALLERGIES IN DATABASE
-                url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setDoOutput(true);
 
-                for(int i=0; i<ingredientIds.size(); i++) {
+                    OutputStream os = conn.getOutputStream();
+
                     JSONObject subjson = new JSONObject()
-                            .put("name", recipeName)
-                            .put("ingredientId", ingredientIds.get(i));
+                            .put("userId", user.getInt("id"))
+                            .put("recipeId", thisRecipe.getInt("id"));
 
                     String jsonString = new JSONObject()
                             .put("key", subjson)
-                            .put("taste", false)
-                            .put("allergy", true)
+                            .put("puntuation",2 )
                             .toString();
+                    System.out.println("daosdnsa " + jsonString);
 
-                    System.out.println(jsonString);
-                    OutputStream os = conn.getOutputStream();
                     os.write(jsonString.getBytes());
                     os.flush();
+                    os.close();
+
+
+                    System.out.println("CONNECTION CODE: " + conn.getResponseCode());
+                    conn.disconnect();
+                }catch (Exception e){
+                    System.out.println("*dab* soc retrassat i no me donen paga");
+                    System.out.println(e.toString());
                 }
-                System.out.println("CONNECTION CODE: " + conn.getResponseCode());
-                conn.disconnect();*/
+
             } catch (Exception e) {
                 System.out.println("Error blablabla " + e);
             } finally{
@@ -280,52 +257,4 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
             super.onPostExecute(result);
         }
     }
-
-    /*
-    // Async + thread, class to make the connection to the server
-    private class UrlConnectorGenIngredientList extends AsyncTask<Void,Void,Void> {
-        ArrayList<String> ingredientList = new ArrayList<>();;
-        public boolean loaded = false;
-
-        ArrayList<String> getListOfIngredients() {
-            return ingredientList;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-
-                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
-                URL url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Accept", "application/json");
-                if(conn.getResponseCode() == 200){
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String output = br.readLine();
-                    JSONArray arr = new JSONArray(output);
-                    for(int i = 0; i<arr.length(); i++){
-                        String ingredientName = arr.getJSONObject(i).getString("name");
-                        ingredientList.add(ingredientName);
-                    }
-
-                    loaded = true;
-                }else{
-                    System.out.println("COULD NOT FIND INGREDIENTS");
-                    return null;
-                }
-                conn.disconnect();
-
-            } catch (Exception e) {
-                System.out.println("User could not have been introduced to the database " + e);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
-    }*/
 }
