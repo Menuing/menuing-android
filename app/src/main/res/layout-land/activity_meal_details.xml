@@ -56,7 +56,7 @@
                     android:layout_margin="@dimen/margin"/>
 
                 <Button
-                    android:id="@+id/getRecipeButton1"
+                    android:id="@+id/first_recipe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="47dp"
@@ -94,7 +94,7 @@
                     android:layout_margin="@dimen/margin"/>
 
                 <Button
-                    android:id="@+id/getRecipeButton2"
+                    android:id="@+id/first_recipe2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="47dp"

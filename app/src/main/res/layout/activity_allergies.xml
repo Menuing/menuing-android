@@ -22,35 +22,88 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/allergies_tittle"
+            android:paddingBottom="15dp"
+            android:gravity="center"
             />
 
-        <EditText
-            android:id="@+id/allergiesFilterEditText"
+        <TextView
+            android:id="@+id/allergiesExplanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/ingredientTitleMeal"/>
+            android:text="@string/allergies_exp"
+            android:paddingBottom="15dp"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            style="@style/scroll_list">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/lupa"
+                android:background="@color/colorScrollList"
+                android:layout_marginLeft="4dp"/>
+            <EditText
+                android:id="@+id/allergiesFilterEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="@string/ingredientTitleMeal"/>
+        </LinearLayout>
 
         <ListView android:id="@+id/allergiesScrollView"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="175dp"
             android:background="@android:color/transparent">
         </ListView>
-
-        <ScrollView android:id="@+id/selectedAllergiesScrollView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent">
-
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            style="@style/scroll_list">
             <LinearLayout
-                android:id="@+id/selectedAllergiesCheckboxListLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@android:color/transparent">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/colorScrollList"
+                android:layout_marginLeft="4dp"
+                android:paddingBottom="5dp"
+                android:layout_marginTop="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/heart"
+                    style="@style/scroll_list"/>
+
+                <TextView
+                    android:id="@+id/selectedAllergiesText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/allergies_selected"
+                    style="@style/scroll_list"/>
+
             </LinearLayout>
 
-        </ScrollView>
+            <ScrollView android:id="@+id/selectedAllergiesScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/selectedAllergiesCheckboxListLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                </LinearLayout>
+
+            </ScrollView>
+        </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
