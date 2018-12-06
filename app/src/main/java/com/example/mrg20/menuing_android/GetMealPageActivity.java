@@ -24,14 +24,15 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        ImageView nopreference = (ImageView) findViewById(R.id.img1);
-        ImageView ingredients = (ImageView) findViewById(R.id.img2);
-        ImageView money = (ImageView) findViewById(R.id.img3);
+        ImageView nopreference = (ImageView) findViewById(R.id.nopref);
+        ImageView healthy = (ImageView) findViewById(R.id.healthy);
+        ImageView threeIngredients = (ImageView) findViewById(R.id.threeing);
+        ImageView fastRecipe = (ImageView) findViewById(R.id.fasttodo);
 
         nopreference.setOnClickListener(this);
-        ingredients.setOnClickListener(this);
-        money.setOnClickListener(this);
-
+        healthy.setOnClickListener(this);
+        threeIngredients.setOnClickListener(this);
+        fastRecipe.setOnClickListener(this);
     }
 
     @Override
@@ -39,14 +40,20 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         vibrate();
         Intent intent = null;
         switch(view.getId()) {
-            case R.id.img1:
+            case R.id.nopref:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
                 break;
-            case R.id.img2:
-                intent = new Intent(GetMealPageActivity.this, MealByMoney.class);
+            case R.id.healthy:
+                intent = new Intent(GetMealPageActivity.this, MealDetails.class); //TODO nova pagina de
+                intent.putExtra("URLMode", 1);
                 break;
-            case R.id.img3:
-                intent = new Intent(GetMealPageActivity.this, MealByIngredients.class);
+            case R.id.threeing:
+                intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent.putExtra("URLMode", 2);
+                break;
+            case R.id.fasttodo:
+                intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent.putExtra("URLMode", 3);
                 break;
         }
         startActivity(intent);

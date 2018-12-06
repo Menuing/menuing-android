@@ -62,7 +62,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergies);
 
         ActionBar actionBar = getSupportActionBar();
@@ -92,7 +92,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
         ur.execute();
         while(!ur.loaded){}
-        allergiesListString = ur.getListOfIngredients();
+        allAllergiesList = ur.getListOfIngredients();
     }
 
     private void populateList(){
@@ -179,7 +179,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     public boolean onSupportNavigateUp() {
         vibrate();
 
-        final ProgressDialog dialog = new ProgressDialog(this);
+        /*final ProgressDialog dialog = new ProgressDialog(this);
         //dialog.setMessage(getString(R.string.login_logging));
         dialog.setMessage("SAVING...");
         dialog.setCancelable(false);
@@ -187,7 +187,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
         for(int i = 0; i < 1000; i++){
             dialog.setProgress((i/10) * 0);
-        }
+        }*/
 
 
         ArrayList<String> allergiesSelected = new ArrayList<>();
@@ -219,13 +219,16 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         protected Void doInBackground(Void... params) {
             try {
 
+                if(allergiesSelected.size() == 0)
+                    return null;
+
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
                 System.out.println(url);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
-                int userID;
+                int userID = -1;
                 if(conn.getResponseCode() == 200){
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
@@ -233,13 +236,17 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     JSONObject user = arr.getJSONObject(0);
                     userID = user.getInt("id");
                     System.out.println("USER: " + user);
+                    br.close();
                 }else{
                     System.out.println("COULD NOT FIND USER");
                     return null;
                 }
 
-
                 conn.disconnect();
+                if(userID == -1) {
+                    System.out.println("USER NOT EXISTS");
+                    return null;
+                }
                 //////////////////////////////////
 
                 //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
@@ -258,6 +265,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                             ingredientIds.add(arr.getJSONObject(i).getInt("id"));
                         }
                     }
+                    br.close();
                     System.out.println("INGREDIENTS: " + arr);
                 }else{
                     System.out.println("COULD NOT FIND INGREDIENTS");
@@ -287,6 +295,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     OutputStream os = conn.getOutputStream();
                     os.write(jsonString.getBytes());
                     os.flush();
+                    os.close();
                 }
                 System.out.println("CONNECTION CODE: " + conn.getResponseCode());
                 conn.disconnect();
@@ -330,6 +339,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                         ingredientList.add(ingredientName);
                     }
 
+                    br.close();
                     loaded = true;
                 }else{
                     System.out.println("COULD NOT FIND INGREDIENTS");
