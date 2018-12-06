@@ -77,8 +77,6 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         recipeName = (String) tv.getText();
 
         ur = new RecipeDetails.UrlConnectorUpdateRating();
-        //ur.setRecipeName(recipeName);
-        //ur.setRecipeName("Boudin Blanc Terrine with Red Onion Confit ");
         ur.execute();
 
         ratingBar = findViewById(R.id.recipeRatingBar);
@@ -94,7 +92,6 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         ratingBar.setOnRatingBarChangeListener(this);
     }
 
@@ -126,7 +123,6 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
             //ur.updateRating(ratingBar.getRating());
             ur.execute();
         }
-
         finish();
         return true;
     }
@@ -194,13 +190,11 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                 //GET RECIPE
                 Random r = new Random();
                 url = new URL("http://" + ipserver  + "/api/resources/recipes/id/" + r.nextInt(1000));
+
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
-                //conn.connect();
-
-                System.out.println("OLA K ASE");
 
                 if(conn.getResponseCode() == 200) {
                     InputStreamReader inp = new InputStreamReader(conn.getInputStream());
@@ -213,6 +207,7 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                         recipeRating = (float) obj.getDouble("averagePuntuation");
                         thisRecipe = obj;
                         System.out.println("THIS RECIPE IS: " + thisRecipe.getString("name"));
+
 
                     inp.close();
                     br.close();
