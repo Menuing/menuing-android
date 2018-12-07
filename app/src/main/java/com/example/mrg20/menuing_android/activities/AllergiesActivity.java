@@ -54,6 +54,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     private List<String> allAllergiesList;
     private List<String> allergiesListString;
 
+    private List<String> loadedAllergies; //LIST OF ALLERGIES LOADED WHEN YOU ENTER THE LAYOUT
+
     ArrayAdapter<String> arrayAdapter;
     private List<String> selectedCheckAllergy = new ArrayList<>();
 
@@ -92,6 +94,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
         ur.execute();
         while(!ur.loaded){}
+        loadedAllergies = ur.getLoadedAllergiesList();
+        for(int i = 0; i<loadedAllergies.size();i++) addElementToList(loadedAllergies.get(i));
         allAllergiesList = ur.getListOfIngredients();
     }
 
@@ -314,22 +318,36 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorGenIngredientList extends AsyncTask<Void,Void,Void> {
-        ArrayList<String> ingredientList = new ArrayList<>();;
+        ArrayList<String> ingredientList = new ArrayList<>();
+        ArrayList<String> userAllergies = new ArrayList<>();
         public boolean loaded = false;
 
         ArrayList<String> getListOfIngredients() {
             return ingredientList;
         }
-
+        ArrayList<String> getLoadedAllergiesList() { return userAllergies; }
         @Override
         protected Void doInBackground(Void... params) {
             try {
-
-                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
-                URL url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
+            //GET ALL THE INGREDIENTS EXCLUDING THE ALLERGIES
+                URL url = new URL("http://" + ipserver  + "/api/resources/ingredients/excludingIngredientList");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
+                conn.setRequestMethod("POST");
                 conn.setRequestProperty("Accept", "application/json");
+                conn.setRequestProperty("Content-Type", "application/json");
+
+                String jsonString = new JSONObject()
+                        .put("username", settings.getString("UserMail","") )
+                        .put("taste", false)
+                        .toString();
+
+                System.out.println(jsonString);
+
+                OutputStream os = conn.getOutputStream();
+                os.write(jsonString.getBytes());
+                os.flush();
+                os.close();
+
                 if(conn.getResponseCode() == 200){
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
@@ -338,9 +356,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                         String ingredientName = arr.getJSONObject(i).getString("name");
                         ingredientList.add(ingredientName);
                     }
-
                     br.close();
-                    loaded = true;
                 }else{
                     System.out.println("COULD NOT FIND INGREDIENTS");
                     return null;
@@ -348,9 +364,53 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 conn.disconnect();
 
             } catch (Exception e) {
-                System.out.println("User could not have been introduced to the database " + e);
+                System.out.println("Ingredients not found " + e);
             }
 
+
+            try {
+            //GET USER ALLERGIES
+                URL url = new URL("http://" + ipserver  + "/api/resources/ingredients/userTasteAllergyIngredients");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Accept", "application/json");
+                conn.setRequestProperty("Content-Type", "application/json");
+
+                String jsonString = new JSONObject()
+                        .put("username", settings.getString("UserMail","") )
+                        .put("taste", false)
+                        .toString();
+
+                System.out.println(jsonString);
+
+                OutputStream os = conn.getOutputStream();
+                os.write(jsonString.getBytes());
+                os.flush();
+                os.close();
+
+                if(conn.getResponseCode() == 200){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    JSONArray arr = new JSONArray(output);
+                    for(int i = 0; i<arr.length(); i++){
+                        String ingredientName = arr.getJSONObject(i).getString("name");
+                        userAllergies.add(ingredientName);
+                    }
+                    br.close();
+                }else{
+                    System.out.println("COULD NOT FIND INGREDIENTS");
+                    return null;
+                }
+                conn.disconnect();
+
+            } catch (Exception e) {
+                System.out.println("Ingredients not found " + e);
+            }
+
+
+
+
+            loaded = true;
             return null;
         }
 
