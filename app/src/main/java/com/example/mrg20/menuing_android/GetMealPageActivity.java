@@ -45,12 +45,15 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
                 break;
             case R.id.healthy:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class); //TODO nova pagina de
+                intent.putExtra("URLMode", 1);
                 break;
             case R.id.threeing:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent.putExtra("URLMode", 2);
                 break;
             case R.id.fasttodo:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent.putExtra("URLMode", 3);
                 break;
         }
         startActivity(intent);

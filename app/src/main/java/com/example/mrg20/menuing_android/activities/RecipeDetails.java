@@ -48,11 +48,21 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
     boolean ratingChanged = false;
 
     RatingBar ratingBar;
+    JSONObject recipe;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
+
+        if (getIntent().getExtras() != null) {
+            try {
+                String s = getIntent().getStringExtra("recipe");
+                recipe = new JSONObject(s);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -62,24 +72,27 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         shoppingListIcon.setOnClickListener(this);
 
         TextView tv = findViewById(R.id.dish_detail_name);
-        TextView ingredients = findViewById(R.id.textView7);
+
+        TextView ingredients = findViewById(R.id.ingredient1_detail);
+
         TextView instructions = findViewById(R.id.steps_recipe_detail);
         recipeName = (String) tv.getText();
 
         ur = new RecipeDetails.UrlConnectorUpdateRating();
-        //ur.setRecipeName(recipeName);
-        //ur.setRecipeName("Boudin Blanc Terrine with Red Onion Confit ");
+
         ur.execute();
 
         ratingBar = findViewById(R.id.recipeRatingBar);
         while(!ur.loaded){}
-        ratingBar.setRating(ur.getRating());
-        JSONObject recipe = ur.getRecipe();
 
         try {
-            tv.setText(recipe.getString("name"));
-            ingredients.setText(recipe.getString("proportions"));
-            instructions.setText(recipe.getString("instructions"));
+            if(recipe != null) {
+                tv.setText(recipe.getString("name"));
+                ingredients.setText(recipe.getString("proportions"));
+                instructions.setText(recipe.getString("instructions"));
+                ratingBar.setRating((float) recipe.getDouble("puntuation"));
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -93,6 +106,7 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         switch(view.getId()){
             case R.id.recipe_shopping_list_icon:
                 intent = new Intent(RecipeDetails.this, ShoppingListActivity.class);
+                intent.putExtra("Recipe", recipe.toString());
                 break;
         }
         startActivity(intent);
@@ -102,7 +116,6 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
         vibrate();
         ratingChanged = true;
-        ur.updateRating(v);
     }
 
     @Override
@@ -110,8 +123,9 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         vibrate();
         if(ratingChanged){
             ur = new RecipeDetails.UrlConnectorUpdateRating();
-            ur.setRecipeName("Boudin Blanc Terrine with Red Onion Confit ");
-            ur.updateRating(ratingBar.getRating());
+
+            ur.updateRecipe(recipe);
+            //ur.updateRating(ratingBar.getRating());
             ur.execute();
         }
 
@@ -126,22 +140,22 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
 
         public String recipeName = "";
 
-        public void setRecipeName(String recipeName) {
-            this.recipeName = recipeName;
-        }
-        public JSONObject getRecipe(){ return thisRecipe;}
-
         private JSONObject thisRecipe;
+        private JSONObject user;
+
         private JSONObject user;
 
         HttpURLConnection conn;
 
         float recipeRating;
-        float getRating(){
-            return recipeRating;
-        }
-        void updateRating(float r){
-            recipeRating = r;
+
+        void updateRecipe(JSONObject j){
+            thisRecipe = j;
+            try {
+                recipeRating = (float) thisRecipe.getDouble("averagePuntuation");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
@@ -163,9 +177,13 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                     System.out.println("REDLINE");
                     JSONArray arr = new JSONArray(output);
                     System.out.println("ARRRRRRRRRR + OUTPUT: " + output);
-                    user = arr.getJSONObject(0);
-                    System.out.println("JSON_OBJECT");
-                    userID = user.getInt("id");
+                  
+                    if(arr.length() > 0) {
+                        user = arr.getJSONObject(0);
+                        System.out.println("JSON_OBJECT");
+                        userID = user.getInt("id");
+                    }
+
                     System.out.println("USER: " + user);
                     br.close();
                 } else {
@@ -182,13 +200,12 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                 //GET RECIPE
                 Random r = new Random();
                 url = new URL("http://" + ipserver  + "/api/resources/recipes/id/" + r.nextInt(1000));
+
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
-                //conn.connect();
 
-                System.out.println("OLA K ASE");
 
                 if(conn.getResponseCode() == 200) {
                     InputStreamReader inp = new InputStreamReader(conn.getInputStream());
@@ -201,6 +218,7 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                         recipeRating = (float) obj.getDouble("averagePuntuation");
                         thisRecipe = obj;
                         System.out.println("THIS RECIPE IS: " + thisRecipe.getString("name"));
+
 
                     inp.close();
                     br.close();

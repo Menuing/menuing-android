@@ -27,13 +27,10 @@
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="37dp"
-        android:layout_marginEnd="94dp"
-        android:layout_marginRight="94dp"
         android:layout_marginBottom="10dp"
         android:text="@string/my_meal_title"
         android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toStartOf="@+id/meal_shopping_list_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,17 +56,18 @@
 
     <Button
         android:id="@+id/first_recipe"
+        style="@style/button_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="47dp"
         android:layout_marginRight="47dp"
         android:layout_marginBottom="8dp"
         android:text="@string/get_recipe"
-        style="@style/button_style"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/meal_shopping_list_icon" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -122,20 +120,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/first_recipe2"
         app:layout_constraintTop_toBottomOf="@+id/first_recipe2" />
-
-    <ImageView
-        android:id="@+id/meal_shopping_list_icon"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginRight="47dp"
-        android:layout_marginBottom="54dp"
-        app:layout_constraintBottom_toTopOf="@+id/first_recipe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/carrito_simbolo" />
 
 
 

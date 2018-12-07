@@ -47,7 +47,8 @@ public class GlobalActivity extends AppCompatActivity {
     public List<Recipe> recipeList;
 
     //Recordar de posar el port
-    protected String ipserver = "def04109.ngrok.io";
+    protected String ipserver = "7de1fc7e.ngrok.io";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
