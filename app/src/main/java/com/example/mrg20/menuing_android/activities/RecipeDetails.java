@@ -72,11 +72,14 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         shoppingListIcon.setOnClickListener(this);
 
         TextView tv = findViewById(R.id.dish_detail_name);
+
         TextView ingredients = findViewById(R.id.ingredient1_detail);
+
         TextView instructions = findViewById(R.id.steps_recipe_detail);
         recipeName = (String) tv.getText();
 
         ur = new RecipeDetails.UrlConnectorUpdateRating();
+
         ur.execute();
 
         ratingBar = findViewById(R.id.recipeRatingBar);
@@ -89,6 +92,7 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                 instructions.setText(recipe.getString("instructions"));
                 ratingBar.setRating((float) recipe.getDouble("puntuation"));
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -119,10 +123,12 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         vibrate();
         if(ratingChanged){
             ur = new RecipeDetails.UrlConnectorUpdateRating();
+
             ur.updateRecipe(recipe);
             //ur.updateRating(ratingBar.getRating());
             ur.execute();
         }
+
         finish();
         return true;
     }
@@ -133,7 +139,9 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         public boolean loaded = false;
 
         public String recipeName = "";
+
         private JSONObject thisRecipe;
+        private JSONObject user;
 
         private JSONObject user;
 
@@ -169,11 +177,13 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                     System.out.println("REDLINE");
                     JSONArray arr = new JSONArray(output);
                     System.out.println("ARRRRRRRRRR + OUTPUT: " + output);
+                  
                     if(arr.length() > 0) {
                         user = arr.getJSONObject(0);
                         System.out.println("JSON_OBJECT");
                         userID = user.getInt("id");
                     }
+
                     System.out.println("USER: " + user);
                     br.close();
                 } else {
@@ -195,6 +205,7 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
+
 
                 if(conn.getResponseCode() == 200) {
                     InputStreamReader inp = new InputStreamReader(conn.getInputStream());
