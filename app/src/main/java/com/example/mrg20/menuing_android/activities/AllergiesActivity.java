@@ -57,7 +57,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     private List<String> loadedAllergies; //LIST OF ALLERGIES LOADED WHEN YOU ENTER THE LAYOUT
 
     ArrayAdapter<String> arrayAdapter;
-    private List<String> selectedCheckAllergy = new ArrayList<>();
+    private ArrayList<String> selectedCheckAllergy;
 
 
     private EditText filterEditText;
@@ -66,6 +66,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allergies);
+        System.out.println("CREATING");
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -76,6 +77,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         filterEditText = findViewById(R.id.allergiesFilterEditText);
         filterEditText.addTextChangedListener(this);
 
+        System.out.println("BEFoRE FILL");
         fillAllergiesList();
         allergiesList = (ListView) findViewById(R.id.allergiesScrollView);
         filterList("");
@@ -88,8 +90,9 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
      */
 
     private void fillAllergiesList() {
-        allAllergiesList = new ArrayList<String>();
-        allergiesListString = new ArrayList<String>();
+        allAllergiesList = new ArrayList<>();
+        allergiesListString = new ArrayList<>();
+        selectedCheckAllergy = new ArrayList<>();
 
         AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
         ur.execute();
@@ -121,6 +124,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         ckbx.setOnCheckedChangeListener(this);
         checkBoxLayout.addView(ckbx);
         selectedCheckAllergy.add(element);
+        System.out.println("Loaded " + loadedAllergies);
     }
 
     private void filterList(String text){
@@ -174,6 +178,10 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
             });
 
             checkBoxLayout.removeView(buttonView);
+
+            if(selectedCheckAllergy.contains(buttonView.getText().toString()))
+                selectedCheckAllergy.remove(buttonView.getText().toString());
+
             populateList();
         }
     }
@@ -193,16 +201,20 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
             dialog.setProgress((i/10) * 0);
         }*/
 
-
+        /*
         ArrayList<String> allergiesSelected = new ArrayList<>();
         for(int i = 0; i<selectedCheckAllergy.size(); i++){
             CheckBox cb = checkBoxLayout.findViewWithTag(selectedCheckAllergy.get(i));
-            if(cb != null && cb.isChecked())
+            if(cb != null && cb.isChecked()) {
+                System.out.println(selectedCheckAllergy.get(i));
                 allergiesSelected.add(selectedCheckAllergy.get(i));
+            }
 
         }
+        */
+
         UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
-        ur.setAllergies(new ArrayList<>(selectedCheckAllergy));
+        ur.setAllergies(selectedCheckAllergy);
         ur.execute();
 
         finish();
@@ -211,7 +223,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
 
     // Async + thread, class to make the connection to the server
-    private class UrlConnectorUpdateAllergies extends AsyncTask<Void,Void,Void> {
+    private class UrlConnectorUpdateAllergies extends AsyncTask<Integer,Integer,Integer> {
 
         ArrayList<String> allergiesSelected;
 
@@ -220,116 +232,65 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Integer doInBackground(Integer... params) {
+
+            System.out.println("USER " + settings.getString("UserMail",""));
+            System.out.println("INGREDIENTS SELECCIONATS " + allergiesSelected);
             try {
-
-                if(allergiesSelected.size() == 0)
-                    return null;
-
-                //GET ACTUAL USER ID
-                URL url = new URL("http://" + ipserver  + "/api/resources/users/?username=" + settings.getString("UserMail",""));
+                URL url = new URL("http://" + ipserver + "/api/resources/tastesAllergies/overrideIngredients");
                 System.out.println(url);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Accept", "application/json");
-                int userID = -1;
-                if(conn.getResponseCode() == 200){
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String output = br.readLine();
-                    JSONArray arr = new JSONArray(output);
-                    JSONObject user = arr.getJSONObject(0);
-                    userID = user.getInt("id");
-                    System.out.println("USER: " + user);
-                    br.close();
-                }else{
-                    System.out.println("COULD NOT FIND USER");
-                    return null;
-                }
-
-                conn.disconnect();
-                if(userID == -1) {
-                    System.out.println("USER NOT EXISTS");
-                    return null;
-                }
-                //////////////////////////////////
-
-                //GET INGREDIENT LIST AND COMPARE WITH THE ALLERGIES SELECTED
-                ArrayList<Integer> ingredientIds = new ArrayList<>();
-                url = new URL("http://" + ipserver  + "/api/resources/ingredients/all");
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Accept", "application/json");
-                if(conn.getResponseCode() == 200){
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String output = br.readLine();
-                    JSONArray arr = new JSONArray(output);
-                    for(int i = 0; i<arr.length(); i++){
-                        String ingredientName = arr.getJSONObject(i).getString("name");
-                        if(allergiesSelected.contains(ingredientName)) {
-                            ingredientIds.add(arr.getJSONObject(i).getInt("id"));
-                        }
-                    }
-                    br.close();
-                    System.out.println("INGREDIENTS: " + arr);
-                }else{
-                    System.out.println("COULD NOT FIND INGREDIENTS");
-                    return null;
-                }
-                conn.disconnect();
-
-                //UPDATE ALLERGIES IN DATABASE
-                url = new URL("http://" + ipserver  + "/api/resources/tastesAllergies");
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
+                conn.setRequestMethod("PUT");
                 conn.setRequestProperty("Content-Type", "application/json");
                 conn.setDoOutput(true);
 
-                for(int i=0; i<ingredientIds.size(); i++) {
-                    JSONObject subjson = new JSONObject()
-                            .put("userId", userID)
-                            .put("ingredientId", ingredientIds.get(i));
+                String jsonString = new JSONObject()
+                        .put("username", settings.getString("UserMail",""))
+                        .put("ingredients", allergiesSelected)
+                        .put("taste", false)
+                        .toString();
 
-                    String jsonString = new JSONObject()
-                            .put("key", subjson)
-                            .put("taste", false)
-                            .put("allergy", true)
-                            .toString();
-
-                    System.out.println(jsonString);
-                    OutputStream os = conn.getOutputStream();
-                    os.write(jsonString.getBytes());
-                    os.flush();
-                    os.close();
-                }
-                System.out.println("CONNECTION CODE: " + conn.getResponseCode());
+                System.out.println(jsonString);
+                OutputStream os = conn.getOutputStream();
+                os.write(jsonString.getBytes());
+                os.flush();
+                os.close();
+                System.out.println("HTTP CODE " + conn.getResponseCode());
                 conn.disconnect();
-            } catch (Exception e) {
-                System.out.println("Allergies could not be saved " + e);
+
+            }catch (Exception E){
+                System.out.println("Could not save allergies");
             }
+
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
         }
     }
 
 
     // Async + thread, class to make the connection to the server
-    private class UrlConnectorGenIngredientList extends AsyncTask<Void,Void,Void> {
-        ArrayList<String> ingredientList = new ArrayList<>();
-        ArrayList<String> userAllergies = new ArrayList<>();
-        public boolean loaded = false;
+    private class UrlConnectorGenIngredientList extends AsyncTask<Integer,Integer,Integer> {
+        ArrayList<String> ingredientList;
+        ArrayList<String> userAllergies;
+        public boolean loaded;
 
         ArrayList<String> getListOfIngredients() {
             return ingredientList;
         }
         ArrayList<String> getLoadedAllergiesList() { return userAllergies; }
+        public UrlConnectorGenIngredientList(){
+            loaded = false;
+            userAllergies = new ArrayList<>();
+            ingredientList = new ArrayList<>();
+        }
+
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Integer doInBackground(Integer... params) {
             try {
-            //GET ALL THE INGREDIENTS EXCLUDING THE ALLERGIES
                 URL url = new URL("http://" + ipserver  + "/api/resources/ingredients/excludingIngredientList");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
@@ -375,7 +336,6 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Accept", "application/json");
                 conn.setRequestProperty("Content-Type", "application/json");
-
                 String jsonString = new JSONObject()
                         .put("username", settings.getString("UserMail","") )
                         .put("taste", false)
@@ -406,16 +366,15 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
             } catch (Exception e) {
                 System.out.println("Ingredients not found " + e);
             }
-
-
-
-
             loaded = true;
+
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(Integer result) {
+            loaded = true;
+            System.out.println("INGREDIENTS CARGATS");
             super.onPostExecute(result);
         }
     }
