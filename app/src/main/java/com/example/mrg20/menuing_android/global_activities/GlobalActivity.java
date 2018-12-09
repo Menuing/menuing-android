@@ -1,7 +1,6 @@
 package com.example.mrg20.menuing_android.global_activities;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,13 +8,10 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.ArraySet;
 import android.widget.Toast;
 
-import com.example.mrg20.menuing_android.LoginActivity;
 import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
-import com.example.mrg20.menuing_android.other_classes.Recipe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,12 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 public class GlobalActivity extends AppCompatActivity {
     private static FirebaseAuth mAuth;
@@ -44,8 +37,6 @@ public class GlobalActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "MyPrefsFile";
     public SharedPreferences settings;
 
-    public List<Recipe> recipeList;
-
     //Recordar de posar el port
     protected String ipserver = "7de1fc7e.ngrok.io";
 
@@ -54,8 +45,6 @@ public class GlobalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         settings = getSharedPreferences(PREFS_NAME, 0);
-
-        recipeList = new ArrayList<>();
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
