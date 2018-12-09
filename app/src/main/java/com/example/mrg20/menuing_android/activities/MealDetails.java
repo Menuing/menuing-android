@@ -183,6 +183,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         url = new URL("http://" + ipserver  + "/api/resources/recipes/2fast4uRecipe");
                         break;
                     default:
+                        //url = new URL("http://" + ipserver  + "/api/resources/recipes/getRandom");
                         url = new URL("http://" + ipserver  + "/api/resources/recipes/id/" + r.nextInt(100));
                         break;
                 }

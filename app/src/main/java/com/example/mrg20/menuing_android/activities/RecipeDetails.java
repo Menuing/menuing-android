@@ -173,6 +173,7 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
 
                 //GET RECIPE
                 Random r = new Random();
+                //url = new URL("http://" + ipserver  + "/api/resources/recipes/getRandom");
                 url = new URL("http://" + ipserver  + "/api/resources/recipes/id/" + r.nextInt(100));
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
