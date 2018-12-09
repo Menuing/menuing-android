@@ -68,9 +68,6 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        shoppingListIcon = findViewById(R.id.recipe_shopping_list_icon);
-        shoppingListIcon.setOnClickListener(this);
-
         TextView tv = findViewById(R.id.dish_detail_name);
 
         TextView ingredients = findViewById(R.id.ingredient1_detail);
@@ -104,10 +101,11 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         vibrate();
         Intent intent = null;
         switch(view.getId()){
-            case R.id.recipe_shopping_list_icon:
+            /*case R.id.recipe_shopping_list_icon:
                 intent = new Intent(RecipeDetails.this, ShoppingListActivity.class);
                 intent.putExtra("Recipe", recipe.toString());
                 break;
+                */
         }
         startActivity(intent);
     }
@@ -141,9 +139,7 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         public String recipeName = "";
 
         private JSONObject thisRecipe;
-        private JSONObject user;
 
-        private JSONObject user;
 
         HttpURLConnection conn;
 
@@ -162,7 +158,7 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
         protected Void doInBackground(Void... params) {
 
             try {
-
+                /*
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver + "/api/resources/users/?username=" + settings.getString("UserMail", ""));
                 System.out.println(url);
@@ -259,6 +255,30 @@ public class RecipeDetails extends GlobalActivity implements View.OnClickListene
                 }catch (Exception e){
                     System.out.println("*dab* soc retrassat i no me donen paga");
                     System.out.println(e.toString());
+                }
+                */
+
+                URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                System.out.println(url);
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
+                int userID = -1;
+                System.out.println("BUSCANT RECEPTA");
+                if (conn.getResponseCode() == 200) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String output = br.readLine();
+                    System.out.println("REDLINE");
+                    JSONObject arr = new JSONObject(output);
+                    System.out.println(" OUTPUT: " + output);
+                    thisRecipe = arr;
+                    recipeName = arr.getString("name");
+                    System.out.println("JSON_OBJECT");
+
+                    br.close();
+                } else {
+                    System.out.println("COULD NOT FIND USER");
+                    return null;
                 }
 
             } catch (Exception e) {

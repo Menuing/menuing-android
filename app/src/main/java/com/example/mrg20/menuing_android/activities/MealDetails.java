@@ -57,8 +57,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         recipe = (Button) findViewById(R.id.first_recipe2);
         recipe.setOnClickListener(this);
 
-        shoppingListIcon = findViewById(R.id.meal_shopping_list_icon);
-        shoppingListIcon.setOnClickListener(this);
+        //shoppingListIcon = findViewById(R.id.meal_shopping_list_icon);
+        //shoppingListIcon.setOnClickListener(this);
 
         ur = new UrlConnectorGetRecipes();
         ur.execute();
@@ -87,12 +87,13 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 intent.putExtra("recipe", recipe2.toString());
                 startActivity(intent);
                 break;
-            case R.id.meal_shopping_list_icon:
+            /*case R.id.meal_shopping_list_icon:
                 intent = new Intent(MealDetails.this, ShoppingListActivity.class);
                 intent.putExtra("recipe1", recipe1.toString());
                 intent.putExtra("recipe2", recipe2.toString());
                 startActivity(intent);
                 break;
+                */
         }
     }
 
@@ -125,9 +126,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
         public JSONObject getRecipe(){ return thisRecipe;}
 
-
-        private JSONObject user;
-
         HttpURLConnection conn;
 
         @Override
@@ -136,25 +134,22 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             try {
 
                 //GET ACTUAL USER ID
-                URL url = new URL("http://" + ipserver + "/api/resources/users/?username=" + settings.getString("UserMail", ""));
+                URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
                 int userID = -1;
-                System.out.println("BUSCANT USUARI");
+                System.out.println("BUSCANT RECEPTA");
                 if (conn.getResponseCode() == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
                     System.out.println("REDLINE");
-                    JSONArray arr = new JSONArray(output);
-                    System.out.println("ARRRRRRRRRR + OUTPUT: " + output);
-                    if(arr.length() > 0) {
-                        user = arr.getJSONObject(0);
-                        System.out.println("JSON_OBJECT");
-                        userID = user.getInt("id");
-                    }
-                    System.out.println("USER: " + user);
+                    JSONObject arr = new JSONObject(output);
+                    System.out.println(" OUTPUT: " + output);
+                    thisRecipe = arr;
+                    System.out.println("JSON_OBJECT");
+
                     br.close();
                 } else {
                     System.out.println("COULD NOT FIND USER");
@@ -162,11 +157,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 }
 
                 conn.disconnect();
-                if (userID == -1) {
-                    System.out.println("USER NOT EXISTS");
-                    return null;
-                }
 
+                /*
                 //GET RECIPE
                 Random r = new Random();
                 switch(URLMode){
@@ -206,6 +198,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     System.out.println("COULD NOT FIND RECIPES");
                     return null;
                 }
+
+                */
             } catch (Exception e) {
                 System.out.println("ERROR AL LLEGIR LES RECEPTES TIO :( " + e);
             } finally{
@@ -213,6 +207,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             }
             loaded = true;
             return null;
+
+
         }
 
         @Override
