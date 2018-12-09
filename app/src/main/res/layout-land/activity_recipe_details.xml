@@ -29,7 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="@dimen/margin">
+            android:layout_marginRight="@dimen/margin"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin">
 
             <ImageView
                 android:id="@+id/dish_image"
@@ -61,22 +63,6 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/ingredient2_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tomato"
-                android:textSize="15sp"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-
-            <TextView
-                android:id="@+id/ingredient3_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Salt"
-                android:textSize="15sp" />
-
-            <TextView
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,7 +74,7 @@
                 android:id="@+id/steps_recipe_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Use your imagination"
+                android:text=""
                 android:textSize="15sp" />
 
         </LinearLayout>

@@ -1,20 +1,15 @@
 package com.example.mrg20.menuing_android.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
-import com.example.mrg20.menuing_android.other_classes.Recipe;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,10 +17,8 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Objects;
 import java.util.Random;
 
 public class MealDetails extends GlobalActivity implements View.OnClickListener {
@@ -37,7 +30,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
     MealDetails.UrlConnectorGetRecipes ur;
 
-    ImageView shoppingListIcon;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +48,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         recipe.setOnClickListener(this);
         recipe = (Button) findViewById(R.id.first_recipe2);
         recipe.setOnClickListener(this);
-
-        //shoppingListIcon = findViewById(R.id.meal_shopping_list_icon);
-        //shoppingListIcon.setOnClickListener(this);
 
         ur = new UrlConnectorGetRecipes();
         ur.execute();
@@ -87,13 +76,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 intent.putExtra("recipe", recipe2.toString());
                 startActivity(intent);
                 break;
-            /*case R.id.meal_shopping_list_icon:
-                intent = new Intent(MealDetails.this, ShoppingListActivity.class);
-                intent.putExtra("recipe1", recipe1.toString());
-                intent.putExtra("recipe2", recipe2.toString());
-                startActivity(intent);
-                break;
-                */
         }
     }
 
@@ -105,10 +87,28 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 //Aqui nirien les fotos
         try {
             recipe1NameTV.setText(recipe1.getString("name"));
+            if(recipe1NameTV.getText().length() >= 30){
+                if(recipe1NameTV.getText().length() >= 60)
+                    recipe1NameTV.setTextSize(12);
+                else
+                    recipe1NameTV.setTextSize(15);
+            }else{
+                recipe1NameTV.setTextSize(20);
+            }
+
             recipe2NameTV.setText(recipe2.getString("name"));
-            String s = recipe1.getDouble("averagePuntuation")+"/10";
+            if(recipe2NameTV.getText().length() >= 30){
+                if(recipe2NameTV.getText().length() >= 60)
+                    recipe2NameTV.setTextSize(12);
+                else
+                    recipe2NameTV.setTextSize(15);
+            }else{
+                recipe2NameTV.setTextSize(20);
+            }
+
+            String s = "Rating: " + recipe1.getDouble("averagePuntuation")+"/5.0";
             recipe1Rating.setText(s);
-            s = recipe2.getDouble("averagePuntuation")+"/10";
+            s = "Rating: " + recipe2.getDouble("averagePuntuation")+"/5.0";
             recipe2Rating.setText(s);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -126,6 +126,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
         public JSONObject getRecipe(){ return thisRecipe;}
 
+
+        private JSONObject user;
+
         HttpURLConnection conn;
 
         @Override
@@ -134,22 +137,25 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             try {
 
                 //GET ACTUAL USER ID
-                URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                URL url = new URL("http://" + ipserver + "/api/resources/users/?username=" + settings.getString("UserMail", ""));
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
                 int userID = -1;
-                System.out.println("BUSCANT RECEPTA");
+                System.out.println("BUSCANT USUARI");
                 if (conn.getResponseCode() == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
                     System.out.println("REDLINE");
-                    JSONObject arr = new JSONObject(output);
-                    System.out.println(" OUTPUT: " + output);
-                    thisRecipe = arr;
-                    System.out.println("JSON_OBJECT");
-
+                    JSONArray arr = new JSONArray(output);
+                    System.out.println("ARRRRRRRRRR + OUTPUT: " + output);
+                    if(arr.length() > 0) {
+                        user = arr.getJSONObject(0);
+                        System.out.println("JSON_OBJECT");
+                        userID = user.getInt("id");
+                    }
+                    System.out.println("USER: " + user);
                     br.close();
                 } else {
                     System.out.println("COULD NOT FIND USER");
@@ -157,8 +163,11 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 }
 
                 conn.disconnect();
+                if (userID == -1) {
+                    System.out.println("USER NOT EXISTS");
+                    return null;
+                }
 
-                /*
                 //GET RECIPE
                 Random r = new Random();
                 switch(URLMode){
@@ -172,7 +181,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         url = new URL("http://" + ipserver  + "/api/resources/recipes/2fast4uRecipe");
                         break;
                     default:
-                        url = new URL("http://" + ipserver  + "/api/resources/recipes/id/" + r.nextInt(1000));
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
                         break;
                 }
                 System.out.println(url);
@@ -198,8 +207,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     System.out.println("COULD NOT FIND RECIPES");
                     return null;
                 }
-
-                */
             } catch (Exception e) {
                 System.out.println("ERROR AL LLEGIR LES RECEPTES TIO :( " + e);
             } finally{
@@ -207,8 +214,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             }
             loaded = true;
             return null;
-
-
         }
 
         @Override
