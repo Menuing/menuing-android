@@ -138,7 +138,7 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
         protected Void doInBackground(Void... params) {
 
             try {
-
+                /*
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver + "/api/resources/users/?username=" + settings.getString("UserMail", ""));
                 System.out.println(url);
@@ -234,6 +234,29 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
                 }catch (Exception e){
                     System.out.println("*dab* soc retrassat i no me donen paga");
                     System.out.println(e.toString());
+                }
+                
+                */	
+                 URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));	
+                System.out.println(url);	
+                conn = (HttpURLConnection) url.openConnection();	
+                conn.setRequestMethod("GET");	
+                conn.setRequestProperty("Accept", "application/json");	
+                int userID = -1;	
+                System.out.println("BUSCANT RECEPTA");	
+                if (conn.getResponseCode() == 200) {	
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));	
+                    String output = br.readLine();	
+                    System.out.println("REDLINE");	
+                    JSONObject arr = new JSONObject(output);	
+                    System.out.println(" OUTPUT: " + output);	
+                    thisRecipe = arr;	
+                    recipeName = arr.getString("name");	
+                    System.out.println("JSON_OBJECT");	
+                     br.close();	
+                } else {	
+                    System.out.println("COULD NOT FIND USER");	
+                    return null;	
                 }
 
             } catch (Exception e) {
