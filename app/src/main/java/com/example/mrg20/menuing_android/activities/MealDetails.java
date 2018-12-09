@@ -58,8 +58,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         while(!ur.loaded){}
         recipe2 = ur.getRecipe();
 
-        recipe1 = new JSONObject();
-
         fillFields();
     }
 
