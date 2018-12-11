@@ -59,6 +59,9 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> selectedCheckAllergy;
 
+    UrlConnectorGenIngredientList uAR;
+    UrlConnectorUpdateAllergies uAUR;
+
 
     private EditText filterEditText;
 
@@ -77,6 +80,9 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         filterEditText = findViewById(R.id.allergiesFilterEditText);
         filterEditText.addTextChangedListener(this);
 
+        uAR = new UrlConnectorGenIngredientList();
+        uAUR = new UrlConnectorUpdateAllergies();
+
         System.out.println("BEFoRE FILL");
         fillAllergiesList();
         allergiesList = (ListView) findViewById(R.id.allergiesScrollView);
@@ -84,6 +90,12 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesList.setOnItemClickListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        uAR.cancel(false);
+        uAUR.cancel(true);
+    }
 
     /***
      * Method to create the list of ingredients from database using a GET method
@@ -94,12 +106,11 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesListString = new ArrayList<>();
         selectedCheckAllergy = new ArrayList<>();
 
-        AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
-        ur.execute();
-        while(!ur.loaded){}
-        loadedAllergies = ur.getLoadedAllergiesList();
+        uAR.execute();
+        while(!uAR.loaded){}
+        loadedAllergies = uAR.getLoadedAllergiesList();
         for(int i = 0; i<loadedAllergies.size();i++) addElementToList(loadedAllergies.get(i));
-        allAllergiesList = ur.getListOfIngredients();
+        allAllergiesList = uAR.getListOfIngredients();
     }
 
     private void populateList(){
@@ -191,31 +202,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     public boolean onSupportNavigateUp() {
         vibrate();
 
-        /*final ProgressDialog dialog = new ProgressDialog(this);
-        //dialog.setMessage(getString(R.string.login_logging));
-        dialog.setMessage("SAVING...");
-        dialog.setCancelable(false);
-        dialog.show();
-
-        for(int i = 0; i < 1000; i++){
-            dialog.setProgress((i/10) * 0);
-        }*/
-
-        /*
-        ArrayList<String> allergiesSelected = new ArrayList<>();
-        for(int i = 0; i<selectedCheckAllergy.size(); i++){
-            CheckBox cb = checkBoxLayout.findViewWithTag(selectedCheckAllergy.get(i));
-            if(cb != null && cb.isChecked()) {
-                System.out.println(selectedCheckAllergy.get(i));
-                allergiesSelected.add(selectedCheckAllergy.get(i));
-            }
-
-        }
-        */
-
-        UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
-        ur.setAllergies(selectedCheckAllergy);
-        ur.execute();
+        uAUR.setAllergies(selectedCheckAllergy);
+        uAUR.execute();
 
         finish();
         return true;

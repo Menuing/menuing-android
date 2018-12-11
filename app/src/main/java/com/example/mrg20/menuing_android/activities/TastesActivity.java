@@ -59,6 +59,8 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     ArrayAdapter<String> arrayAdapter;
     private List<String> selectedCheckAllergy = new ArrayList<>();
 
+    UrlConnectorGenIngredientList tUR;
+    UrlConnectorUpdateTastes uUR;
 
     private EditText filterEditText;
 
@@ -76,12 +78,21 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         filterEditText = findViewById(R.id.tastesFilterEditText);
         filterEditText.addTextChangedListener(this);
 
+        tUR = new UrlConnectorGenIngredientList();
+        uUR = new UrlConnectorUpdateTastes();
+
         fillTastesList();
         tastesList = (ListView) findViewById(R.id.tastesScrollView);
         filterList("");
         tastesList.setOnItemClickListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        tUR.cancel(false);
+        uUR.cancel(true);
+    }
 
     /***
      * Method to create the list of ingredients from database using a GET method
@@ -91,13 +102,12 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         allTastesList = new ArrayList<String>();
         tastesListString = new ArrayList<String>();
 
-        TastesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
-        ur.execute();
-        while (!ur.loaded) {}
+        tUR.execute();
+        while (!tUR.loaded) {}
 
-        loadedTastes = ur.getLoadedTastesList();
+        loadedTastes = tUR.getLoadedTastesList();
         for(int i = 0; i<loadedTastes.size();i++) addElementToList(loadedTastes.get(i));
-        allTastesList = ur.getListOfIngredients();
+        allTastesList = tUR.getListOfIngredients();
     }
 
     private void populateList() {
@@ -185,17 +195,6 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     public boolean onSupportNavigateUp() {
         vibrate();
 
-        /*final ProgressDialog dialog = new ProgressDialog(this);
-        //dialog.setMessage(getString(R.string.login_logging));
-        dialog.setMessage("SAVING...");
-        dialog.setCancelable(false);
-        dialog.show();
-
-        for(int i = 0; i < 1000; i++){
-            dialog.setProgress((i/10) * 0);
-        }*/
-
-
         ArrayList<String> tastesSelected = new ArrayList<>();
         for (int i = 0; i < selectedCheckAllergy.size(); i++) {
             CheckBox cb = checkBoxLayout.findViewWithTag(selectedCheckAllergy.get(i));
@@ -203,9 +202,9 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 tastesSelected.add(selectedCheckAllergy.get(i));
 
         }
-        UrlConnectorUpdateTastes ur = new UrlConnectorUpdateTastes();
-        ur.setTastes(new ArrayList<>(selectedCheckAllergy));
-        ur.execute();
+
+        uUR.setTastes(new ArrayList<>(selectedCheckAllergy));
+        uUR.execute();
 
         finish();
         return true;
