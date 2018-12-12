@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.activities.LoadingScreenActivity;
 import com.example.mrg20.menuing_android.activities.MealDetails;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
@@ -41,7 +42,7 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         Intent intent = null;
         switch(view.getId()) {
             case R.id.nopref:
-                intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent = new Intent(GetMealPageActivity.this, LoadingScreenActivity.class);
                 break;
             case R.id.healthy:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class); //TODO nova pagina de

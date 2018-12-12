@@ -38,7 +38,7 @@ public class GlobalActivity extends AppCompatActivity {
     public SharedPreferences settings;
 
     //Recordar de posar el port
-    protected String ipserver = "7de1fc7e.ngrok.io";
+    protected String ipserver = "08566c17.ngrok.io";
 
 
     @Override

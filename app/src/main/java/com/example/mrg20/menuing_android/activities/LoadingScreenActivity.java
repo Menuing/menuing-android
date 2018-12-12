@@ -1,19 +1,19 @@
 package com.example.mrg20.menuing_android.activities;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -22,16 +22,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
 
-public class MealDetails extends GlobalActivity implements View.OnClickListener {
+public class LoadingScreenActivity extends GlobalActivity{
 
     int URLMode = 0;
-
-    Integer HttpReturnCode;
+    UrlConnectorGetRecipes ur;
 
     JSONObject recipe1;
     JSONObject recipe2;
-
-    MealDetails.UrlConnectorGetRecipes ur;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,23 +38,74 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             URLMode = getIntent().getExtras().getInt("URLMode");
         }
 
-        setContentView(R.layout.activity_meal_details);
+        setContentView(R.layout.test_layout);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Button recipe = (Button) findViewById(R.id.first_recipe);
-        recipe.setOnClickListener(this);
-        recipe = (Button) findViewById(R.id.first_recipe2);
-        recipe.setOnClickListener(this);
+        ProgressBar p = (ProgressBar) findViewById(R.id.progressBar1);
+
+        Button b = (Button) findViewById(R.id.button1);
+        b.setVisibility(View.INVISIBLE);
+        p.setVisibility(View.VISIBLE);
+
+        //TODO DESCOMENTAR I MIRAR A GLOBALACTIVITY COM CRIDAR AIXO DESDE DINS DE LA ASYNC TASK (si es que es pot)
+        /*
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setMessage(getString(R.string.login_logging));
+        dialog.setProgress(0);
+        dialog.setCancelable(false);
+
+        Handler h = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                switch (msg.what){
+                    case 0:
+                        dialog.cancel();
+                        if ((Boolean) msg.obj) {
+                            loginAction();
+                        }else{
+                            Toast.makeText(getApplicationContext(), getString(R.string.err_login_fail), Toast.LENGTH_SHORT).show();
+                        }
+                }
+            }
+        };//Handler per esperar que acabi la Task el sistema, si no ho pot tallar abans de que acabi el login
+        */
+
+
+        //TODO: aixo es lo que va dins de la async task
+        /*
+
+        final Message msg = new Message();
+        final boolean[] obj = new boolean[1];
+
+        mAuth.signInWithEmailAndPassword(mail, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        obj[0] = true;
+                        if (!task.isSuccessful()) {
+                            obj[0] = false;
+                        }
+                        else{
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("UserMail", mail);
+                            editor.commit();
+                        }
+                        msg.what = 0;
+                        msg.obj = obj[0];
+                        h.sendMessage(msg);
+                    }
+                });
+
+         */
 
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
+    public void onStart() {
+        super.onStart();
         ur = new UrlConnectorGetRecipes();
         ur.execute();
         while(!ur.loaded){}
@@ -73,70 +121,20 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             ur = new UrlConnectorGetRecipes();
             ur.execute();
             while(!ur.loaded){}
-            recipe2 = ur.getRecipe();
-        }
-
-        fillFields();
-    }
-
-    @Override
-    public void onClick(View view) {
-        vibrate();
-        Intent intent = null;
-        switch(view.getId()) {
-            case R.id.first_recipe:
-                intent = new Intent(MealDetails.this, RecipeDetails.class);
-                intent.putExtra("recipe", recipe1.toString());
-                startActivity(intent);
-                break;
-            case R.id.first_recipe2:
-                intent = new Intent(MealDetails.this, RecipeDetails.class);
-                intent.putExtra("recipe", recipe2.toString());
-                startActivity(intent);
-                break;
-        }
-    }
-
-    private void fillFields(){
-        TextView recipe1NameTV = (TextView) findViewById(R.id.textView2);
-        TextView recipe1Rating = (TextView) findViewById(R.id.textView3);
-        TextView recipe2NameTV = (TextView) findViewById(R.id.textView5);
-        TextView recipe2Rating = (TextView) findViewById(R.id.textView4);
-                //Aqui nirien les fotos
-        try {
-            recipe1NameTV.setText(recipe1.getString("name"));
-            if(recipe1NameTV.getText().length() >= 30){
-                if(recipe1NameTV.getText().length() >= 60)
-                    recipe1NameTV.setTextSize(12);
-                else
-                    recipe1NameTV.setTextSize(15);
+            if(ur.getReturnCode()!=200){
+                final ProgressDialog dialog = new ProgressDialog(this);
+                dialog.setMessage("ERROR 404, SE SIENTE :D");
+                dialog.setProgress(0);
+                //dialog.setCancelable(false);
             }else{
-                recipe1NameTV.setTextSize(20);
+                recipe2 = ur.getRecipe();
+                Toast.makeText(this, "JAJAJAJAJJAJAE", Toast.LENGTH_SHORT).show();
             }
-
-            recipe2NameTV.setText(recipe2.getString("name"));
-            if(recipe2NameTV.getText().length() >= 30){
-                if(recipe2NameTV.getText().length() >= 60)
-                    recipe2NameTV.setTextSize(12);
-                else
-                    recipe2NameTV.setTextSize(15);
-            }else{
-                recipe2NameTV.setTextSize(20);
-            }
-
-            String s = "Rating: " + recipe1.getDouble("averagePuntuation")+"/5.0";
-            recipe1Rating.setText(s);
-            s = "Rating: " + recipe2.getDouble("averagePuntuation")+"/5.0";
-            recipe2Rating.setText(s);
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
-
-
 
     // Async + thread, class to make the connection to the server
-    private class UrlConnectorGetRecipes extends AsyncTask<Void, JSONObject, Integer> {
+    private class UrlConnectorGetRecipes extends AsyncTask<Void, Long, Integer> {
 
         public boolean loaded = false;
 
@@ -169,6 +167,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 int userID = -1;
                 System.out.println("BUSCANT USUARI");
                 HttpReturnCode = conn.getResponseCode();
+                publishProgress(0L);
                 if (HttpReturnCode == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
@@ -193,6 +192,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     return HttpReturnCode;
                 }
 
+                publishProgress(25L);
                 //GET RECIPE
                 Random r = new Random();
                 switch(URLMode){
@@ -217,6 +217,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
                 System.out.println("OLA K ASE");
 
+                publishProgress(50L);
+
                 HttpReturnCode = conn.getResponseCode();
                 if (HttpReturnCode == 200) {
                     InputStreamReader inp = new InputStreamReader(conn.getInputStream());
@@ -227,7 +229,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     thisRecipe = obj;
                     System.out.println("THIS RECIPE IS: " + thisRecipe.getString("name"));
 
-                    publishProgress(thisRecipe);
+                    publishProgress(75L);
 
                     inp.close();
                     br.close();
@@ -235,19 +237,25 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     System.out.println("COULD NOT FIND RECIPES");
                     return HttpReturnCode;
                 }
+
+                publishProgress(100L);
+
             } catch (Exception e) {
                 System.out.println("ERROR AL LLEGIR LES RECEPTES TIO :( " + e);
             } finally{
                 conn.disconnect();
             }
             loaded = true;
+            publishProgress();
             return HttpReturnCode;
 
         }
 
         @Override
-        protected void onProgressUpdate(JSONObject... values) {
+        protected void onProgressUpdate(Long... values) {
             super.onProgressUpdate(values);
+
+            System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         }
 
         @Override
