@@ -59,6 +59,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> selectedCheckAllergy;
 
+    AllergiesActivity.UrlConnectorGenIngredientList urGen;
+    AllergiesActivity.UrlConnectorUpdateAllergies urSave;
 
     private EditText filterEditText;
 
@@ -85,6 +87,28 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     }
 
 
+    @Override
+    public void onStop(){
+        if(!urSave.isCancelled()) {
+            urSave.cancel(true);
+        }
+        if(!urGen.isCancelled()) {
+            urGen.cancel(true);
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy(){
+        if(!urSave.isCancelled()) {
+            urSave.cancel(true);
+        }
+        if(!urGen.isCancelled()) {
+            urGen.cancel(true);
+        }
+        super.onDestroy();
+    }
+
     /***
      * Method to create the list of ingredients from database using a GET method
      */
@@ -94,13 +118,12 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesListString = new ArrayList<>();
         selectedCheckAllergy = new ArrayList<>();
 
-        AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
-        ur.execute();
-        while(!ur.loaded){}
-        ur.cancel(true);
-        loadedAllergies = ur.getLoadedAllergiesList();
+        urGen = new AllergiesActivity.UrlConnectorGenIngredientList();
+        urGen.execute();
+        while(!urGen.loaded){}
+        loadedAllergies = urGen.getLoadedAllergiesList();
         for(int i = 0; i<loadedAllergies.size();i++) addElementToList(loadedAllergies.get(i));
-        allAllergiesList = ur.getListOfIngredients();
+        allAllergiesList = urGen.getListOfIngredients();
     }
 
     private void populateList(){
@@ -214,11 +237,10 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         }
         */
 
-        UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
-        ur.setAllergies(selectedCheckAllergy);
-        ur.execute();
-        while(!ur.saved){}
-        ur.cancel(true);
+        urSave = new UrlConnectorUpdateAllergies();
+        urSave.setAllergies(selectedCheckAllergy);
+        urSave.execute();
+        while(!urSave.saved){}
         finish();
         return true;
     }
