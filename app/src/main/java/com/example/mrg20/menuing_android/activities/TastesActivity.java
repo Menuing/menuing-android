@@ -94,7 +94,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         TastesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
         ur.execute();
         while (!ur.loaded) {}
-
+        ur.cancel(true);
         loadedTastes = ur.getLoadedTastesList();
         for(int i = 0; i<loadedTastes.size();i++) addElementToList(loadedTastes.get(i));
         allTastesList = ur.getListOfIngredients();
@@ -206,7 +206,8 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         UrlConnectorUpdateTastes ur = new UrlConnectorUpdateTastes();
         ur.setTastes(new ArrayList<>(selectedCheckAllergy));
         ur.execute();
-
+        while(!ur.saved){}
+        //ur.cancel(true);
         finish();
         return true;
     }
@@ -216,7 +217,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     private class UrlConnectorUpdateTastes extends AsyncTask<Void, Void, Void> {
 
         ArrayList<String> tastesSelected;
-
+        public boolean saved = false;
         void setTastes(ArrayList<String> tastes) {
             this.tastesSelected = tastes;
         }
@@ -248,16 +249,18 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 System.out.println("HTTP CODE " + conn.getResponseCode());
                 conn.disconnect();
 
-            }catch (Exception E){
-                System.out.println("Could not save allergies");
+            }catch (Exception e){
+                System.out.println("Could not save tastes " + e);
             }
 
+            saved = true;
             return null;
 
         }
 
         @Override
         protected void onPostExecute(Void result) {
+            saved = true;
             super.onPostExecute(result);
         }
     }

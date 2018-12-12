@@ -97,6 +97,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
         ur.execute();
         while(!ur.loaded){}
+        ur.cancel(true);
         loadedAllergies = ur.getLoadedAllergiesList();
         for(int i = 0; i<loadedAllergies.size();i++) addElementToList(loadedAllergies.get(i));
         allAllergiesList = ur.getListOfIngredients();
@@ -216,17 +217,17 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
         ur.setAllergies(selectedCheckAllergy);
         ur.execute();
-
+        while(!ur.saved){}
+        ur.cancel(true);
         finish();
         return true;
     }
-
 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorUpdateAllergies extends AsyncTask<Integer,Integer,Integer> {
 
         ArrayList<String> allergiesSelected;
-
+        public boolean saved = false;
         void setAllergies(ArrayList<String> allergies) {
             this.allergiesSelected = allergies;
         }
@@ -258,16 +259,18 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 System.out.println("HTTP CODE " + conn.getResponseCode());
                 conn.disconnect();
 
-            }catch (Exception E){
-                System.out.println("Could not save allergies");
+            }catch (Exception e){
+                System.out.println("Could not save allergies " + e);
             }
-
+            saved = true;
             return null;
         }
 
         @Override
         protected void onPostExecute(Integer result) {
+            saved = true;
             super.onPostExecute(result);
+
         }
     }
 
