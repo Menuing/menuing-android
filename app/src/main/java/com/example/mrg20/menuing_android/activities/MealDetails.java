@@ -51,15 +51,34 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
         ur = new UrlConnectorGetRecipes();
         ur.execute();
-        while(!ur.loaded){}
+        while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         recipe1 = ur.getRecipe();
+        ur.cancel(true);
+
         ur = new UrlConnectorGetRecipes();
         ur.execute();
-        while(!ur.loaded){}
+        while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         recipe2 = ur.getRecipe();
 
         fillFields();
     }
+
+    @Override
+    public void onStop(){
+        if(!ur.isCancelled()) {
+            ur.cancel(true);
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy(){
+        if(!ur.isCancelled()) {
+            ur.cancel(true);
+        }
+        super.onDestroy();
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -126,9 +145,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
         public JSONObject getRecipe(){ return thisRecipe;}
 
-
-        private JSONObject user;
-
         HttpURLConnection conn;
 
         @Override
@@ -137,7 +153,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             try {
 
                 //GET ACTUAL USER ID
-                URL url = new URL("http://" + ipserver + "/api/resources/users/?username=" + settings.getString("UserMail", ""));
+                URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
@@ -148,69 +164,19 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
                     System.out.println("REDLINE");
-                    JSONArray arr = new JSONArray(output);
-                    System.out.println("ARRRRRRRRRR + OUTPUT: " + output);
-                    if(arr.length() > 0) {
-                        user = arr.getJSONObject(0);
-                        System.out.println("JSON_OBJECT");
-                        userID = user.getInt("id");
-                    }
-                    System.out.println("USER: " + user);
+                    JSONObject obj = new JSONObject(output);
+                    thisRecipe = obj;
                     br.close();
+                    loaded = true;
                 } else {
                     System.out.println("COULD NOT FIND USER");
                     return null;
                 }
 
                 conn.disconnect();
-                if (userID == -1) {
-                    System.out.println("USER NOT EXISTS");
-                    return null;
-                }
-
-                //GET RECIPE
-                Random r = new Random();
-                switch(URLMode){
-                    case 1:
-                        url = new URL("http://" + ipserver  + "/api/resources/recipes/healthy");
-                        break;
-                    case 2:
-                        url = new URL("http://" + ipserver  + "/api/resources/recipes/3ingredient");
-                        break;
-                    case 3:
-                        url = new URL("http://" + ipserver  + "/api/resources/recipes/2fast4uRecipe");
-                        break;
-                    default:
-                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
-                        break;
-                }
-                System.out.println(url);
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Accept", "application/json");
-                //conn.connect();
-
-                System.out.println("OLA K ASE");
-
-                if(conn.getResponseCode() == 200) {
-                    InputStreamReader inp = new InputStreamReader(conn.getInputStream());
-                    BufferedReader br = new BufferedReader(inp);
-                    String output = br.readLine();
-                    JSONObject obj = new JSONObject(output);
-                    System.out.println("RECIPE: " + obj);
-                    thisRecipe = obj;
-                    System.out.println("THIS RECIPE IS: " + thisRecipe.getString("name"));
-
-                    inp.close();
-                    br.close();
-                }else{
-                    System.out.println("COULD NOT FIND RECIPES");
-                    return null;
-                }
+                return null;
             } catch (Exception e) {
-                System.out.println("ERROR AL LLEGIR LES RECEPTES TIO :( " + e);
-            } finally{
-                conn.disconnect();
+
             }
             loaded = true;
             return null;
@@ -218,6 +184,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
         @Override
         protected void onPostExecute(Void result) {
+            loaded = true;
             super.onPostExecute(result);
         }
     }

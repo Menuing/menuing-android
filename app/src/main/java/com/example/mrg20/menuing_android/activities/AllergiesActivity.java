@@ -90,13 +90,10 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     @Override
     public void onStop(){
-        System.out.println("\nON STOP\n");
         if(!urSave.isCancelled()) {
-            System.out.println("\nON STOP 1 \n");
             urSave.cancel(true);
         }
         if(!urGen.isCancelled()) {
-            System.out.println("\nON STOP 2\n");
             urGen.cancel(true);
         }
         super.onStop();
@@ -104,13 +101,10 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     @Override
     protected void onDestroy(){
-        System.out.println("\nON Destroy\n");
         if(!urSave.isCancelled()) {
-            System.out.println("\nON Destroy 1\n");
             urSave.cancel(true);
         }
         if(!urGen.isCancelled()) {
-            System.out.println("\nON Destroy 2\n");
             urGen.cancel(true);
         }
         super.onDestroy();
@@ -130,9 +124,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         while(!urGen.loaded){if(urGen.loaded)System.out.println(urGen.loaded);}
         System.out.println("GENERAT");
         urGen.cancel(true);
-        System.out.println("CANCELAT");
         loadedAllergies = urGen.getLoadedAllergiesList();
-        System.out.println("ALERGIES PILLADES");
         for(int i = 0; i<loadedAllergies.size();i++) addElementToList(loadedAllergies.get(i));
         allAllergiesList = urGen.getListOfIngredients();
         System.out.println("INGREDIENTS PILLATS");
