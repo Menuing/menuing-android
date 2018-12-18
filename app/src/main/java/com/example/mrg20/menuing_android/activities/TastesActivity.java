@@ -59,6 +59,8 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     ArrayAdapter<String> arrayAdapter;
     private List<String> selectedCheckAllergy = new ArrayList<>();
 
+    TastesActivity.UrlConnectorGenIngredientList urGen;
+    TastesActivity.UrlConnectorUpdateTastes urSave;
 
     private EditText filterEditText;
 
@@ -83,6 +85,30 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     }
 
 
+    @Override
+    public void onStop(){
+        if(!urSave.isCancelled()) {
+            urSave.cancel(true);
+        }
+        if(!urGen.isCancelled()) {
+            urGen.cancel(true);
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy(){
+        if(!urSave.isCancelled()) {
+            urSave.cancel(true);
+        }
+        if(!urGen.isCancelled()) {
+            urGen.cancel(true);
+        }
+        super.onDestroy();
+    }
+
+
+
     /***
      * Method to create the list of ingredients from database using a GET method
      */
@@ -91,13 +117,13 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         allTastesList = new ArrayList<String>();
         tastesListString = new ArrayList<String>();
 
-        TastesActivity.UrlConnectorGenIngredientList ur = new TastesActivity.UrlConnectorGenIngredientList();
-        ur.execute();
-        while (!ur.loaded) {}
-
-        loadedTastes = ur.getLoadedTastesList();
+        urGen = new TastesActivity.UrlConnectorGenIngredientList();
+        urGen.execute();
+        while (!urGen.loaded) {if(urGen.loaded)System.out.println(urGen.loaded);}
+        urGen.cancel(true);
+        loadedTastes = urGen.getLoadedTastesList();
         for(int i = 0; i<loadedTastes.size();i++) addElementToList(loadedTastes.get(i));
-        allTastesList = ur.getListOfIngredients();
+        allTastesList = urGen.getListOfIngredients();
     }
 
     private void populateList() {
@@ -193,7 +219,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
         for(int i = 0; i < 1000; i++){
             dialog.setProgress((i/10) * 0);
-        }*/
+        }
 
 
         ArrayList<String> tastesSelected = new ArrayList<>();
@@ -202,11 +228,13 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
             if (cb != null && cb.isChecked())
                 tastesSelected.add(selectedCheckAllergy.get(i));
 
-        }
-        UrlConnectorUpdateTastes ur = new UrlConnectorUpdateTastes();
-        ur.setTastes(new ArrayList<>(selectedCheckAllergy));
-        ur.execute();
+        }*/
 
+        urSave = new UrlConnectorUpdateTastes();
+        urSave.setTastes(new ArrayList<>(selectedCheckAllergy));
+        urSave.execute();
+        while(!urSave.saved){if(urSave.saved)System.out.println(urSave.saved);}
+        urSave.cancel(true);
         finish();
         return true;
     }
@@ -216,7 +244,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     private class UrlConnectorUpdateTastes extends AsyncTask<Void, Void, Void> {
 
         ArrayList<String> tastesSelected;
-
+        public boolean saved = false;
         void setTastes(ArrayList<String> tastes) {
             this.tastesSelected = tastes;
         }
@@ -248,16 +276,18 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 System.out.println("HTTP CODE " + conn.getResponseCode());
                 conn.disconnect();
 
-            }catch (Exception E){
-                System.out.println("Could not save allergies");
+            }catch (Exception e){
+                System.out.println("Could not save tastes " + e);
             }
 
+            saved = true;
             return null;
 
         }
 
         @Override
         protected void onPostExecute(Void result) {
+            saved = true;
             super.onPostExecute(result);
         }
     }
@@ -365,6 +395,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
         @Override
         protected void onPostExecute(Void result) {
+            loaded = true;
             super.onPostExecute(result);
         }
     }

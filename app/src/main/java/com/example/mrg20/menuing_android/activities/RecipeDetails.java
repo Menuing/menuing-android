@@ -66,7 +66,7 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
         ur.execute();
 
         ratingBar = findViewById(R.id.recipeRatingBar);
-        while(!ur.loaded){}
+        while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
 
         try {
             if(recipe != null) {
@@ -81,6 +81,22 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
         }
 
         ratingBar.setOnRatingBarChangeListener(this);
+    }
+
+    @Override
+    public void onStop(){
+        if(!ur.isCancelled()) {
+            ur.cancel(true);
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy(){
+        if(!ur.isCancelled()) {
+            ur.cancel(true);
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -171,6 +187,7 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
 
         @Override
         protected void onPostExecute(Void result) {
+            loaded = true;
             super.onPostExecute(result);
         }
     }

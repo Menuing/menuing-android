@@ -59,6 +59,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> selectedCheckAllergy;
 
+    AllergiesActivity.UrlConnectorGenIngredientList urGen;
+    AllergiesActivity.UrlConnectorUpdateAllergies urSave;
 
     private EditText filterEditText;
 
@@ -79,11 +81,34 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
         System.out.println("BEFoRE FILL");
         fillAllergiesList();
+        System.out.println("FILLEJAT");
         allergiesList = (ListView) findViewById(R.id.allergiesScrollView);
         filterList("");
         allergiesList.setOnItemClickListener(this);
     }
 
+
+    @Override
+    public void onStop(){
+        if(!urSave.isCancelled()) {
+            urSave.cancel(true);
+        }
+        if(!urGen.isCancelled()) {
+            urGen.cancel(true);
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy(){
+        if(!urSave.isCancelled()) {
+            urSave.cancel(true);
+        }
+        if(!urGen.isCancelled()) {
+            urGen.cancel(true);
+        }
+        super.onDestroy();
+    }
 
     /***
      * Method to create the list of ingredients from database using a GET method
@@ -94,12 +119,15 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesListString = new ArrayList<>();
         selectedCheckAllergy = new ArrayList<>();
 
-        AllergiesActivity.UrlConnectorGenIngredientList ur = new AllergiesActivity.UrlConnectorGenIngredientList();
-        ur.execute();
-        while(!ur.loaded){}
-        loadedAllergies = ur.getLoadedAllergiesList();
+        urGen = new AllergiesActivity.UrlConnectorGenIngredientList();
+        urGen.execute();
+        while(!urGen.loaded){if(urGen.loaded)System.out.println(urGen.loaded);}
+        System.out.println("GENERAT");
+        urGen.cancel(true);
+        loadedAllergies = urGen.getLoadedAllergiesList();
         for(int i = 0; i<loadedAllergies.size();i++) addElementToList(loadedAllergies.get(i));
-        allAllergiesList = ur.getListOfIngredients();
+        allAllergiesList = urGen.getListOfIngredients();
+        System.out.println("INGREDIENTS PILLATS");
     }
 
     private void populateList(){
@@ -213,22 +241,26 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         }
         */
 
-        UrlConnectorUpdateAllergies ur = new UrlConnectorUpdateAllergies();
-        ur.setAllergies(selectedCheckAllergy);
-        ur.execute();
-
+        urSave = new UrlConnectorUpdateAllergies();
+        urSave.setAllergies(selectedCheckAllergy);
+        urSave.execute();
+        while(!urSave.saved){if(urSave.saved)System.out.println(urSave.saved);}
+        urSave.cancel(true);
         finish();
         return true;
     }
-
 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorUpdateAllergies extends AsyncTask<Integer,Integer,Integer> {
 
         ArrayList<String> allergiesSelected;
-
+        public boolean saved;
         void setAllergies(ArrayList<String> allergies) {
             this.allergiesSelected = allergies;
+        }
+
+        public UrlConnectorUpdateAllergies(){
+            this.saved = false;
         }
 
         @Override
@@ -239,10 +271,10 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
             try {
                 URL url = new URL("http://" + ipserver + "/api/resources/tastesAllergies/overrideIngredients");
                 System.out.println(url);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("PUT");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setDoOutput(true);
+                HttpURLConnection conn2 = (HttpURLConnection) url.openConnection();
+                conn2.setRequestMethod("PUT");
+                conn2.setRequestProperty("Content-Type", "application/json");
+                conn2.setDoOutput(true);
 
                 String jsonString = new JSONObject()
                         .put("username", settings.getString("UserMail",""))
@@ -251,23 +283,25 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                         .toString();
 
                 System.out.println(jsonString);
-                OutputStream os = conn.getOutputStream();
+                OutputStream os = conn2.getOutputStream();
                 os.write(jsonString.getBytes());
                 os.flush();
                 os.close();
-                System.out.println("HTTP CODE " + conn.getResponseCode());
-                conn.disconnect();
+                System.out.println("HTTP CODE " + conn2.getResponseCode());
+                conn2.disconnect();
 
-            }catch (Exception E){
-                System.out.println("Could not save allergies");
+            }catch (Exception e){
+                System.out.println("Could not save allergies " + e);
             }
-
+            this.saved = true;
             return null;
         }
 
         @Override
         protected void onPostExecute(Integer result) {
+            this.saved = true;
             super.onPostExecute(result);
+
         }
     }
 
@@ -347,8 +381,9 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 os.write(jsonString.getBytes());
                 os.flush();
                 os.close();
-
+                System.out.println("CODE " + conn.getResponseCode());
                 if(conn.getResponseCode() == 200){
+
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
                     JSONArray arr = new JSONArray(output);
@@ -363,17 +398,22 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 }
                 conn.disconnect();
 
+                System.out.println("LISTS: ");
+                System.out.println("LISTS: ingredientList " + ingredientList);
+                System.out.println("LISTS: userALlergies " + userAllergies);
             } catch (Exception e) {
                 System.out.println("Ingredients not found " + e);
             }
-            loaded = true;
+            System.out.println("LOADED TRU");
+            this.loaded = true;
+            System.out.println("LOADDED TRUE " + this.loaded);
 
             return null;
         }
 
         @Override
         protected void onPostExecute(Integer result) {
-            loaded = true;
+            this.loaded = true;
             System.out.println("INGREDIENTS CARGATS");
             super.onPostExecute(result);
         }
