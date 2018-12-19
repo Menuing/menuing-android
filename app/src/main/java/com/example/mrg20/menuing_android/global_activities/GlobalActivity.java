@@ -38,7 +38,7 @@ public class GlobalActivity extends AppCompatActivity {
     public SharedPreferences settings;
 
     //Recordar de posar el port
-    protected String ipserver = "7de1fc7e.ngrok.io";
+    protected String ipserver = "6be640ff.ngrok.io";
 
 
     @Override
@@ -91,7 +91,7 @@ public class GlobalActivity extends AppCompatActivity {
             return "";
     }
 
-    public void register(String mail, String password){
+    public void register(final String mail, final String password){
         mAuth.createUserWithEmailAndPassword(mail, password)
                 .addOnCompleteListener(GlobalActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -100,12 +100,19 @@ public class GlobalActivity extends AppCompatActivity {
                             Toast.makeText(GlobalActivity.this, getString(R.string.err_register), Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(GlobalActivity.this, getString(R.string.user_registered), Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(new Intent(GlobalActivity.this, MainPageActivity.class)));
+                            //startActivity(new Intent(new Intent(GlobalActivity.this, MainPageActivity.class)));
+                            signedIn(mail, password);
                             finish();
                         }
                     }
                 });
     }
+
+
+    public void signedIn(final String mail, String password) {
+        signedIn(mail, password, null);
+    }
+
 
     public void signedIn(final String mail, String password, final Handler h){
         final Message msg = new Message();
@@ -126,7 +133,7 @@ public class GlobalActivity extends AppCompatActivity {
                         }
                         msg.what = 0;
                         msg.obj = obj[0];
-                        h.sendMessage(msg);
+                        if(h!=null) h.sendMessage(msg);
                     }
                 });
     }
