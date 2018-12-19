@@ -13,6 +13,7 @@
     <string name="register_terms_accept">Accept</string>
     <string name="login_logging">Logging...</string>
     <string name="user_registered">User registered</string>
+    <string name="user_leged">LOGGED SUCCESSFULLY</string>
 
     <!-- Profile -->
     <string name="profile_title">User Profile</string>
