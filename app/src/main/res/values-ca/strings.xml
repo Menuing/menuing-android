@@ -149,6 +149,9 @@
 
     <!--Errors generals -->
     <string name="err_empty_field">Aquest camp no pot estar buit</string>
+    <string name="err_no_connection">No podem conectar-nos al servidor, prova-ho més tard</string>
+    <string name="err_no_connection_label">Error de connexió</string>
+    <string name="err_no_connection_btn">Tornar inici</string>
 
     <!-- coses del firebase -->
     <string name="testTopic">newRecords</string>
