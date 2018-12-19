@@ -56,6 +56,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     private List<String> loadedAllergies; //LIST OF ALLERGIES LOADED WHEN YOU ENTER THE LAYOUT
 
+    private List<String> excludedAllergies;
+
     ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> selectedCheckAllergy;
 
@@ -214,6 +216,20 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         }
     }
 
+    private void excludeSelected(){
+        excludedAllergies = new ArrayList<>();
+        if(!selectedCheckAllergy.isEmpty()){
+            for(int i = 0; i < selectedCheckAllergy.size(); i++){
+                excludedAllergies.add(selectedCheckAllergy.get(i));
+            }
+        }
+        for(int i = 0; i < excludedAllergies.size(); i++){
+            if(allergiesListString.contains(excludedAllergies.get(i).toLowerCase())){
+                allergiesListString.remove(excludedAllergies.get(i));
+            }
+        }
+    }
+
     //DE MOMENT NO SERVEIX DE RES, AMB LA BD POT SERVIR
     @Override
     public boolean onSupportNavigateUp() {
@@ -301,7 +317,6 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         protected void onPostExecute(Integer result) {
             this.saved = true;
             super.onPostExecute(result);
-
         }
     }
 

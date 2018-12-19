@@ -56,6 +56,8 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
     private List<String> loadedTastes;
 
+    private List<String> excludedTastes;
+
     ArrayAdapter<String> arrayAdapter;
     private List<String> selectedCheckAllergy = new ArrayList<>();
 
@@ -63,6 +65,8 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     TastesActivity.UrlConnectorUpdateTastes urSave;
 
     private EditText filterEditText;
+
+    private String filterString = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,7 +84,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
         fillTastesList();
         tastesList = (ListView) findViewById(R.id.tastesScrollView);
-        filterList("");
+        filterList(filterString);
         tastesList.setOnItemClickListener(this);
     }
 
@@ -151,6 +155,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     }
 
     private void filterList(String text) {
+        filterString = text;
         if (text.isEmpty()) {
             tastesListString = allTastesList;
         } else {
@@ -202,7 +207,25 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
             checkBoxLayout.removeView(buttonView);
             if(selectedCheckAllergy.contains(buttonView.getText().toString()))
                 selectedCheckAllergy.remove(buttonView.getText().toString());
+
+            filterList(filterString);
+            excludeSelected();
             populateList();
+
+        }
+    }
+
+    private void excludeSelected(){
+        excludedTastes = new ArrayList<>();
+        if(!selectedCheckAllergy.isEmpty()){
+            for(int i = 0; i < selectedCheckAllergy.size(); i++){
+                excludedTastes.add(selectedCheckAllergy.get(i));
+            }
+        }
+        for(int i = 0; i < excludedTastes.size(); i++){
+            if(tastesListString.contains(excludedTastes.get(i).toLowerCase())){
+                tastesListString.remove(excludedTastes.get(i));
+            }
         }
     }
 
@@ -241,53 +264,52 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
 
     // Async + thread, class to make the connection to the server
-    private class UrlConnectorUpdateTastes extends AsyncTask<Void, Void, Void> {
+    private class UrlConnectorUpdateTastes extends AsyncTask<Integer, Integer, Integer> {
 
         ArrayList<String> tastesSelected;
         public boolean saved = false;
+
         void setTastes(ArrayList<String> tastes) {
             this.tastesSelected = tastes;
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Integer doInBackground(Integer... params) {
             if (tastesSelected.size() == 0)
                 return null;
 
             try {
                 URL url = new URL("http://" + ipserver + "/api/resources/tastesAllergies/overrideIngredients");
                 System.out.println(url);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("PUT");
-                conn.setRequestProperty("Content-Type", "application/json");
-                conn.setDoOutput(true);
+                HttpURLConnection conn2 = (HttpURLConnection) url.openConnection();
+                conn2.setRequestMethod("PUT");
+                conn2.setRequestProperty("Content-Type", "application/json");
+                conn2.setDoOutput(true);
 
                 String jsonString = new JSONObject()
-                        .put("username", settings.getString("UserMail",""))
+                        .put("username", settings.getString("UserMail", ""))
                         .put("ingredients", tastesSelected)
                         .put("taste", true)
                         .toString();
 
                 System.out.println(jsonString);
-                OutputStream os = conn.getOutputStream();
+                OutputStream os = conn2.getOutputStream();
                 os.write(jsonString.getBytes());
                 os.flush();
                 os.close();
-                System.out.println("HTTP CODE " + conn.getResponseCode());
-                conn.disconnect();
+                System.out.println("HTTP CODE " + conn2.getResponseCode());
+                conn2.disconnect();
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Could not save tastes " + e);
             }
-
-            saved = true;
+            this.saved = true;
             return null;
-
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            saved = true;
+        protected void onPostExecute(Integer result) {
+            this.saved = true;
             super.onPostExecute(result);
         }
     }
