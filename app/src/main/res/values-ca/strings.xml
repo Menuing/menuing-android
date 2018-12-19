@@ -14,6 +14,7 @@
     <string name="login_logging">Logging...</string>
     <string name="user_registered">Usuari registrat correctament</string>
     <string name="logout">Logout</string>
+    <string name="user_leged">Loguejat correctament</string>
 
     <!-- Get a Meal text -->
     <string name="get_a_meal_preference_text">Escolleix una de les següents preferències</string>

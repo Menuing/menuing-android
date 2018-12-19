@@ -50,8 +50,7 @@ public class LoginActivity extends GlobalActivity implements View.OnClickListene
     }// si ja estem logejats, que passi directament al menu principal
 
     private void loginAction(){
-        //TODO PASSAR AIXO AL STRINGS.XML
-        Toast.makeText(getApplicationContext(), "LOGGED SUCCESSFULLY", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getString(R.string.login_logging), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
         startActivity(intent);
         finish();

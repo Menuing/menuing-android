@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.LoginActivity;
+import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
@@ -47,6 +48,14 @@ public class UserProfile extends GlobalActivity implements View.OnClickListener{
         deleteProfile.setOnClickListener(this);
         if(logout!=null)
             logout.setOnClickListener(this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        vibrate();
+        finish();
+        startActivity(new Intent(UserProfile.this, MainPageActivity.class));
+        return true;
     }
 
     @Override
