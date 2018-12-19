@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.activities.AllergiesActivity;
+import com.example.mrg20.menuing_android.activities.UserProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -100,9 +102,21 @@ public class GlobalActivity extends AppCompatActivity {
                             Toast.makeText(GlobalActivity.this, getString(R.string.err_register), Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(GlobalActivity.this, getString(R.string.user_registered), Toast.LENGTH_LONG).show();
-                            //startActivity(new Intent(new Intent(GlobalActivity.this, MainPageActivity.class)));
-                            signedIn(mail, password);
-                            finish();
+                            Handler h = new Handler(){
+                                @Override
+                                public void handleMessage(Message msg){
+                                    switch (msg.what){
+                                        case 0:
+                                            if ((Boolean) msg.obj) {
+                                                startActivity(new Intent(new Intent(GlobalActivity.this, UserProfile.class)));
+                                                finish();
+                                            }else{
+                                                Toast.makeText(getApplicationContext(), getString(R.string.err_login_fail), Toast.LENGTH_SHORT).show();
+                                            }
+                                    }
+                                }
+                            };
+                            signedIn(mail, password, h);
                         }
                     }
                 });
