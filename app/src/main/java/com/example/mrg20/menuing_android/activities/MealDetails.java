@@ -1,13 +1,17 @@
 package com.example.mrg20.menuing_android.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
@@ -53,19 +57,58 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         ur.execute();
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         recipe1 = ur.getRecipe();
+        if(ur.connection == false){
+            System.out.println("NO CONNECTION");
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(MealDetails.this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(MealDetails.this);
+            }
+            builder.setTitle(R.string.err_no_connection_label)
+                    .setMessage(R.string.err_no_connection)
+                    .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(MealDetails.this, MainPageActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
+        }
+
+
         ur.cancel(true);
 
         ur = new UrlConnectorGetRecipes();
         ur.execute();
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         recipe2 = ur.getRecipe();
+        if(ur.connection == false){
+            System.out.println("NO CONNECTION");
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(MealDetails.this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(MealDetails.this);
+            }
+            builder.setTitle(R.string.err_no_connection_label)
+                    .setMessage(R.string.err_no_connection)
+                    .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(MealDetails.this, MainPageActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
+        }
+        ur.cancel(true);
 
         fillFields();
     }
 
     @Override
     public void onStop(){
-        if(!ur.isCancelled()) {
+        if(ur != null && !ur.isCancelled()) {
             ur.cancel(true);
         }
         super.onStop();
@@ -73,7 +116,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
     @Override
     protected void onDestroy(){
-        if(!ur.isCancelled()) {
+        if(ur != null && !ur.isCancelled()) {
             ur.cancel(true);
         }
         super.onDestroy();
@@ -140,6 +183,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     private class UrlConnectorGetRecipes extends AsyncTask<Void, Void, Void> {
 
         public boolean loaded = false;
+        public boolean connection = true;
 
         private JSONObject thisRecipe;
 
@@ -169,6 +213,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     br.close();
                     loaded = true;
                 } else {
+                    this.loaded = true;
+                    this.connection = false;
                     System.out.println("COULD NOT FIND USER");
                     return null;
                 }
@@ -176,7 +222,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 conn.disconnect();
                 return null;
             } catch (Exception e) {
-
+                this.loaded = true;
+                this.connection = false;
+                System.out.println("e");
             }
             loaded = true;
             return null;
