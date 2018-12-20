@@ -1,7 +1,11 @@
 package com.example.mrg20.menuing_android.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
@@ -25,6 +29,7 @@ import android.widget.Toast;
 import android.app.ActionBar.LayoutParams;
 
 
+import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.RegisterActivity;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
@@ -124,6 +129,25 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         loadedTastes = urGen.getLoadedTastesList();
         for(int i = 0; i<loadedTastes.size();i++) addElementToList(loadedTastes.get(i));
         allTastesList = urGen.getListOfIngredients();
+
+        if(urGen.connection == false){
+            System.out.println("NO CONNECTION");
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(TastesActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(TastesActivity.this);
+            }
+            builder.setTitle(R.string.err_no_connection_label)
+                    .setMessage(R.string.err_no_connection)
+                    .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(TastesActivity.this, MainPageActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
+        }
     }
 
     private void populateList() {
@@ -298,6 +322,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         ArrayList<String> ingredientList = new ArrayList<>();
         ArrayList<String> loadedTastesList = new ArrayList<>();
         public boolean loaded = false;
+        public boolean connection = true;
 
         ArrayList<String> getListOfIngredients() {
             return ingredientList;
@@ -306,6 +331,7 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
         public UrlConnectorGenIngredientList(){
             loaded = false;
+            connection = true;
             loadedTastesList = new ArrayList<>();
             ingredientList = new ArrayList<>();
         }
@@ -341,12 +367,16 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                     }
                     br.close();
                 }else{
+                    this.loaded = true;
+                    this.connection = false;
                     System.out.println("COULD NOT FIND INGREDIENTS");
                     return null;
                 }
                 conn.disconnect();
 
             } catch (Exception e) {
+                this.loaded = true;
+                this.connection = false;
                 System.out.println("Ingredients not found " + e);
             }
 
@@ -380,12 +410,16 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                     }
                     br.close();
                 }else{
+                    this.loaded = true;
+                    this.connection = false;
                     System.out.println("COULD NOT FIND INGREDIENTS");
                     return null;
                 }
                 conn.disconnect();
 
             } catch (Exception e) {
+                this.loaded = true;
+                this.connection = false;
                 System.out.println("Ingredients not found " + e);
             }
             loaded = true;
