@@ -66,13 +66,14 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
         }else{
             tv.setTextSize(25);
         }
-
+        boolean badConnection = false;
         ur = new RecipeDetails.UrlConnectorUpdateRating();
         ur.execute();
 
         ratingBar = findViewById(R.id.recipeRatingBar);
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         if(ur.connection == false){
+            badConnection = true;
             System.out.println("NO CONNECTION");
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -92,21 +93,21 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
         }
         ur.cancel(true);
 
-
-
-        try {
-            if(recipe != null) {
-                tv.setText(recipe.getString("name"));
-                String textToFormat = recipe.getString("proportions");
-                ingredients.setText(formatText(textToFormat));
-                instructions.setText(recipe.getString("instructions"));
-                ratingBar.setRating((float) recipe.getDouble("puntuation"));
+        if(!badConnection) {
+            try {
+                if (recipe != null) {
+                    tv.setText(recipe.getString("name"));
+                    String textToFormat = recipe.getString("proportions");
+                    ingredients.setText(formatText(textToFormat));
+                    instructions.setText(recipe.getString("instructions"));
+                    ratingBar.setRating((float) recipe.getDouble("puntuation"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        ratingBar.setOnRatingBarChangeListener(this);
+            ratingBar.setOnRatingBarChangeListener(this);
+        }
     }
 
     @Override

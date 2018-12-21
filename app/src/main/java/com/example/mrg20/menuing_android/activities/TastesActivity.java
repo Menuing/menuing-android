@@ -138,6 +138,9 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
             } else {
                 builder = new AlertDialog.Builder(TastesActivity.this);
             }
+            builder.setCancelable(false);
+            //builder.setFinishOnTouchOutside(false);
+
             builder.setTitle(R.string.err_no_connection_label)
                     .setMessage(R.string.err_no_connection)
                     .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {

@@ -31,7 +31,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
     JSONObject recipe1;
     JSONObject recipe2;
-
+    boolean badConnection = false;
     MealDetails.UrlConnectorGetRecipes ur;
 
     @Override
@@ -53,11 +53,14 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         recipe = (Button) findViewById(R.id.first_recipe2);
         recipe.setOnClickListener(this);
 
+
+
         ur = new UrlConnectorGetRecipes();
         ur.execute();
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         recipe1 = ur.getRecipe();
         if(ur.connection == false){
+            badConnection = true;
             System.out.println("NO CONNECTION");
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -76,34 +79,38 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     .show();
         }
 
+        if(ur.connection) {
+            ur.cancel(true);
 
-        ur.cancel(true);
-
-        ur = new UrlConnectorGetRecipes();
-        ur.execute();
-        while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
-        recipe2 = ur.getRecipe();
-        if(ur.connection == false){
-            System.out.println("NO CONNECTION");
-            AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new AlertDialog.Builder(MealDetails.this, android.R.style.Theme_Material_Dialog_Alert);
-            } else {
-                builder = new AlertDialog.Builder(MealDetails.this);
+            ur = new UrlConnectorGetRecipes();
+            ur.execute();
+            while (!ur.loaded) {
+                if (ur.loaded) System.out.println(ur.loaded);
             }
-            builder.setTitle(R.string.err_no_connection_label)
-                    .setMessage(R.string.err_no_connection)
-                    .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(MealDetails.this, MainPageActivity.class);
-                            startActivity(intent);
-                        }
-                    })
-                    .show();
+            recipe2 = ur.getRecipe();
+            if (ur.connection == false) {
+                badConnection = true;
+                System.out.println("NO CONNECTION");
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(MealDetails.this, android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(MealDetails.this);
+                }
+                builder.setTitle(R.string.err_no_connection_label)
+                        .setMessage(R.string.err_no_connection)
+                        .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(MealDetails.this, MainPageActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .show();
+            }
+            ur.cancel(true);
         }
-        ur.cancel(true);
-
-        fillFields();
+        if(!badConnection)
+            fillFields();
     }
 
     @Override
@@ -126,18 +133,20 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         vibrate();
-        Intent intent = null;
-        switch(view.getId()) {
-            case R.id.first_recipe:
-                intent = new Intent(MealDetails.this, RecipeDetails.class);
-                intent.putExtra("recipe", recipe1.toString());
-                startActivity(intent);
-                break;
-            case R.id.first_recipe2:
-                intent = new Intent(MealDetails.this, RecipeDetails.class);
-                intent.putExtra("recipe", recipe2.toString());
-                startActivity(intent);
-                break;
+        if(!badConnection) {
+            Intent intent = null;
+            switch (view.getId()) {
+                case R.id.first_recipe:
+                    intent = new Intent(MealDetails.this, RecipeDetails.class);
+                    intent.putExtra("recipe", recipe1.toString());
+                    startActivity(intent);
+                    break;
+                case R.id.first_recipe2:
+                    intent = new Intent(MealDetails.this, RecipeDetails.class);
+                    intent.putExtra("recipe", recipe2.toString());
+                    startActivity(intent);
+                    break;
+            }
         }
     }
 
