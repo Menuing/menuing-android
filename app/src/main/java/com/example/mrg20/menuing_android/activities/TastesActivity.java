@@ -116,10 +116,10 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
     @Override
     public void onStop(){
-        if(!urSave.isCancelled()) {
+        if(urSave != null && !urSave.isCancelled()) {
             urSave.cancel(true);
         }
-        if(!urGen.isCancelled()) {
+        if(urGen != null && !urGen.isCancelled()) {
             urGen.cancel(true);
         }
         super.onStop();
@@ -127,10 +127,10 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
     @Override
     protected void onDestroy(){
-        if(!urSave.isCancelled()) {
+        if(urSave != null && !urSave.isCancelled()) {
             urSave.cancel(true);
         }
-        if(!urGen.isCancelled()) {
+        if(urGen != null && !urGen.isCancelled()) {
             urGen.cancel(true);
         }
         super.onDestroy();

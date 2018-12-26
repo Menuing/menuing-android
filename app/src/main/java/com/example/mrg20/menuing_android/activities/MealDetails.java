@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import com.example.mrg20.menuing_android.DatabaseHelper;
 import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
@@ -259,18 +261,16 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
                 int userID = -1;
-                System.out.println("BUSCANT USUARI");
                 if (conn.getResponseCode() == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
-                    System.out.println("REDLINE");
                     JSONObject obj = new JSONObject(output);
                     thisRecipe = obj;
                     br.close();
                 } else {
                     this.loaded = true;
                     this.connection = false;
-                    System.out.println("COULD NOT FIND USER");
+                    System.out.println("COULD NOT FIND RECIPE");
                     return null;
                 }
 
@@ -280,30 +280,55 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 this.loaded = true;
                 this.connection = false;
                 System.out.println("POZO 1 " + e );
-                return null;
             }
 
+            if(thisRecipe != null) {
+                try {
+                    //TODO -----------------------------
+                    URL google = new URL("https://www.google.com/search?tbm=isch&q=" + thisRecipe.getString("name").replace(" ", "_"));
+                    System.out.println("URL gOOgle " + google);
+                    conn = (HttpURLConnection) google.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setRequestProperty("Accept", "text/html");
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String str;
+                    StringBuffer response = new StringBuffer();
+                    while((str = br.readLine()) != null){
+                        response.append(str);
+                    }
+                    System.out.println(response);
 
-            try {
-                URL imageUrl = new URL("https://vignette.wikia.nocookie.net/reborn/images/f/f7/Lambo.jpg/revision/latest?cb=20101117114931");
-                URLConnection ucon = imageUrl.openConnection();
+                    //<img[^>]+src="([^">]+)"
+                    /*Pattern pattern = Pattern.compile("<img[^>]+src=\"([^\">]+)\"");
+                    Matcher m = pattern.matcher(html);
+                    String ex = "";
+                    if(m.find()){
+                        ex = m.group(0);
+                    }
 
-                InputStream is = ucon.getInputStream();
-                BufferedInputStream bis = new BufferedInputStream(is);
+                    System.out.println("\n SAS: " + ex);
+                    System.out.println("\n\nHTML: " + html);
+                    */
+                    //TODO POSAR LA URL DE LA IMG TROBADA AQUI
+                    URL imageUrl = new URL("https://vignette.wikia.nocookie.net/reborn/images/f/f7/Lambo.jpg/revision/latest?cb=20101117114931");
+                    URLConnection ucon = imageUrl.openConnection();
 
-                ByteArrayBuffer baf = new ByteArrayBuffer(500);
-                int current = 0;
-                while ((current = bis.read()) != -1) {
-                    baf.append((byte) current);
+                    InputStream is = ucon.getInputStream();
+                    BufferedInputStream bis = new BufferedInputStream(is);
+
+                    ByteArrayBuffer baf = new ByteArrayBuffer(500);
+                    int current = 0;
+                    while ((current = bis.read()) != -1) {
+                        baf.append((byte) current);
+                    }
+                    img = baf.toByteArray();
+                    loaded = true;
+                } catch (Exception e) {
+                    System.out.println("POZO IMG " + e);
+                    img = null;
+                    this.loaded = true;
                 }
-                img = baf.toByteArray();
-                System.out.println("EIEIEIEIEIEIEIEI " + img);
-            } catch (Exception e) {
-                System.out.println("POZO IMG " + e);
-                img = null;
-                this.loaded = true;
             }
-
             loaded = true;
             return null;
         }
