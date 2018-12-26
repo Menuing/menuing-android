@@ -1,7 +1,11 @@
 package com.example.mrg20.menuing_android.activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
@@ -25,6 +29,8 @@ import android.widget.Toast;
 import android.app.ActionBar.LayoutParams;
 
 
+import com.example.mrg20.menuing_android.LoginActivity;
+import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.RegisterActivity;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
@@ -90,10 +96,10 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     @Override
     public void onStop(){
-        if(!urSave.isCancelled()) {
+        if(urSave != null && !urSave.isCancelled()) {
             urSave.cancel(true);
         }
-        if(!urGen.isCancelled()) {
+        if(urGen != null && !urGen.isCancelled()) {
             urGen.cancel(true);
         }
         super.onStop();
@@ -101,10 +107,10 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
 
     @Override
     protected void onDestroy(){
-        if(!urSave.isCancelled()) {
+        if(urSave != null && !urSave.isCancelled()) {
             urSave.cancel(true);
         }
-        if(!urGen.isCancelled()) {
+        if(urGen != null && !urGen.isCancelled()) {
             urGen.cancel(true);
         }
         super.onDestroy();
@@ -128,6 +134,24 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         for(int i = 0; i<loadedAllergies.size();i++) addElementToList(loadedAllergies.get(i));
         allAllergiesList = urGen.getListOfIngredients();
         System.out.println("INGREDIENTS PILLATS");
+        if(urGen.connection == false){
+            System.out.println("NO CONNECTION");
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(AllergiesActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(AllergiesActivity.this);
+            }
+            builder.setTitle(R.string.err_no_connection_label)
+                    .setMessage(R.string.err_no_connection)
+                    .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(AllergiesActivity.this, MainPageActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
+        }
     }
 
     private void populateList(){
@@ -311,6 +335,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         ArrayList<String> ingredientList;
         ArrayList<String> userAllergies;
         public boolean loaded;
+        public boolean connection;
 
         ArrayList<String> getListOfIngredients() {
             return ingredientList;
@@ -318,6 +343,7 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         ArrayList<String> getLoadedAllergiesList() { return userAllergies; }
         public UrlConnectorGenIngredientList(){
             loaded = false;
+            connection = true;
             userAllergies = new ArrayList<>();
             ingredientList = new ArrayList<>();
         }
@@ -353,12 +379,16 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     }
                     br.close();
                 }else{
+                    this.loaded = true;
+                    this.connection = false;
                     System.out.println("COULD NOT FIND INGREDIENTS");
                     return null;
                 }
                 conn.disconnect();
 
             } catch (Exception e) {
+                this.loaded = true;
+                this.connection = false;
                 System.out.println("Ingredients not found " + e);
             }
 
@@ -393,7 +423,9 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                     }
                     br.close();
                 }else{
-                    System.out.println("COULD NOT FIND INGREDIENTS");
+                    System.out.println("COULD NOT FIND ALLERGIES");
+                    this.loaded = true;
+                    this.connection = false;
                     return null;
                 }
                 conn.disconnect();
@@ -402,6 +434,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 System.out.println("LISTS: ingredientList " + ingredientList);
                 System.out.println("LISTS: userALlergies " + userAllergies);
             } catch (Exception e) {
+                this.loaded = true;
+                this.connection = false;
                 System.out.println("Ingredients not found " + e);
             }
             System.out.println("LOADED TRU");
