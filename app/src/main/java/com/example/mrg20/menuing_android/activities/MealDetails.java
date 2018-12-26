@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,10 +18,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Random;
 
 public class MealDetails extends GlobalActivity implements View.OnClickListener {
 
+    static final int MODE_RANDOM = 0;
+    static final int MODE_HEALTHY= 1;
+    static final int MODE_THREE_INGREDIENTS = 2;
+    static final int MODE_FAST = 3;
     int URLMode = 0;
 
     JSONObject recipe1;
@@ -139,6 +141,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorGetRecipes extends AsyncTask<Void, Void, Void> {
 
+
         public boolean loaded = false;
 
         private JSONObject thisRecipe;
@@ -151,9 +154,26 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         protected Void doInBackground(Void... params) {
 
             try {
-
                 //GET ACTUAL USER ID
-                URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                URL url = null;
+                switch (URLMode){
+                    case MODE_RANDOM:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case MODE_HEALTHY:
+                        //TODO: Ara crida a random
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case MODE_THREE_INGREDIENTS:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getLowCost/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case MODE_FAST:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getFastToDo/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    default:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                        break;
+                }
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
