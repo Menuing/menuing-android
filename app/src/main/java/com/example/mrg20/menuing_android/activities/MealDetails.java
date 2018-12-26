@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.mrg20.menuing_android.DatabaseHelper;
 import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
@@ -53,7 +54,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         recipe = (Button) findViewById(R.id.first_recipe2);
         recipe.setOnClickListener(this);
 
-
+        DatabaseHelper db = new DatabaseHelper(this);
 
         ur = new UrlConnectorGetRecipes();
         ur.execute();
@@ -78,6 +79,10 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     })
                     .show();
         }
+
+        if(recipe1 != null)
+            db.addData(recipe1);
+
 
         if(ur.connection) {
             ur.cancel(true);
@@ -107,6 +112,10 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         })
                         .show();
             }
+
+            if(recipe2 != null)
+                db.addData(recipe2);
+
             ur.cancel(true);
         }
         if(!badConnection)

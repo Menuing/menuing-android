@@ -7,6 +7,8 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -33,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL1 +" TEXT, " +
                 COL2 +" TEXT, " +
                 COL3 +" TEXT, " +
                 COL4 +" TEXT, " +
@@ -51,10 +54,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String item) {
+    public void deleteAll(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
+    }
+
+    public boolean addData(JSONObject item) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL2, item);
+        try {
+            contentValues.put(COL1, item.getString(COL1));
+            contentValues.put(COL2, item.getString(COL2));
+            contentValues.put(COL3, item.getString(COL3));
+            contentValues.put(COL4, item.getString(COL4));
+            contentValues.put(COL5, item.getString(COL5));
+            contentValues.put(COL6, item.getString(COL6));
+            contentValues.put(COL7, item.getString(COL7));
+            contentValues.put(COL8, item.getString(COL8));
+            contentValues.put(COL9, item.getString(COL9));
+        }catch (Exception e){
+            System.out.println("FAILED ADDING TO DB");
+            return false;
+        }
 
         Log.d(TAG, "addData: Adding " + item + " to " + TABLE_NAME);
 
