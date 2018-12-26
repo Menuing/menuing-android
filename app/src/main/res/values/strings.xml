@@ -150,6 +150,10 @@
 
     <!--Errors generals -->
     <string name="err_empty_field">This field cannot be empty</string>
+    <string name="err_no_connection">We couldn\'t connect to the server, try again later</string>
+    <string name="err_no_connection_label">Connection error</string>
+    <string name="err_no_connection_btn">Go back</string>
+
     <!-- coses del firebase -->
     <string name="testTopic">newRecords</string>
 </resources>

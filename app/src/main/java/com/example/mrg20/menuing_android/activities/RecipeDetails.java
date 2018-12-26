@@ -1,11 +1,16 @@
 package com.example.mrg20.menuing_android.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
@@ -61,26 +66,48 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
         }else{
             tv.setTextSize(25);
         }
-
+        boolean badConnection = false;
         ur = new RecipeDetails.UrlConnectorUpdateRating();
         ur.execute();
 
         ratingBar = findViewById(R.id.recipeRatingBar);
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
-
-        try {
-            if(recipe != null) {
-                tv.setText(recipe.getString("name"));
-                String textToFormat = recipe.getString("proportions");
-                ingredients.setText(formatText(textToFormat));
-                instructions.setText(recipe.getString("instructions"));
-                ratingBar.setRating((float) recipe.getDouble("puntuation"));
+        if(ur.connection == false){
+            badConnection = true;
+            System.out.println("NO CONNECTION");
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(RecipeDetails.this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(RecipeDetails.this);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+            builder.setTitle(R.string.err_no_connection_label)
+                    .setMessage(R.string.err_no_connection)
+                    .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(RecipeDetails.this, MainPageActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
         }
+        ur.cancel(true);
 
-        ratingBar.setOnRatingBarChangeListener(this);
+        if(!badConnection) {
+            try {
+                if (recipe != null) {
+                    tv.setText(recipe.getString("name"));
+                    String textToFormat = recipe.getString("proportions");
+                    ingredients.setText(formatText(textToFormat));
+                    instructions.setText(recipe.getString("instructions"));
+                    ratingBar.setRating((float) recipe.getDouble("puntuation"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            ratingBar.setOnRatingBarChangeListener(this);
+        }
     }
 
     @Override
@@ -131,7 +158,7 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
     private class UrlConnectorUpdateRating extends AsyncTask<Void, Void, Void> {
 
         public boolean loaded = false;
-
+        public boolean connection = true;
 //        public String recipeName = "";
         private JSONObject thisRecipe;
 
@@ -171,14 +198,19 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
                     recipeName = arr.getString("name");	
                     System.out.println("JSON_OBJECT");	
                      br.close();	
-                } else {	
+                } else {
+                    this.loaded = true;
+                    this.connection = false;
                     System.out.println("COULD NOT FIND USER");	
                     return null;	
                 }
 
             } catch (Exception e) {
+                this.loaded = true;
+                this.connection = false;
                 System.out.println("Error blablabla " + e);
             } finally{
+                loaded = true;
                 conn.disconnect();
             }
             loaded = true;
