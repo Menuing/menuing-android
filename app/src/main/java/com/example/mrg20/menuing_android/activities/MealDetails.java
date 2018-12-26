@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mrg20.menuing_android.DatabaseHelper;
@@ -36,17 +37,20 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     JSONObject recipe2;
     boolean badConnection = false;
     MealDetails.UrlConnectorGetRecipes ur;
+    LinearLayout secondRecipeLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_meal_details);
+        secondRecipeLayout=(LinearLayout)this.findViewById(R.id.Second);
         if (getIntent().getExtras() != null) {
             URLMode = getIntent().getExtras().getInt("URLMode");
         }
 
-        setContentView(R.layout.activity_meal_details);
-
+        if (URLMode ==  MODE_HEALTHY || URLMode == MODE_THREE_INGREDIENTS || URLMode == MODE_FAST) {
+            secondRecipeLayout.setVisibility(LinearLayout.GONE);
+        }
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
