@@ -3,12 +3,15 @@ package com.example.mrg20.menuing_android.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mrg20.menuing_android.DatabaseHelper;
@@ -20,11 +23,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Random;
+
+import cz.msebera.android.httpclient.util.ByteArrayBuffer;
 
 public class MealDetails extends GlobalActivity implements View.OnClickListener {
 
@@ -56,10 +64,15 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
         DatabaseHelper db = new DatabaseHelper(this);
 
+        byte[] img1;
+        byte[] img2;
+
         ur = new UrlConnectorGetRecipes();
         ur.execute();
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         recipe1 = ur.getRecipe();
+
+
         if(ur.connection == false){
             badConnection = true;
             System.out.println("NO CONNECTION");
@@ -78,6 +91,15 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         }
                     })
                     .show();
+        }else{
+            try {
+                img1 = ur.img;
+                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1 .length);
+                ImageView img = (ImageView) findViewById(R.id.imageView5);
+                img.setImageBitmap(bitmap1);
+            }catch (Exception e){
+                System.out.println("IMG 1 ERROR " + e);
+            }
         }
 
         if(recipe1 != null)
@@ -93,6 +115,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 if (ur.loaded) System.out.println(ur.loaded);
             }
             recipe2 = ur.getRecipe();
+
             if (ur.connection == false) {
                 badConnection = true;
                 System.out.println("NO CONNECTION");
@@ -111,6 +134,16 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                             }
                         })
                         .show();
+            }else{
+                try {
+                    img2 = ur.img;
+                    Bitmap bitmap2 = BitmapFactory.decodeByteArray(img2, 0, img2 .length);
+                    ImageView img= (ImageView) findViewById(R.id.imageView6);
+                    img.setImageBitmap(bitmap2);
+                }catch (Exception e){
+                    System.out.println("IMG 2 ERROR " + e);
+                }
+
             }
 
             if(recipe2 != null)
@@ -118,6 +151,10 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
             ur.cancel(true);
         }
+
+
+
+
         if(!badConnection)
             fillFields();
     }
@@ -204,6 +241,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         public boolean connection = true;
 
         private JSONObject thisRecipe;
+        public byte[] img;
 
         public JSONObject getRecipe(){ return thisRecipe;}
 
@@ -229,7 +267,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     JSONObject obj = new JSONObject(output);
                     thisRecipe = obj;
                     br.close();
-                    loaded = true;
                 } else {
                     this.loaded = true;
                     this.connection = false;
@@ -238,12 +275,35 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 }
 
                 conn.disconnect();
-                return null;
+
             } catch (Exception e) {
                 this.loaded = true;
                 this.connection = false;
-                System.out.println("e");
+                System.out.println("POZO 1 " + e );
+                return null;
             }
+
+
+            try {
+                URL imageUrl = new URL("https://vignette.wikia.nocookie.net/reborn/images/f/f7/Lambo.jpg/revision/latest?cb=20101117114931");
+                URLConnection ucon = imageUrl.openConnection();
+
+                InputStream is = ucon.getInputStream();
+                BufferedInputStream bis = new BufferedInputStream(is);
+
+                ByteArrayBuffer baf = new ByteArrayBuffer(500);
+                int current = 0;
+                while ((current = bis.read()) != -1) {
+                    baf.append((byte) current);
+                }
+                img = baf.toByteArray();
+                System.out.println("EIEIEIEIEIEIEIEI " + img);
+            } catch (Exception e) {
+                System.out.println("POZO IMG " + e);
+                img = null;
+                this.loaded = true;
+            }
+
             loaded = true;
             return null;
         }
