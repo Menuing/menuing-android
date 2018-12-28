@@ -31,7 +31,7 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
         ImageView day = (ImageView) findViewById(R.id.day);
         ImageView night = (ImageView) findViewById(R.id.night);
 
-        date = new Date(getIntent().getStringExtra("DAY"));
+        date = (Date)getIntent().getSerializableExtra("DAY");
 
         day.setOnClickListener(this);
         night.setOnClickListener(this);

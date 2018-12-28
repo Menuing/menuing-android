@@ -57,7 +57,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             URLMode = getIntent().getExtras().getInt("URLMode");
         }
 
-        date = new Date(getIntent().getStringExtra("DAY"));
+        date = (Date)getIntent().getSerializableExtra("DAY");
         meal_type = getIntent().getExtras().getInt("TIME");
 
         setContentView(R.layout.activity_meal_details);
@@ -262,7 +262,10 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             try {
 
                 //GET ACTUAL USER ID
-                URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                URL url = new URL("");
+                if(meal_type == DINNER) {
+                    url = new URL("http://" + ipserver + "/api/resources/recipes/getDinnerDish/?username=" + settings.getString("UserMail", ""));
+                }
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
