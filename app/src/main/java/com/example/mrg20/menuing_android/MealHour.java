@@ -44,9 +44,11 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
         switch(view.getId()) {
             case R.id.day:
                 intent = new Intent(MealHour.this, MealDetails.class);
+                intent.putExtra("TIME", LUNCH);
                 break;
             case R.id.night:
                 intent = new Intent(MealHour.this, MealDetails.class);
+                intent.putExtra("TIME", DINNER);
                 break;
 
         }

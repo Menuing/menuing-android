@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.example.mrg20.menuing_android.DatabaseHelper;
@@ -45,6 +46,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     boolean badConnection = false;
     MealDetails.UrlConnectorGetRecipes ur;
 
+    Date date;
+    int meal_type;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         if (getIntent().getExtras() != null) {
             URLMode = getIntent().getExtras().getInt("URLMode");
         }
+
+        date = new Date(getIntent().getStringExtra("DAY"));
+        meal_type = getIntent().getExtras().getInt("TIME");
 
         setContentView(R.layout.activity_meal_details);
 
