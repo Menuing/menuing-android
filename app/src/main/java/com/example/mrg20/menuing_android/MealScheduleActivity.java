@@ -13,6 +13,8 @@ import com.example.mrg20.menuing_android.activities.MonthlyDietActivity;
 import com.example.mrg20.menuing_android.activities.WeeklyDietActivity;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
+import java.util.Calendar;
+
 public class MealScheduleActivity extends GlobalActivity implements View.OnClickListener{
 
     @Override
@@ -40,6 +42,7 @@ public class MealScheduleActivity extends GlobalActivity implements View.OnClick
         switch(view.getId()) {
             case R.id.day:
                 intent = new Intent(MealScheduleActivity.this, MealHour.class);
+                intent.putExtra("DAY", Calendar.getInstance().getTime());
                 break;
             case R.id.week:
                 intent = new Intent(MealScheduleActivity.this, WeeklyDietActivity.class);

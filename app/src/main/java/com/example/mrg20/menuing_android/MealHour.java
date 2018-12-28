@@ -12,7 +12,12 @@ import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.activities.MealDetails;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class MealHour extends GlobalActivity implements View.OnClickListener{
+
+    Date date;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,8 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
 
         ImageView day = (ImageView) findViewById(R.id.day);
         ImageView night = (ImageView) findViewById(R.id.night);
+
+        date = new Date(getIntent().getStringExtra("DAY"));
 
         day.setOnClickListener(this);
         night.setOnClickListener(this);
@@ -43,6 +50,7 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
                 break;
 
         }
+        intent.putExtra("DAY", date);
         startActivity(intent);
     }
 }
