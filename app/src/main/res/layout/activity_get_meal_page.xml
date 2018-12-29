@@ -53,8 +53,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    >
+                    android:layout_weight="1">
                     <ImageView
                         android:id="@+id/nopref"
                         android:layout_width="wrap_content"
@@ -62,10 +61,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/getyourmealbtn1" />
-
                 </LinearLayout>
-
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,8 +74,6 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/healthy" />
                 </LinearLayout>
-
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,7 +86,6 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/boto3ing" />
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,15 +99,6 @@
                         android:src="@drawable/boto20min" />
                 </LinearLayout>
             </LinearLayout>
-
-
-
-
-
         </LinearLayout>
-
-
     </LinearLayout>
-
-
 </android.support.constraint.ConstraintLayout>

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -22,7 +23,6 @@ import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,12 +39,17 @@ import cz.msebera.android.httpclient.util.ByteArrayBuffer;
 
 public class MealDetails extends GlobalActivity implements View.OnClickListener {
 
+    static final int MODE_RANDOM = 0;
+    static final int MODE_HEALTHY= 1;
+    static final int MODE_THREE_INGREDIENTS = 2;
+    static final int MODE_FAST = 3;
     int URLMode = 0;
 
     JSONObject recipe1;
     JSONObject recipe2;
     boolean badConnection = false;
     MealDetails.UrlConnectorGetRecipes ur;
+    LinearLayout secondRecipeLayout;
 
     Date date;
     int meal_type;
@@ -53,7 +58,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_meal_details);
+        secondRecipeLayout=(LinearLayout)this.findViewById(R.id.Second);
         if (getIntent().getExtras() != null) {
             URLMode = getIntent().getExtras().getInt("URLMode");
         }
@@ -62,6 +68,10 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         meal_type = getIntent().getExtras().getInt("TIME");
 
         setContentView(R.layout.activity_meal_details);
+
+        if (URLMode ==  MODE_HEALTHY || URLMode == MODE_THREE_INGREDIENTS || URLMode == MODE_FAST) {
+            secondRecipeLayout.setVisibility(LinearLayout.GONE);
+        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -243,6 +253,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorGetRecipes extends AsyncTask<Void, Void, Void> {
 
+
         public boolean loaded = false;
         public boolean connection = true;
 
@@ -257,7 +268,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         protected Void doInBackground(Void... params) {
 
             try {
-
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
                 if (meal_type == DINNER) {
@@ -268,8 +278,26 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 } else if (meal_type == LUNCH && num_recipes != 0){
                     num_recipes++;
                     url = new URL("http://" + ipserver + "/api/resources/recipes/getSecondDish/?username=" + settings.getString("UserMail", ""));
-                } else if (meal_type == BREAKFAST){
+                } else if (meal_type == BREAKFAST) {
                     url = new URL("http://" + ipserver + "/api/resources/recipes/getBreakfast/?username=" + settings.getString("UserMail", ""));
+                }
+                switch (URLMode){
+                    case MODE_RANDOM:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case MODE_HEALTHY:
+                        //TODO: Ara crida a random
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case MODE_THREE_INGREDIENTS:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getLowCost/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case MODE_FAST:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getFastToDo/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    default:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                        break;
                 }
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();

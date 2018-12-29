@@ -42,6 +42,7 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         switch(view.getId()) {
             case R.id.nopref:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent.putExtra("URLMode", 0);
                 break;
             case R.id.healthy:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class); //TODO nova pagina de
