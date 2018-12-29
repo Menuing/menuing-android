@@ -262,7 +262,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             try {
 
                 //GET ACTUAL USER ID
-                URL url = new URL("");
+                URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
                 if(meal_type == DINNER) {
                     url = new URL("http://" + ipserver + "/api/resources/recipes/getDinnerDish/?username=" + settings.getString("UserMail", ""));
                 }
