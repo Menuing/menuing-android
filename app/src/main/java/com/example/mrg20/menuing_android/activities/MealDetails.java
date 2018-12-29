@@ -125,7 +125,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         if(recipe1 != null)
             db.addData(recipe1);
 
-        if(ur.connection && meal_type == LUNCH) {
+        if(ur.connection && (meal_type == LUNCH || URLMode == MODE_RANDOM )) {
             ur.cancel(true);
 
             ur = new UrlConnectorGetRecipes();
@@ -228,21 +228,24 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             }else{
                 recipe1NameTV.setTextSize(20);
             }
-
-            recipe2NameTV.setText(recipe2.getString("name"));
-            if(recipe2NameTV.getText().length() >= 30){
-                if(recipe2NameTV.getText().length() >= 60)
-                    recipe2NameTV.setTextSize(12);
-                else
-                    recipe2NameTV.setTextSize(15);
-            }else{
-                recipe2NameTV.setTextSize(20);
+            if(meal_type == LUNCH || URLMode == MODE_RANDOM ) {
+                recipe2NameTV.setText(recipe2.getString("name"));
+                if (recipe2NameTV.getText().length() >= 30) {
+                    if (recipe2NameTV.getText().length() >= 60)
+                        recipe2NameTV.setTextSize(12);
+                    else
+                        recipe2NameTV.setTextSize(15);
+                } else {
+                    recipe2NameTV.setTextSize(20);
+                }
             }
 
             String s = "Rating: " + recipe1.getDouble("averagePuntuation")+"/5.0";
             recipe1Rating.setText(s);
-            s = "Rating: " + recipe2.getDouble("averagePuntuation")+"/5.0";
-            recipe2Rating.setText(s);
+            if(ur.connection && (meal_type == LUNCH || URLMode == MODE_RANDOM )) {
+                s = "Rating: " + recipe2.getDouble("averagePuntuation") + "/5.0";
+                recipe2Rating.setText(s);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
