@@ -48,6 +48,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
     Date date;
     int meal_type;
+    int num_recipes = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,8 +115,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         if(recipe1 != null)
             db.addData(recipe1);
 
-
-        if(ur.connection) {
+        if(ur.connection && meal_type == LUNCH) {
             ur.cancel(true);
 
             ur = new UrlConnectorGetRecipes();
@@ -160,9 +160,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
             ur.cancel(true);
         }
-
-
-
 
         if(!badConnection)
             fillFields();
@@ -263,8 +260,16 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
-                if(meal_type == DINNER) {
+                if (meal_type == DINNER) {
                     url = new URL("http://" + ipserver + "/api/resources/recipes/getDinnerDish/?username=" + settings.getString("UserMail", ""));
+                } else if (meal_type == LUNCH && num_recipes == 0){
+                    num_recipes++;
+                    url = new URL("http://" + ipserver + "/api/resources/recipes/getFirstDish/?username=" + settings.getString("UserMail", ""));
+                } else if (meal_type == LUNCH && num_recipes != 0){
+                    num_recipes++;
+                    url = new URL("http://" + ipserver + "/api/resources/recipes/getSecondDish/?username=" + settings.getString("UserMail", ""));
+                } else if (meal_type == BREAKFAST){
+                    url = new URL("http://" + ipserver + "/api/resources/recipes/getBreakfast/?username=" + settings.getString("UserMail", ""));
                 }
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
