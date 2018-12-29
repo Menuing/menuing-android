@@ -29,6 +29,7 @@ import android.widget.Toast;
 import android.app.ActionBar.LayoutParams;
 
 
+import com.example.mrg20.menuing_android.DatabaseHelper;
 import com.example.mrg20.menuing_android.LoginActivity;
 import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
@@ -91,6 +92,31 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         allergiesList = (ListView) findViewById(R.id.allergiesScrollView);
         filterList("");
         allergiesList.setOnItemClickListener(this);
+
+
+        /*
+        //TEST DATABASE
+        DatabaseHelper h = new DatabaseHelper(this);
+        JSONObject asdf = new JSONObject();
+        try {
+            asdf.put("name","\na");
+            asdf.put("instructions","\nb");
+            asdf.put("proportions","\nc");
+            asdf.put("calories","\nd");
+            asdf.put("sodium","\ne");
+            asdf.put("fat","\nf");
+            asdf.put("protein","\ng");
+            asdf.put("urlPhoto","\nh");
+            asdf.put("averagePuntuation","\ni");
+
+        }catch (Exception e){
+            System.out.println("Pou posan coses al json");
+        }
+        System.out.println("PARAPAPAPAA");
+
+        boolean insert = h.addData(asdf);
+        System.out.println("INSERT ? " + insert);
+        */
     }
 
 
@@ -314,9 +340,19 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
                 System.out.println("HTTP CODE " + conn2.getResponseCode());
                 conn2.disconnect();
 
+                url = new URL("http://" + ipserver + "api/resources/recommendedRecipes/calculateRecommendedRecipes?username=" + settings.getString("UserMail",""));
+                System.out.println(url);
+                conn2 = (HttpURLConnection) url.openConnection();
+                conn2.setRequestMethod("POST");
+                conn2.setRequestProperty("Content-Type", "application/json");
+                conn2.setDoOutput(true);
+                System.out.println("HTTP CODE " + conn2.getResponseCode());
+                conn2.disconnect();
+
             }catch (Exception e){
-                System.out.println("Could not save allergies " + e);
+                System.out.println("Could not load recomended recipes " + e);
             }
+
             this.saved = true;
             return null;
         }

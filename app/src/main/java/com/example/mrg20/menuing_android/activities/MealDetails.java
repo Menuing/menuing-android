@@ -3,14 +3,21 @@ package com.example.mrg20.menuing_android.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import com.example.mrg20.menuing_android.DatabaseHelper;
 import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
@@ -19,11 +26,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Random;
+
+import cz.msebera.android.httpclient.util.ByteArrayBuffer;
 
 public class MealDetails extends GlobalActivity implements View.OnClickListener {
 
@@ -34,6 +46,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     boolean badConnection = false;
     MealDetails.UrlConnectorGetRecipes ur;
 
+    Date date;
+    int meal_type;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +56,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         if (getIntent().getExtras() != null) {
             URLMode = getIntent().getExtras().getInt("URLMode");
         }
+
+        date = (Date)getIntent().getSerializableExtra("DAY");
+        meal_type = getIntent().getExtras().getInt("TIME");
 
         setContentView(R.layout.activity_meal_details);
 
@@ -53,12 +71,17 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         recipe = (Button) findViewById(R.id.first_recipe2);
         recipe.setOnClickListener(this);
 
+        DatabaseHelper db = new DatabaseHelper(this);
 
+        byte[] img1;
+        byte[] img2;
 
         ur = new UrlConnectorGetRecipes();
         ur.execute();
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         recipe1 = ur.getRecipe();
+
+
         if(ur.connection == false){
             badConnection = true;
             System.out.println("NO CONNECTION");
@@ -77,7 +100,20 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         }
                     })
                     .show();
+        }else{
+            try {
+                img1 = ur.img;
+                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1 .length);
+                ImageView img = (ImageView) findViewById(R.id.imageView5);
+                img.setImageBitmap(bitmap1);
+            }catch (Exception e){
+                System.out.println("IMG 1 ERROR " + e);
+            }
         }
+
+        if(recipe1 != null)
+            db.addData(recipe1);
+
 
         if(ur.connection) {
             ur.cancel(true);
@@ -88,6 +124,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 if (ur.loaded) System.out.println(ur.loaded);
             }
             recipe2 = ur.getRecipe();
+
             if (ur.connection == false) {
                 badConnection = true;
                 System.out.println("NO CONNECTION");
@@ -106,9 +143,27 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                             }
                         })
                         .show();
+            }else{
+                try {
+                    img2 = ur.img;
+                    Bitmap bitmap2 = BitmapFactory.decodeByteArray(img2, 0, img2 .length);
+                    ImageView img= (ImageView) findViewById(R.id.imageView6);
+                    img.setImageBitmap(bitmap2);
+                }catch (Exception e){
+                    System.out.println("IMG 2 ERROR " + e);
+                }
+
             }
+
+            if(recipe2 != null)
+                db.addData(recipe2);
+
             ur.cancel(true);
         }
+
+
+
+
         if(!badConnection)
             fillFields();
     }
@@ -195,6 +250,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         public boolean connection = true;
 
         private JSONObject thisRecipe;
+        public byte[] img;
 
         public JSONObject getRecipe(){ return thisRecipe;}
 
@@ -206,34 +262,82 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             try {
 
                 //GET ACTUAL USER ID
-                URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                URL url = new URL("");
+                if(meal_type == DINNER) {
+                    url = new URL("http://" + ipserver + "/api/resources/recipes/getDinnerDish/?username=" + settings.getString("UserMail", ""));
+                }
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Accept", "application/json");
                 int userID = -1;
-                System.out.println("BUSCANT USUARI");
                 if (conn.getResponseCode() == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
-                    System.out.println("REDLINE");
                     JSONObject obj = new JSONObject(output);
                     thisRecipe = obj;
                     br.close();
-                    loaded = true;
                 } else {
                     this.loaded = true;
                     this.connection = false;
-                    System.out.println("COULD NOT FIND USER");
+                    System.out.println("COULD NOT FIND RECIPE");
                     return null;
                 }
 
                 conn.disconnect();
-                return null;
+
             } catch (Exception e) {
                 this.loaded = true;
                 this.connection = false;
-                System.out.println("e");
+                System.out.println("POZO 1 " + e );
+            }
+
+            if(thisRecipe != null) {
+                try {
+                    //TODO -----------------------------
+                    URL google = new URL("https://www.google.com/search?tbm=isch&q=" + thisRecipe.getString("name").replace(" ", "_"));
+                    System.out.println("URL gOOgle " + google);
+                    conn = (HttpURLConnection) google.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setRequestProperty("Accept", "text/html");
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String str;
+                    StringBuffer response = new StringBuffer();
+                    while((str = br.readLine()) != null){
+                        response.append(str);
+                    }
+                    System.out.println(response);
+
+                    //<img[^>]+src="([^">]+)"
+                    /*Pattern pattern = Pattern.compile("<img[^>]+src=\"([^\">]+)\"");
+                    Matcher m = pattern.matcher(html);
+                    String ex = "";
+                    if(m.find()){
+                        ex = m.group(0);
+                    }
+
+                    System.out.println("\n SAS: " + ex);
+                    System.out.println("\n\nHTML: " + html);
+                    */
+                    //TODO POSAR LA URL DE LA IMG TROBADA AQUI
+                    URL imageUrl = new URL("https://vignette.wikia.nocookie.net/reborn/images/f/f7/Lambo.jpg/revision/latest?cb=20101117114931");
+                    URLConnection ucon = imageUrl.openConnection();
+
+                    InputStream is = ucon.getInputStream();
+                    BufferedInputStream bis = new BufferedInputStream(is);
+
+                    ByteArrayBuffer baf = new ByteArrayBuffer(500);
+                    int current = 0;
+                    while ((current = bis.read()) != -1) {
+                        baf.append((byte) current);
+                    }
+                    img = baf.toByteArray();
+                    loaded = true;
+                } catch (Exception e) {
+                    System.out.println("POZO IMG " + e);
+                    img = null;
+                    this.loaded = true;
+                }
             }
             loaded = true;
             return null;

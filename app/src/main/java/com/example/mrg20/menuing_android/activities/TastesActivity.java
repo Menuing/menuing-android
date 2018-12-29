@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import android.app.ActionBar.LayoutParams;
 
 
+import com.example.mrg20.menuing_android.DatabaseHelper;
 import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.RegisterActivity;
@@ -87,15 +89,37 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         tastesList = (ListView) findViewById(R.id.tastesScrollView);
         filterList("");
         tastesList.setOnItemClickListener(this);
+
+        /*
+        DatabaseHelper db = new DatabaseHelper(this);
+        Cursor sas = db.getData();
+        System.out.println(sas);
+        System.out.println("DATA:");
+
+        while (sas.moveToNext()) {
+            System.out.println("name " + sas.getString(1));
+            System.out.println("inst " + sas.getString(2));
+            System.out.println("proportions " + sas.getString(3));
+            System.out.println("cal " + sas.getString(4));
+            System.out.println("sodium " + sas.getString(5));
+            System.out.println("fat " + sas.getString(6));
+            System.out.println("protein " + sas.getString(7));
+            System.out.println("foto " + sas.getString(8));
+            System.out.println("averagePuntuation " + sas.getString(9));
+            System.out.println("__________________________");
+        }
+        */
+
+
     }
 
 
     @Override
     public void onStop(){
-        if(!urSave.isCancelled()) {
+        if(urSave != null && !urSave.isCancelled()) {
             urSave.cancel(true);
         }
-        if(!urGen.isCancelled()) {
+        if(urGen != null && !urGen.isCancelled()) {
             urGen.cancel(true);
         }
         super.onStop();
@@ -103,10 +127,10 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
 
     @Override
     protected void onDestroy(){
-        if(!urSave.isCancelled()) {
+        if(urSave != null && !urSave.isCancelled()) {
             urSave.cancel(true);
         }
-        if(!urGen.isCancelled()) {
+        if(urGen != null && !urGen.isCancelled()) {
             urGen.cancel(true);
         }
         super.onDestroy();
@@ -300,6 +324,15 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
                 os.write(jsonString.getBytes());
                 os.flush();
                 os.close();
+                System.out.println("HTTP CODE " + conn.getResponseCode());
+                conn.disconnect();
+
+                url = new URL("http://" + ipserver + "/api/resources/recommendedRecipes/calculateRecommendedRecipes?username=" + settings.getString("UserMail",""));
+                System.out.println(url);
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
                 System.out.println("HTTP CODE " + conn.getResponseCode());
                 conn.disconnect();
 
