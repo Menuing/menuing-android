@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
+import com.example.mrg20.menuing_android.activities.AllergiesActivity;
+import com.example.mrg20.menuing_android.activities.UserProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,7 +40,11 @@ public class GlobalActivity extends AppCompatActivity {
     public SharedPreferences settings;
 
     //Recordar de posar el port
-    protected String ipserver = "7de1fc7e.ngrok.io";
+    protected String ipserver = "b2cdac4e.ngrok.io";
+
+    protected static final int BREAKFAST = 0;
+    protected static final int LUNCH = 1;
+    protected static final int DINNER = 2;
 
 
     @Override
@@ -91,7 +97,7 @@ public class GlobalActivity extends AppCompatActivity {
             return "";
     }
 
-    public void register(String mail, String password){
+    public void register(final String mail, final String password){
         mAuth.createUserWithEmailAndPassword(mail, password)
                 .addOnCompleteListener(GlobalActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -100,12 +106,31 @@ public class GlobalActivity extends AppCompatActivity {
                             Toast.makeText(GlobalActivity.this, getString(R.string.err_register), Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(GlobalActivity.this, getString(R.string.user_registered), Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(new Intent(GlobalActivity.this, MainPageActivity.class)));
-                            finish();
+                            Handler h = new Handler(){
+                                @Override
+                                public void handleMessage(Message msg){
+                                    switch (msg.what){
+                                        case 0:
+                                            if ((Boolean) msg.obj) {
+                                                startActivity(new Intent(new Intent(GlobalActivity.this, UserProfile.class)));
+                                                finish();
+                                            }else{
+                                                Toast.makeText(getApplicationContext(), getString(R.string.err_login_fail), Toast.LENGTH_SHORT).show();
+                                            }
+                                    }
+                                }
+                            };
+                            signedIn(mail, password, h);
                         }
                     }
                 });
     }
+
+
+    public void signedIn(final String mail, String password) {
+        signedIn(mail, password, null);
+    }
+
 
     public void signedIn(final String mail, String password, final Handler h){
         final Message msg = new Message();
@@ -126,7 +151,7 @@ public class GlobalActivity extends AppCompatActivity {
                         }
                         msg.what = 0;
                         msg.obj = obj[0];
-                        h.sendMessage(msg);
+                        if(h!=null) h.sendMessage(msg);
                     }
                 });
     }
