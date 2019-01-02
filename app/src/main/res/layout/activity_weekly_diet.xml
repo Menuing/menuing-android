@@ -70,39 +70,52 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Lunch"
+                                android:text="@string/breakfast"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/breakfast_first"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Default"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/lunch"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/lunch1_first"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default1"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:id="@+id/lunch2_first"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default2"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
                             <TextView
+                                android:id="@+id/dinner_first"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Fish and Chips"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Salad"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Dinner"
-                                android:layout_margin="4dp"
-                                style="@style/weekly_meal_tittle"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Grilled chicken"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Soup"
+                                android:text="default"
                                 android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
@@ -142,39 +155,52 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Lunch"
+                                android:text="@string/breakfast"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/breakfast_second"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Default"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/lunch"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/lunch1_second"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default1"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:id="@+id/lunch2_second"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default2"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
                             <TextView
+                                android:id="@+id/dinner_second"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Fish and Chips"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Salad"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Dinner"
-                                android:layout_margin="4dp"
-                                style="@style/weekly_meal_tittle"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Grilled chicken"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Soup"
+                                android:text="default"
                                 android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
@@ -215,39 +241,52 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Lunch"
+                                android:text="@string/breakfast"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/breakfast_third"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Default"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/lunch"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/lunch1_third"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default1"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:id="@+id/lunch2_third"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default2"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
                             <TextView
+                                android:id="@+id/dinner_third"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Fish and Chips"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Salad"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Dinner"
-                                android:layout_margin="4dp"
-                                style="@style/weekly_meal_tittle"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Grilled chicken"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Soup"
+                                android:text="default"
                                 android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
@@ -288,39 +327,52 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Lunch"
+                                android:text="@string/breakfast"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/breakfast_forth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Default"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/lunch"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/lunch1_forth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default1"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:id="@+id/lunch2_forth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default2"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
                             <TextView
+                                android:id="@+id/dinner_forth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Fish and Chips"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Salad"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Dinner"
-                                android:layout_margin="4dp"
-                                style="@style/weekly_meal_tittle"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Grilled chicken"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Soup"
+                                android:text="default"
                                 android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
@@ -361,39 +413,52 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Lunch"
+                                android:text="@string/breakfast"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/breakfast_fifth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Default"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/lunch"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/lunch1_fifth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default1"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:id="@+id/lunch2_fifth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default2"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
                             <TextView
+                                android:id="@+id/dinner_fifth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Fish and Chips"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Salad"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Dinner"
-                                android:layout_margin="4dp"
-                                style="@style/weekly_meal_tittle"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Grilled chicken"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Soup"
+                                android:text="default"
                                 android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
@@ -433,39 +498,52 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Lunch"
+                                android:text="@string/breakfast"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/breakfast_sixth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="Default"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/lunch"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/lunch1_sixth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default1"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:id="@+id/lunch2_sixth"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default2"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="@string/dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
                             <TextView
+                                android:id="@+id/dinner_sixth"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Fish and Chips"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Salad"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Dinner"
-                                style="@style/weekly_meal_tittle"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Grilled chicken"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Soup"
+                                android:text="default"
                                 android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
@@ -505,44 +583,55 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Lunch"
+                                android:text="@string/breakfast"
                                 android:layout_margin="4dp"
                                 android:background="@android:color/transparent"
                                 style="@style/weekly_meal_tittle"/>
                             <TextView
+                                android:id="@+id/breakfast_seventh"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Fish and Chips"
+                                android:text="Default"
                                 android:layout_margin="4dp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Salad"
+                                android:text="@string/lunch"
+                                android:layout_margin="4dp"
+                                android:background="@android:color/transparent"
+                                style="@style/weekly_meal_tittle"/>
+                            <TextView
+                                android:id="@+id/lunch1_seventh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default1"
+                                android:layout_margin="4dp"/>
+                            <TextView
+                                android:id="@+id/lunch2_seventh"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="default2"
                                 android:layout_margin="4dp"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Dinner"
+                                android:text="@string/dinner"
                                 android:layout_margin="4dp"
                                 style="@style/weekly_meal_tittle"/>
                             <TextView
+                                android:id="@+id/dinner_seventh"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:text="Grilled chicken"
-                                android:layout_margin="4dp"/>
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="Soup"
+                                android:text="default"
                                 android:layout_margin="4dp"/>
                         </LinearLayout>
                     </TableRow>
-
                 </TableLayout>
             </LinearLayout>
         </HorizontalScrollView>

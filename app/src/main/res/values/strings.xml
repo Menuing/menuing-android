@@ -156,4 +156,9 @@
 
     <!-- coses del firebase -->
     <string name="testTopic">newRecords</string>
+
+    <!-- text weekly diet -->
+    <string name="breakfast">Breaksfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
 </resources>
