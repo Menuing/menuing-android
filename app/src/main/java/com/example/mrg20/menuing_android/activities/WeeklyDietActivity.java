@@ -29,7 +29,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class WeeklyDietActivity extends GlobalActivity implements TableLayout.OnClickListener {
@@ -89,13 +91,13 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
 
         getAllFromFrontEnd();
 
+        setThisWeekDays();
+
         setOnClickListeners();
 
         getDiet();
 
         parseRecipes();
-
-        setThisWeekDays();
 
         try {
             setRecipeNames();
@@ -158,7 +160,7 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         JSONArray newDiet = ur.getDiet();
         SharedPreferences.Editor editor = localSettings.edit();
-        editor.putString(mail, newDiet.toString());
+        editor.putString(mail+firstDayDate, newDiet.toString());
         editor.commit();
         return newDiet;
     }
@@ -233,7 +235,7 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
         Calendar cal = Calendar. getInstance();
         cal.setTime(date);
 
-        cal.setFirstDayOfWeek(Calendar.SUNDAY);
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
 
         // 3. set calendars dOW field to the first dOW (last sunday)
         cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
@@ -257,7 +259,7 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
     private String getFromSharedPreferences() {
         localSettings  = getSharedPreferences(SETTINGS, 0);
         mail = settings.getString("UserMail", "");
-        return localSettings.getString(mail, "");
+        return localSettings.getString(mail+firstDayDate, "");
     }
 
     @Override
