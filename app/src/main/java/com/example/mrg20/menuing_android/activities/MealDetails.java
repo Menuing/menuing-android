@@ -142,7 +142,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             while (!ur.loaded) {
                 if (ur.loaded) System.out.println(ur.loaded);
             }
-            if(recipe1 == null) {
+            if(recipe2 == null) {
                 recipe2 = ur.getRecipe();
             }
             if (ur.connection == false) {
