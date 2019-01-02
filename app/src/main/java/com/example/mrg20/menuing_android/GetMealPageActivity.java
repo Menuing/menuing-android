@@ -44,7 +44,7 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
                 intent.putExtra("TYPE", NO_PREFERENCES);
                 break;
-            case R.id.healthy://TODO: s'ha de fer botonet de COCKTAIL
+            case R.id.cocktail://TODO: s'ha de fer botonet de COCKTAIL
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
                 intent.putExtra("TYPE", COCKTAIL);
                 break;

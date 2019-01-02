@@ -67,18 +67,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <ImageView
-                        android:id="@+id/healthy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/healthy" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-                    <ImageView
                         android:id="@+id/threeing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -97,6 +85,18 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/boto20min" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:id="@+id/cocktail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/healthy" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
