@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.mrg20.menuing_android.MealHour;
@@ -22,20 +20,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-
-import cz.msebera.android.httpclient.util.ByteArrayBuffer;
+import java.util.List;
 
 
 public class WeeklyDietActivity extends GlobalActivity implements TableLayout.OnClickListener {
@@ -54,12 +48,23 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
     TextView txtFifth;
     TextView txtSixth;
     TextView txtSeventh;
-
+    
+    List<TextView> txtBreakfasts;
+    List<TextView> txtLunches1;
+    List<TextView> txtLunches2;
+    List<TextView> txtDinners;
+    
+    
     UrlConnectorGetWeeklyDiet ur;
 
     String mail;
 
-    JSONObject diet;
+    JSONArray diet;
+
+    List<JSONObject> breakfasts;
+    List<JSONObject> lunches1;
+    List<JSONObject> lunches2;
+    List<JSONObject> dinners;
 
     String firstDayDate;
 
@@ -86,24 +91,72 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
 
         setOnClickListeners();
 
+        getDiet();
+
+        parseRecipes();
+
         setThisWeekDays();
 
         try {
-            diet = new JSONObject(getFromSharedPreferences());
+            setRecipeNames();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setRecipeNames() throws JSONException {
+        for (int i=0; i<breakfasts.size();i++){
+            txtBreakfasts.get(i).setText(breakfasts.get(i).getString("name"));
+            txtLunches1.get(i).setText(lunches1.get(i).getString("name"));
+            txtLunches2.get(i).setText(lunches2.get(i).getString("name"));
+            txtDinners.get(i).setText(dinners.get(i).getString("name"));
+        }
+
+    }
+
+    private void getDiet() {
+        try {
+            diet = new JSONArray(getFromSharedPreferences());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         if(diet == null || diet.equals("")){
             diet = getNewWeeklyDiet();
         }
-
     }
 
-    private JSONObject getNewWeeklyDiet() {
+    private void parseRecipes() {
+        breakfasts = new ArrayList<>();
+        lunches1 = new ArrayList<>();
+        lunches2 = new ArrayList<>();
+        dinners = new ArrayList<>();
+        for (int i = 0; i < diet.length(); i++) {
+            try {
+                switch(i%4){
+                    case 0:
+                        breakfasts.add(diet.getJSONObject(i));
+                        break;
+                    case 1:
+                        lunches1.add(diet.getJSONObject(i));
+                        break;
+                    case 2:
+                        lunches2.add(diet.getJSONObject(i));
+                        break;
+                    case 3:
+                        dinners.add(diet.getJSONObject(i));
+                        break;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private JSONArray getNewWeeklyDiet() {
         ur = new UrlConnectorGetWeeklyDiet();
         ur.execute();
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
-        JSONObject newDiet = ur.getDiet();
+        JSONArray newDiet = ur.getDiet();
         SharedPreferences.Editor editor = localSettings.edit();
         editor.putString(mail, newDiet.toString());
         editor.commit();
@@ -136,6 +189,42 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
         txtFifth = findViewById(R.id.fifth);
         txtSixth = findViewById(R.id.sixth);
         txtSeventh = findViewById(R.id.seventh);
+        
+        txtBreakfasts = new ArrayList<>();
+        txtBreakfasts.add((TextView) findViewById(R.id.breakfast_first));
+        txtBreakfasts.add((TextView) findViewById(R.id.breakfast_second));
+        txtBreakfasts.add((TextView) findViewById(R.id.breakfast_third));
+        txtBreakfasts.add((TextView) findViewById(R.id.breakfast_forth));
+        txtBreakfasts.add((TextView) findViewById(R.id.breakfast_fifth));
+        txtBreakfasts.add((TextView) findViewById(R.id.breakfast_sixth));
+        txtBreakfasts.add((TextView) findViewById(R.id.breakfast_seventh));
+
+        txtLunches1 = new ArrayList<>();
+        txtLunches1.add((TextView) findViewById(R.id.lunch1_first));
+        txtLunches1.add((TextView) findViewById(R.id.lunch1_second));
+        txtLunches1.add((TextView) findViewById(R.id.lunch1_third));
+        txtLunches1.add((TextView) findViewById(R.id.lunch1_forth));
+        txtLunches1.add((TextView) findViewById(R.id.lunch1_fifth));
+        txtLunches1.add((TextView) findViewById(R.id.lunch1_sixth));
+        txtLunches1.add((TextView) findViewById(R.id.lunch1_seventh));
+        
+        txtLunches2 = new ArrayList<>();
+        txtLunches2.add((TextView) findViewById(R.id.lunch2_first));
+        txtLunches2.add((TextView) findViewById(R.id.lunch2_second));
+        txtLunches2.add((TextView) findViewById(R.id.lunch2_third));
+        txtLunches2.add((TextView) findViewById(R.id.lunch2_forth));
+        txtLunches2.add((TextView) findViewById(R.id.lunch2_fifth));
+        txtLunches2.add((TextView) findViewById(R.id.lunch2_sixth));
+        txtLunches2.add((TextView) findViewById(R.id.lunch2_seventh));
+
+        txtDinners = new ArrayList<>();
+        txtDinners.add((TextView) findViewById(R.id.dinner_first));
+        txtDinners.add((TextView) findViewById(R.id.dinner_second));
+        txtDinners.add((TextView) findViewById(R.id.dinner_third));
+        txtDinners.add((TextView) findViewById(R.id.dinner_forth));
+        txtDinners.add((TextView) findViewById(R.id.dinner_fifth));
+        txtDinners.add((TextView) findViewById(R.id.dinner_sixth));
+        txtDinners.add((TextView) findViewById(R.id.dinner_seventh));
     }
 
     public void setThisWeekDays() {
@@ -204,9 +293,9 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
         public boolean loaded = false;
         public boolean connection = true;
 
-        private JSONObject thisDiet = new JSONObject();
+        private JSONArray thisDiet = new JSONArray();
 
-        public JSONObject getDiet(){ return thisDiet;}
+        public JSONArray getDiet(){ return thisDiet;}
 
         HttpURLConnection conn;
 
@@ -223,8 +312,7 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
                 if (conn.getResponseCode() == 200) {
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String output = br.readLine();
-                    JSONArray obj = new JSONArray(output);
-                    thisDiet.put(firstDayDate, obj);
+                    thisDiet = new JSONArray(output);
                     br.close();
                 } else {
                     this.loaded = true;
