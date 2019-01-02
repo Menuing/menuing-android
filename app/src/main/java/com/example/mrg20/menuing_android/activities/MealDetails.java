@@ -51,16 +51,18 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        String recipe1String = "";
+        String recipe2String = "";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_details);
         secondRecipeLayout=(LinearLayout)this.findViewById(R.id.Second);
         if (getIntent().getExtras() != null) {
             type = getIntent().getExtras().getInt("TYPE");
             mode = getIntent().getExtras().getInt("MODE");
+            recipe1String =  getIntent().getExtras().getString("RECIPE1");
+            recipe2String =  getIntent().getExtras().getString("RECIPE2");
+            date = (Date)getIntent().getSerializableExtra("DAY");
         }
-
-        date = (Date)getIntent().getSerializableExtra("DAY");
-
 
         if (mode == RECIPE) {
             secondRecipeLayout.setVisibility(LinearLayout.GONE);
@@ -80,13 +82,27 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         byte[] img1;
         byte[] img2;
 
-        ur = new UrlConnectorGetRecipes();
-        ur.execute();
-        while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
-        recipe1 = ur.getRecipe();
+        try {
+            if(recipe1String != null && !recipe1String.equals("")) {
+                recipe1 = new JSONObject(recipe1String);
+            }
+            if(recipe2String != null && !recipe2String.equals("")) {
+                recipe2 = new JSONObject(recipe2String);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
-        if(ur.connection == false){
+            ur = new UrlConnectorGetRecipes();
+            ur.execute();
+            while (!ur.loaded) {
+                if (ur.loaded) System.out.println(ur.loaded);
+            }
+        if(recipe1 == null) {
+            recipe1 = ur.getRecipe();
+        }
+        if (ur.connection == false) {
             badConnection = true;
             System.out.println("NO CONNECTION");
             AlertDialog.Builder builder;
@@ -104,13 +120,13 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         }
                     })
                     .show();
-        }else{
+        } else {
             try {
                 img1 = ur.img;
-                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1 .length);
+                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1.length);
                 ImageView img = (ImageView) findViewById(R.id.imageView5);
                 img.setImageBitmap(bitmap1);
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("IMG 1 ERROR " + e);
             }
         }
@@ -126,8 +142,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             while (!ur.loaded) {
                 if (ur.loaded) System.out.println(ur.loaded);
             }
-            recipe2 = ur.getRecipe();
-
+            if(recipe1 == null) {
+                recipe2 = ur.getRecipe();
+            }
             if (ur.connection == false) {
                 badConnection = true;
                 System.out.println("NO CONNECTION");

@@ -275,8 +275,11 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
                         if(which==0){
                             Intent intent = new Intent(WeeklyDietActivity.this,MealHour.class);
                             Bundle bundle = new Bundle();
-                            bundle.putString("dia", ((TextView)view.findViewWithTag("day")).getText().toString());
-                            intent.putExtra("data", bundle);
+                            bundle.putString("breakfast", breakfasts.get(which).toString());
+                            bundle.putString("lunch1", lunches1.get(which).toString());
+                            bundle.putString("lunch2", lunches2.get(which).toString());
+                            bundle.putString("dinner", dinners.get(which).toString());
+                            intent.putExtra("RECIPES", bundle);
                             startActivity(intent);
                         }
                     }
