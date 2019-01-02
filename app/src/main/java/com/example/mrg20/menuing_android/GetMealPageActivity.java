@@ -25,7 +25,7 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         ImageView nopreference = (ImageView) findViewById(R.id.nopref);
-        ImageView healthy = (ImageView) findViewById(R.id.healthy);
+        ImageView healthy = (ImageView) findViewById(R.id.cocktail);
         ImageView threeIngredients = (ImageView) findViewById(R.id.threeing);
         ImageView fastRecipe = (ImageView) findViewById(R.id.fasttodo);
 

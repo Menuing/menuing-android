@@ -2,6 +2,7 @@ package com.example.mrg20.menuing_android.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -16,40 +17,85 @@ import com.example.mrg20.menuing_android.MealHour;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class WeeklyDietActivity extends GlobalActivity implements TableLayout.OnClickListener {
-    TableLayout tlMonday;
-    TableLayout tlTuesday;
-    TableLayout tlWednesday;
-    TableLayout tlThursday;
-    TableLayout tlFriday;
-    TableLayout tlSaturday;
-    TableLayout tlSunday;
+    TableLayout tlFirst;
+    TableLayout tlSecond;
+    TableLayout tlThird;
+    TableLayout tlForth;
+    TableLayout tlFifth;
+    TableLayout tlSixth;
+    TableLayout tlSeventh;
+
+    TextView txtFirst;
+    TextView txtSecond;
+    TextView txtThird;
+    TextView txtForth;
+    TextView txtFifth;
+    TextView txtSixth;
+    TextView txtSeventh;
+
+    private SharedPreferences settings;
+
+    Date date;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_diet);
 
+        date = (Date)getIntent().getSerializableExtra("DAY");
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        tlMonday = findViewById(R.id.monday_column);
-        tlTuesday = findViewById(R.id.tuesday_column);
-        tlWednesday = findViewById(R.id.wednesday_column);
-        tlThursday = findViewById(R.id.thursday_column);
-        tlFriday = findViewById(R.id.friday_column);
-        tlSaturday = findViewById(R.id.saturday_column);
-        tlSunday = findViewById(R.id.sunday_column);
+        tlFirst = findViewById(R.id.first_column);
+        tlSecond = findViewById(R.id.second_column);
+        tlThird = findViewById(R.id.third_column);
+        tlForth = findViewById(R.id.forth_column);
+        tlFifth = findViewById(R.id.fifth_column);
+        tlSixth = findViewById(R.id.sixth_column);
+        tlSeventh = findViewById(R.id.seventh_column);
 
-        tlMonday.setOnClickListener(this);
-        tlTuesday.setOnClickListener(this);
-        tlWednesday.setOnClickListener(this);
-        tlThursday.setOnClickListener(this);
-        tlFriday.setOnClickListener(this);
-        tlSaturday.setOnClickListener(this);
-        tlSunday.setOnClickListener(this);
+        txtFirst = findViewById(R.id.first);
+        txtSecond = findViewById(R.id.second);
+        txtThird = findViewById(R.id.third);
+        txtForth = findViewById(R.id.forth);
+        txtFifth = findViewById(R.id.fifth);
+        txtSixth = findViewById(R.id.sixth);
+        txtSeventh = findViewById(R.id.seventh);
+
+        tlFirst.setOnClickListener(this);
+        tlSecond.setOnClickListener(this);
+        tlThird.setOnClickListener(this);
+        tlForth.setOnClickListener(this);
+        tlFifth.setOnClickListener(this);
+        tlSixth.setOnClickListener(this);
+        tlSeventh.setOnClickListener(this);
+
+        DateFormat df = new SimpleDateFormat("dd/MM");
+        Calendar cal = Calendar. getInstance();
+        cal.setTime(date);
+
+        txtFirst.setText(df.format(cal.getTime()));
+        cal.add(Calendar.DATE, 1);
+        txtSecond.setText(df.format(cal.getTime()));
+        cal.add(Calendar.DATE, 1);
+        txtThird.setText(df.format(cal.getTime()));
+        cal.add(Calendar.DATE, 1);
+        txtForth.setText(df.format(cal.getTime()));
+        cal.add(Calendar.DATE, 1);
+        txtFifth.setText(df.format(cal.getTime()));
+        cal.add(Calendar.DATE, 1);
+        txtSixth.setText(df.format(cal.getTime()));
+        cal.add(Calendar.DATE, 1);
+        txtSeventh.setText(df.format(cal.getTime()));
 
     }
 
