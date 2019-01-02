@@ -42,21 +42,22 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         switch(view.getId()) {
             case R.id.nopref:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
-                intent.putExtra("URLMode", 0);
+                intent.putExtra("TYPE", NO_PREFERENCES);
                 break;
-            case R.id.healthy:
-                intent = new Intent(GetMealPageActivity.this, MealDetails.class); //TODO nova pagina de
-                intent.putExtra("URLMode", 1);
+            case R.id.healthy://TODO: s'ha de fer botonet de COCKTAIL
+                intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent.putExtra("TYPE", COCKTAIL);
                 break;
             case R.id.threeing:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
-                intent.putExtra("URLMode", 2);
+                intent.putExtra("TYPE", THREE_INGREDIENTS);
                 break;
             case R.id.fasttodo:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
-                intent.putExtra("URLMode", 3);
+                intent.putExtra("TYPE", FAST_TO_DO);
                 break;
         }
+        intent.putExtra("MODE", RECIPE);
         startActivity(intent);
     }
 }

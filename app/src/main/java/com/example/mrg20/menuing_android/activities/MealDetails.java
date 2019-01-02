@@ -38,13 +38,6 @@ import java.util.Random;
 import cz.msebera.android.httpclient.util.ByteArrayBuffer;
 
 public class MealDetails extends GlobalActivity implements View.OnClickListener {
-
-    static final int MODE_RANDOM = 0;
-    static final int MODE_HEALTHY= 1;
-    static final int MODE_THREE_INGREDIENTS = 2;
-    static final int MODE_FAST = 3;
-    int URLMode = 0;
-
     JSONObject recipe1;
     JSONObject recipe2;
     boolean badConnection = false;
@@ -52,7 +45,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     LinearLayout secondRecipeLayout;
 
     Date date;
-    int meal_type;
+    int type;
+    int mode;
     int num_recipes = 0;
 
     @Override
@@ -61,15 +55,14 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         setContentView(R.layout.activity_meal_details);
         secondRecipeLayout=(LinearLayout)this.findViewById(R.id.Second);
         if (getIntent().getExtras() != null) {
-            URLMode = getIntent().getExtras().getInt("URLMode");
+            type = getIntent().getExtras().getInt("TYPE");
+            mode = getIntent().getExtras().getInt("MODE");
         }
 
         date = (Date)getIntent().getSerializableExtra("DAY");
-        meal_type = getIntent().getExtras().getInt("TIME");
 
-        setContentView(R.layout.activity_meal_details);
 
-        if (URLMode ==  MODE_HEALTHY || URLMode == MODE_THREE_INGREDIENTS || URLMode == MODE_FAST) {
+        if (mode == RECIPE) {
             secondRecipeLayout.setVisibility(LinearLayout.GONE);
         }
 
@@ -125,7 +118,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         if(recipe1 != null)
             db.addData(recipe1);
 
-        if(ur.connection && (meal_type == LUNCH || URLMode == MODE_RANDOM )) {
+        if(ur.connection && mode == MEAL) {
             ur.cancel(true);
 
             ur = new UrlConnectorGetRecipes();
@@ -228,7 +221,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             }else{
                 recipe1NameTV.setTextSize(20);
             }
-            if(meal_type == LUNCH || URLMode == MODE_RANDOM ) {
+            if(mode == MEAL ) {
                 recipe2NameTV.setText(recipe2.getString("name"));
                 if (recipe2NameTV.getText().length() >= 30) {
                     if (recipe2NameTV.getText().length() >= 60)
@@ -242,7 +235,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
             String s = "Rating: " + recipe1.getDouble("averagePuntuation")+"/5.0";
             recipe1Rating.setText(s);
-            if(ur.connection && (meal_type == LUNCH || URLMode == MODE_RANDOM )) {
+            if(ur.connection && mode==MEAL) {
                 s = "Rating: " + recipe2.getDouble("averagePuntuation") + "/5.0";
                 recipe2Rating.setText(s);
             }
@@ -273,30 +266,33 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             try {
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
-                if (meal_type == DINNER) {
-                    url = new URL("http://" + ipserver + "/api/resources/recipes/getDinnerDish/?username=" + settings.getString("UserMail", ""));
-                } else if (meal_type == LUNCH && num_recipes == 0){
-                    num_recipes++;
-                    url = new URL("http://" + ipserver + "/api/resources/recipes/getFirstDish/?username=" + settings.getString("UserMail", ""));
-                } else if (meal_type == LUNCH && num_recipes != 0){
-                    num_recipes++;
-                    url = new URL("http://" + ipserver + "/api/resources/recipes/getSecondDish/?username=" + settings.getString("UserMail", ""));
-                } else if (meal_type == BREAKFAST) {
-                    url = new URL("http://" + ipserver + "/api/resources/recipes/getBreakfast/?username=" + settings.getString("UserMail", ""));
-                }
-                switch (URLMode){
-                    case MODE_RANDOM:
+
+                switch (type){
+                    case DINNER:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getDinnerDish/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case LUNCH:
+                        if(num_recipes == 0) {
+                            num_recipes++;
+                            url = new URL("http://" + ipserver + "/api/resources/recipes/getFirstDish/?username=" + settings.getString("UserMail", ""));
+                        }else{
+                            url = new URL("http://" + ipserver + "/api/resources/recipes/getSecondDish/?username=" + settings.getString("UserMail", ""));
+                        }
+                        break;
+                    case BREAKFAST:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getBreakfast/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case NO_PREFERENCES:
                         url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
                         break;
-                    case MODE_HEALTHY:
-                        //TODO: Ara crida a random
-                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
-                        break;
-                    case MODE_THREE_INGREDIENTS:
+                    case THREE_INGREDIENTS:
                         url = new URL("http://" + ipserver + "/api/resources/recipes/getLowCost/?username=" + settings.getString("UserMail", ""));
                         break;
-                    case MODE_FAST:
+                    case FAST_TO_DO:
                         url = new URL("http://" + ipserver + "/api/resources/recipes/getFastToDo/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case COCKTAIL:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getCocktail/?username=" + settings.getString("UserMail", ""));
                         break;
                     default:
                         url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
