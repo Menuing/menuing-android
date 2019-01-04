@@ -64,6 +64,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             date = (Date)getIntent().getSerializableExtra("DAY");
         }
 
+        setContentView(R.layout.activity_meal_details);
         if (mode == RECIPE) {
             secondRecipeLayout.setVisibility(LinearLayout.GONE);
         }
@@ -344,18 +345,53 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             if(thisRecipe != null) {
                 try {
                     //TODO -----------------------------
-                    URL google = new URL("https://www.google.com/search?tbm=isch&q=" + thisRecipe.getString("name").replace(" ", "_"));
+                    //&alt=json
+                    URL google = new URL("https://www.googleapis.com/customsearch/v1?key=AIzaSyDav6P_d4O-p4dZvdxamzS9l7zM69tYVD0&cx=002545423491658978052:-hcz3ln8tpo&q=" + thisRecipe.getString("name").replace(" ", "_") + "&searchType=image");
                     System.out.println("URL gOOgle " + google);
                     conn = (HttpURLConnection) google.openConnection();
                     conn.setRequestMethod("GET");
-                    conn.setRequestProperty("Accept", "text/html");
+                    conn.setRequestProperty("Accept", "application/json");
+                    //conn.setRequestProperty("Accept", "text/html;charset=ISO-8859-1");
+                    //conn.setContentType ("text/html;charset=utf-8");
+                    //conn.setContentType("sa","sa");
+                    //conn.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
+
+                    /*
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String str;
                     StringBuffer response = new StringBuffer();
                     while((str = br.readLine()) != null){
+                        if(str.contains("src="))
+                            System.out.println("SOURCE AQUI " + str);
+                        if(str.contains("<img"))
+                            System.out.println("IMG AQUI " + str);
+
                         response.append(str);
                     }
                     System.out.println(response);
+
+                    */
+                    String fotoUrl = "";
+                    if(conn.getResponseCode() == 200) {
+                        System.out.println("OK API GOOGLE");
+                        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        StringBuffer output = new StringBuffer();;
+                        String str;
+                        while((str = br.readLine()) != null){
+                            if(str.contains("src="))
+                                System.out.println("SOURCE AQUI " + str);
+                            if(str.contains("<img"))
+                                System.out.println("IMG AQUI " + str);
+
+                            output.append(str);
+                        }
+
+                        System.out.println(output);
+                        JSONObject arr = new JSONObject(output.toString());
+                        fotoUrl = arr.getJSONArray("items").getJSONObject(0).getString("link");
+
+                    }
+
 
                     //<img[^>]+src="([^">]+)"
                     /*Pattern pattern = Pattern.compile("<img[^>]+src=\"([^\">]+)\"");
@@ -369,7 +405,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     System.out.println("\n\nHTML: " + html);
                     */
                     //TODO POSAR LA URL DE LA IMG TROBADA AQUI
-                    URL imageUrl = new URL("https://vignette.wikia.nocookie.net/reborn/images/f/f7/Lambo.jpg/revision/latest?cb=20101117114931");
+                    System.out.println("IMG " + fotoUrl);
+                    URL imageUrl = new URL(fotoUrl);
                     URLConnection ucon = imageUrl.openConnection();
 
                     InputStream is = ucon.getInputStream();
