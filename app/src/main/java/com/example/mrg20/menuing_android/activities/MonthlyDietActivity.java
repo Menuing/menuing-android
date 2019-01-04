@@ -12,7 +12,11 @@ import com.example.mrg20.menuing_android.MealHour;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MonthlyDietActivity extends GlobalActivity implements CalendarView.OnDateChangeListener {
 
@@ -55,12 +59,16 @@ public class MonthlyDietActivity extends GlobalActivity implements CalendarView.
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(which==0){
-                            Intent intent = new Intent(MonthlyDietActivity.this,MealHour.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("dia", dayOfMonth);
-                            bundle.putInt("mes", month);
-                            bundle.putInt("any", year);
-                            intent.putExtra("data", bundle);
+                            Intent intent = new Intent(MonthlyDietActivity.this,WeeklyDietActivity.class);
+                            String string = dayOfMonth+"/"+(month+1)+"/"+year;
+                            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                            Date date=null;
+                            try {
+                                date = format.parse(string);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            intent.putExtra("DAY", date);
                             startActivity(intent);
                         }else{
                             return;
