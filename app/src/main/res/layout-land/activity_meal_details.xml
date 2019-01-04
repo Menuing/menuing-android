@@ -75,10 +75,11 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/Second"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/smallButtonHeight">
+                android:layout_marginTop="@dimen/smallButtonHeight"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/dishTV2"
@@ -91,30 +92,30 @@
                     android:id="@+id/imageViewDish2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/segon_plat"
-                    android:layout_marginRight="@dimen/margin"
                     android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginBottom="@dimen/margin"/>
+                    android:layout_marginRight="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin"
+                    app:srcCompat="@drawable/segon_plat" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/first_recipe2"
+                        style="@style/button_style"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/get_recipe"
-                        style="@style/button_style"/>
+                        android:text="@string/get_recipe" />
 
                     <TextView
                         android:id="@+id/ratioTV2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ratio_example"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>
 

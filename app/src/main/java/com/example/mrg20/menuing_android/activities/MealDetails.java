@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -22,7 +23,6 @@ import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,31 +38,36 @@ import java.util.Random;
 import cz.msebera.android.httpclient.util.ByteArrayBuffer;
 
 public class MealDetails extends GlobalActivity implements View.OnClickListener {
-
-    int URLMode = 0;
-
     JSONObject recipe1;
     JSONObject recipe2;
     boolean badConnection = false;
     MealDetails.UrlConnectorGetRecipes ur;
+    LinearLayout secondRecipeLayout;
 
     Date date;
-    int meal_type;
+    int type;
+    int mode;
+    int num_recipes = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        String recipe1String = "";
+        String recipe2String = "";
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_meal_details);
+        secondRecipeLayout=(LinearLayout)this.findViewById(R.id.Second);
         if (getIntent().getExtras() != null) {
-            URLMode = getIntent().getExtras().getInt("URLMode");
+            type = getIntent().getExtras().getInt("TYPE");
+            mode = getIntent().getExtras().getInt("MODE");
+            recipe1String =  getIntent().getExtras().getString("RECIPE1");
+            recipe2String =  getIntent().getExtras().getString("RECIPE2");
+            date = (Date)getIntent().getSerializableExtra("DAY");
         }
 
-        //TODO TREURE AQUESTA BASURA
-        //date = (Date)getIntent().getSerializableExtra("DAY");
-        //meal_type = getIntent().getExtras().getInt("TIME");
-        meal_type = 1;
-
         setContentView(R.layout.activity_meal_details);
+        if (mode == RECIPE) {
+            secondRecipeLayout.setVisibility(LinearLayout.GONE);
+        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -78,13 +83,27 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         byte[] img1;
         byte[] img2;
 
-        ur = new UrlConnectorGetRecipes();
-        ur.execute();
-        while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
-        recipe1 = ur.getRecipe();
+        try {
+            if(recipe1String != null && !recipe1String.equals("")) {
+                recipe1 = new JSONObject(recipe1String);
+            }
+            if(recipe2String != null && !recipe2String.equals("")) {
+                recipe2 = new JSONObject(recipe2String);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
-        if(ur.connection == false){
+            ur = new UrlConnectorGetRecipes();
+            ur.execute();
+            while (!ur.loaded) {
+                if (ur.loaded) System.out.println(ur.loaded);
+            }
+        if(recipe1 == null) {
+            recipe1 = ur.getRecipe();
+        }
+        if (ur.connection == false) {
             badConnection = true;
             System.out.println("NO CONNECTION");
             AlertDialog.Builder builder;
@@ -102,13 +121,13 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         }
                     })
                     .show();
-        }else{
+        } else {
             try {
                 img1 = ur.img;
-                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1 .length);
+                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1.length);
                 ImageView img = (ImageView) findViewById(R.id.imageView5);
                 img.setImageBitmap(bitmap1);
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("IMG 1 ERROR " + e);
             }
         }
@@ -116,8 +135,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         if(recipe1 != null)
             db.addData(recipe1);
 
-
-        if(ur.connection) {
+        if(ur.connection && mode == MEAL) {
             ur.cancel(true);
 
             ur = new UrlConnectorGetRecipes();
@@ -125,8 +143,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             while (!ur.loaded) {
                 if (ur.loaded) System.out.println(ur.loaded);
             }
-            recipe2 = ur.getRecipe();
-
+            if(recipe2 == null) {
+                recipe2 = ur.getRecipe();
+            }
             if (ur.connection == false) {
                 badConnection = true;
                 System.out.println("NO CONNECTION");
@@ -162,9 +181,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
             ur.cancel(true);
         }
-
-
-
 
         if(!badConnection)
             fillFields();
@@ -223,21 +239,24 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             }else{
                 recipe1NameTV.setTextSize(20);
             }
-
-            recipe2NameTV.setText(recipe2.getString("name"));
-            if(recipe2NameTV.getText().length() >= 30){
-                if(recipe2NameTV.getText().length() >= 60)
-                    recipe2NameTV.setTextSize(12);
-                else
-                    recipe2NameTV.setTextSize(15);
-            }else{
-                recipe2NameTV.setTextSize(20);
+            if(mode == MEAL ) {
+                recipe2NameTV.setText(recipe2.getString("name"));
+                if (recipe2NameTV.getText().length() >= 30) {
+                    if (recipe2NameTV.getText().length() >= 60)
+                        recipe2NameTV.setTextSize(12);
+                    else
+                        recipe2NameTV.setTextSize(15);
+                } else {
+                    recipe2NameTV.setTextSize(20);
+                }
             }
 
             String s = "Rating: " + recipe1.getDouble("averagePuntuation")+"/5.0";
             recipe1Rating.setText(s);
-            s = "Rating: " + recipe2.getDouble("averagePuntuation")+"/5.0";
-            recipe2Rating.setText(s);
+            if(ur.connection && mode==MEAL) {
+                s = "Rating: " + recipe2.getDouble("averagePuntuation") + "/5.0";
+                recipe2Rating.setText(s);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -247,6 +266,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
     // Async + thread, class to make the connection to the server
     private class UrlConnectorGetRecipes extends AsyncTask<Void, Void, Void> {
+
 
         public boolean loaded = false;
         public boolean connection = true;
@@ -262,11 +282,39 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         protected Void doInBackground(Void... params) {
 
             try {
-
                 //GET ACTUAL USER ID
                 URL url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
-                if(meal_type == DINNER) {
-                    url = new URL("http://" + ipserver + "/api/resources/recipes/getDinnerDish/?username=" + settings.getString("UserMail", ""));
+
+                switch (type){
+                    case DINNER:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getDinnerDish/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case LUNCH:
+                        if(num_recipes == 0) {
+                            num_recipes++;
+                            url = new URL("http://" + ipserver + "/api/resources/recipes/getFirstDish/?username=" + settings.getString("UserMail", ""));
+                        }else{
+                            url = new URL("http://" + ipserver + "/api/resources/recipes/getSecondDish/?username=" + settings.getString("UserMail", ""));
+                        }
+                        break;
+                    case BREAKFAST:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getBreakfast/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case NO_PREFERENCES:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case THREE_INGREDIENTS:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getLowCost/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case FAST_TO_DO:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getFastToDo/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case COCKTAIL:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getCocktail/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    default:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
+                        break;
                 }
                 System.out.println(url);
                 conn = (HttpURLConnection) url.openConnection();

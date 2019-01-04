@@ -25,7 +25,7 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         ImageView nopreference = (ImageView) findViewById(R.id.nopref);
-        ImageView healthy = (ImageView) findViewById(R.id.healthy);
+        ImageView healthy = (ImageView) findViewById(R.id.cocktail);
         ImageView threeIngredients = (ImageView) findViewById(R.id.threeing);
         ImageView fastRecipe = (ImageView) findViewById(R.id.fasttodo);
 
@@ -42,20 +42,22 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         switch(view.getId()) {
             case R.id.nopref:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent.putExtra("TYPE", NO_PREFERENCES);
                 break;
-            case R.id.healthy:
-                intent = new Intent(GetMealPageActivity.this, MealDetails.class); //TODO nova pagina de
-                intent.putExtra("URLMode", 1);
+            case R.id.cocktail://TODO: s'ha de fer botonet de COCKTAIL
+                intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent.putExtra("TYPE", COCKTAIL);
                 break;
             case R.id.threeing:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
-                intent.putExtra("URLMode", 2);
+                intent.putExtra("TYPE", THREE_INGREDIENTS);
                 break;
             case R.id.fasttodo:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
-                intent.putExtra("URLMode", 3);
+                intent.putExtra("TYPE", FAST_TO_DO);
                 break;
         }
+        intent.putExtra("MODE", RECIPE);
         startActivity(intent);
     }
 }

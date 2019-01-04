@@ -42,7 +42,6 @@ public class MealScheduleActivity extends GlobalActivity implements View.OnClick
         switch(view.getId()) {
             case R.id.day:
                 intent = new Intent(MealScheduleActivity.this, MealHour.class);
-                intent.putExtra("DAY", Calendar.getInstance().getTime());
                 break;
             case R.id.week:
                 intent = new Intent(MealScheduleActivity.this, WeeklyDietActivity.class);
@@ -51,6 +50,7 @@ public class MealScheduleActivity extends GlobalActivity implements View.OnClick
                 intent = new Intent(MealScheduleActivity.this, MonthlyDietActivity.class);
                 break;
         }
+        intent.putExtra("DAY", Calendar.getInstance().getTime());
         startActivity(intent);
     }
 }

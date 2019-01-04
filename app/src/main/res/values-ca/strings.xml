@@ -134,7 +134,7 @@
     <string name="shopping_list">La meva llista de la compra</string>
 
     <!--diets-->
-    <string name="see_meal">Veure àpat</string>
+    <string name="see_meal">Veure setmana</string>
     <string name="cancel">Cancel·lar</string>
     <string name="select_option">Seleccciona una opció</string>
 
@@ -156,4 +156,9 @@
 
     <!-- coses del firebase -->
     <string name="testTopic">newRecords</string>
+
+    <!-- text weekly diet -->
+    <string name="breakfast">Esmorzar</string>
+    <string name="lunch">Dinar</string>
+    <string name="dinner">Sopar</string>
 </resources>
