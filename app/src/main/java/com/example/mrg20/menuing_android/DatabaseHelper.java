@@ -24,6 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL7 = "protein";
     private static final String COL8 = "urlPhoto";
     private static final String COL9 = "averagePuntuation";
+    private static final String COL10 = "idrecipe";
 
 
 
@@ -43,20 +44,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL6 +" TEXT, " +
                 COL7 +" TEXT, " +
                 COL8 +" TEXT, " +
-                COL9 +" TEXT)";
+                COL9 +" TEXT, " +
+                COL10 +" TEXT)";
 
         db.execSQL(createTable);
+        System.out.println("DATABASE CREATED");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+        System.out.println("DATABASE UPGRADE");
     }
 
     public void deleteAll(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        System.out.println("DATABASE DROPED");
         onCreate(db);
     }
 
@@ -73,6 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(COL7, item.getString(COL7));
             contentValues.put(COL8, item.getString(COL8));
             contentValues.put(COL9, item.getString(COL9));
+            contentValues.put(COL10, item.getString("id"));
         }catch (Exception e){
             System.out.println("FAILED ADDING TO DB");
             return false;
