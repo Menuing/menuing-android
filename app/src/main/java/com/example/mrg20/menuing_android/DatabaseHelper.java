@@ -101,6 +101,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     *
+     * @param id recipe id
+     * @return
+     */
+    public Cursor getRecipeByID(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE ID = " + id;
+        Cursor data = db.rawQuery(query, null);
+        return data;
+    }
+
+    /**
      * Delete from database
      * @param id
      */
