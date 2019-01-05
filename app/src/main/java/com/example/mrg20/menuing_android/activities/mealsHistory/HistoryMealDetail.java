@@ -3,6 +3,7 @@ package com.example.mrg20.menuing_android.activities.mealsHistory;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.mrg20.menuing_android.DatabaseHelper;
 import com.example.mrg20.menuing_android.MainPageActivity;
 import com.example.mrg20.menuing_android.R;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
@@ -36,29 +38,40 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_details);
-
-        int id = 0;
-        if (getIntent().getExtras() != null) {
-            id  = getIntent().getIntExtra("recipe",0);
-        }
-
-        if(id==0){
-            Intent in = new Intent(HistoryMealDetail.this, MainPageActivity.class);
-            startActivity(in);
-        }
+        setContentView(R.layout.activity_history_recipe_details);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        Bundle b = getIntent().getExtras();
+        int id = b.getInt("position");
+
+        if(id==-1){
+            Intent in = new Intent(HistoryMealDetail.this, MainPageActivity.class);
+            startActivity(in);
+        }
+
+        DatabaseHelper db = new DatabaseHelper(this);
+        Cursor cursor = db.getRecipeByID(id+1);
+        cursor.moveToNext();
+        String name = cursor.getString(1);
+        String proportions = cursor.getString(3);
+        String guide = cursor.getString(2);
+        String rating = cursor.getString(9);
+
+
         TextView tv = findViewById(R.id.dish_detail_name);
+        tv.setText(name);
         TextView ingredients = findViewById(R.id.ingredient1_detail);
+        ingredients.setText(proportions);
         TextView instructions = findViewById(R.id.steps_recipe_detail);
+        instructions.setText(guide);
+
         recipeName = (String) tv.getText();
 
-        if (recipeName.length() >= 30) {
-            if (recipeName.length() >= 60)
+        if (name.length() >= 30) {
+            if (name.length() >= 60)
                 tv.setTextSize(15);
             else
                 tv.setTextSize(20);
@@ -66,6 +79,12 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
             tv.setTextSize(25);
         }
 
+        float ratingFloat = Float.parseFloat(rating);
+        System.out.println("rting: " + (int)ratingFloat);
+        ratingBar = (RatingBar) findViewById(R.id.recipeRatingBar);
+        ratingBar.setMax(5);
+        ratingBar.setNumStars((int) ratingFloat);
+        ratingBar.setRating(ratingFloat);
         ratingBar.setOnRatingBarChangeListener(this);
     }
 

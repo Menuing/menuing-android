@@ -60,7 +60,8 @@ public class CheckMealsActivity extends GlobalActivity implements View.OnClickLi
               @Override
               public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                   Intent in = new Intent(CheckMealsActivity.this, HistoryMealDetail.class);
-                  // in.putExtra("recipe", id);
+                  in.putExtra("position", i);
+                  vibrate();
                   startActivity(in);
               }
           }
