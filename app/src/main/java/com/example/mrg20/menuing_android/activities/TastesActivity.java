@@ -5,10 +5,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
@@ -185,6 +187,8 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
     private void addElementToList(String element) {
         CheckBox ckbx = CheckboxUtils.createNewCheckBox(element, this);
         ckbx.setOnCheckedChangeListener(this);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.amelie_camille);
+        ckbx.setTypeface(typeface);
         checkBoxLayout.addView(ckbx);
         selectedCheckAllergy.add(element);
     }

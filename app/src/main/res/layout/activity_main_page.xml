@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainPageActivity">
-
-
+    tools:context=".MainPageActivity"
+    android:layout_margin="@dimen/margin">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,9 +20,9 @@
 
             <ImageView
                 android:id="@+id/profile_logo"
-                android:layout_weight="4"
-                android:layout_height="50dp"
                 android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="4"
                 app:srcCompat="@drawable/profile_logo" />
         </LinearLayout>
 
@@ -31,7 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="30dp"
             android:layout_weight="4"
             android:gravity="center">
 

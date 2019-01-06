@@ -37,14 +37,16 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         ImageView nopreference = (ImageView) findViewById(R.id.nopref);
-        ImageView healthy = (ImageView) findViewById(R.id.cocktail);
+        ImageView cocktail = (ImageView) findViewById(R.id.cocktail);
         ImageView threeIngredients = (ImageView) findViewById(R.id.threeing);
         ImageView fastRecipe = (ImageView) findViewById(R.id.fasttodo);
+        ImageView dessert = (ImageView) findViewById(R.id.dessert);
 
         nopreference.setOnClickListener(this);
-        healthy.setOnClickListener(this);
+        cocktail.setOnClickListener(this);
         threeIngredients.setOnClickListener(this);
         fastRecipe.setOnClickListener(this);
+        dessert.setOnClickListener(this);
 
     }
 
@@ -69,6 +71,10 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
             case R.id.fasttodo:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
                 intent.putExtra("TYPE", FAST_TO_DO);
+                break;
+            case R.id.dessert:
+                intent = new Intent(GetMealPageActivity.this, MealDetails.class);
+                intent.putExtra("TYPE", DESSERT);
                 break;
         }
         intent.putExtra("MODE", RECIPE);

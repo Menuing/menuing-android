@@ -21,19 +21,19 @@
             style="@style/SubTittle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergies_tittle"
-            android:paddingBottom="15dp"
             android:gravity="center"
-            />
+            android:paddingBottom="15dp"
+            android:text="@string/allergies_tittle"
+            app:fontFamily="@font/amelie_camille" />
 
         <TextView
             android:id="@+id/allergiesExplanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/allergies_exp"
-            android:paddingBottom="15dp"
             android:gravity="center"
-            />
+            android:paddingBottom="15dp"
+            android:text="@string/allergies_exp"
+            app:fontFamily="@font/amelie_camille" />
 
         <LinearLayout
             android:layout_width="match_parent"

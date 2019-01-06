@@ -52,9 +52,10 @@ public class GlobalActivity extends AppCompatActivity {
     protected static final int THREE_INGREDIENTS= 4;
     protected static final int FAST_TO_DO = 5;
     protected static final int COCKTAIL = 6;
+    protected static final int DESSERT = 7;
 
-    protected static final int RECIPE = 7;
-    protected static final int MEAL = 8;
+    protected static final int RECIPE = 8;
+    protected static final int MEAL = 9;
 
     protected static ProgressDialog progress = null;
 
