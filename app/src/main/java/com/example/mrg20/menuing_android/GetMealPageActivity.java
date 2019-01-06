@@ -23,6 +23,15 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_meal_page);
 
+        if(progress == null || !progress.getContext().equals(this)) {
+            progress = new ProgressDialog(this);
+            progress.setMessage(getString(R.string.loading));
+            //progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setIndeterminate(true);
+            progress.setProgress(0);
+            progress.setCancelable(false);
+        }
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);

@@ -56,7 +56,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         String recipe2String = "";
 
         super.onCreate(savedInstanceState);
-        progress.show();
+        //progress.show();
 
         setContentView(R.layout.activity_meal_details);
         secondRecipeLayout=(LinearLayout)this.findViewById(R.id.Second);
@@ -357,26 +357,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     conn = (HttpURLConnection) google.openConnection();
                     conn.setRequestMethod("GET");
                     conn.setRequestProperty("Accept", "application/json");
-                    //conn.setRequestProperty("Accept", "text/html;charset=ISO-8859-1");
-                    //conn.setContentType ("text/html;charset=utf-8");
-                    //conn.setContentType("sa","sa");
-                    //conn.setRequestProperty("Content-Type", "text/html; charset=ISO-8859-1");
 
-                    /*
-                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String str;
-                    StringBuffer response = new StringBuffer();
-                    while((str = br.readLine()) != null){
-                        if(str.contains("src="))
-                            System.out.println("SOURCE AQUI " + str);
-                        if(str.contains("<img"))
-                            System.out.println("IMG AQUI " + str);
-
-                        response.append(str);
-                    }
-                    System.out.println(response);
-
-                    */
                     String fotoUrl = "";
                     if(conn.getResponseCode() == 200) {
                         System.out.println("OK API GOOGLE");
@@ -398,18 +379,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
                     }
 
-
-                    //<img[^>]+src="([^">]+)"
-                    /*Pattern pattern = Pattern.compile("<img[^>]+src=\"([^\">]+)\"");
-                    Matcher m = pattern.matcher(html);
-                    String ex = "";
-                    if(m.find()){
-                        ex = m.group(0);
-                    }
-
-                    System.out.println("\n SAS: " + ex);
-                    System.out.println("\n\nHTML: " + html);
-                    */
                     //TODO POSAR LA URL DE LA IMG TROBADA AQUI
                     System.out.println("IMG " + fotoUrl);
                     URL imageUrl = new URL(fotoUrl);
@@ -439,7 +408,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         protected void onPostExecute(Void result) {
             loaded = true;
             super.onPostExecute(result);
-            progress.cancel();
+            if (progress!=null) {
+                progress.cancel();
+            }
         }
     }
 }

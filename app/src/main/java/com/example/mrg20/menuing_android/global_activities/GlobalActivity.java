@@ -56,20 +56,13 @@ public class GlobalActivity extends AppCompatActivity {
     protected static final int RECIPE = 7;
     protected static final int MEAL = 8;
 
-
-
-    protected ProgressDialog progress = null;
+    protected static ProgressDialog progress = null;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progress=new ProgressDialog(this);
-        progress.setMessage(getString(R.string.loading));
-        //progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        //progress.setIndeterminate(true);
-        progress.setProgress(0);
-        progress.setCancelable(false);
+
         settings = getSharedPreferences(PREFS_NAME, 0);
 
         mAuth = FirebaseAuth.getInstance();
