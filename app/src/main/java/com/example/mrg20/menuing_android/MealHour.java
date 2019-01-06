@@ -1,5 +1,6 @@
 package com.example.mrg20.menuing_android;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -32,6 +33,15 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_hour);
 
+        if(progress == null || !progress.getContext().equals(this)) {
+            progress = new ProgressDialog(this);
+            progress.setMessage(getString(R.string.loading));
+            //progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setIndeterminate(true);
+            progress.setProgress(0);
+            progress.setCancelable(false);
+        }
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -57,6 +67,7 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
     public void onClick(View view) {
         vibrate();
         Intent intent = null;
+        super.progress.show();
         switch(view.getId()) {
             /*case R.id.morning: //TODO BOTONET
                 intent = new Intent(MealHour.this, MealDetails.class);
@@ -81,5 +92,11 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
         }
         intent.putExtra("DAY", date);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progress.cancel();
     }
 }
