@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
@@ -200,6 +202,8 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     private void addElementToList(String element){
         CheckBox ckbx = CheckboxUtils.createNewCheckBox(element, this);
         ckbx.setOnCheckedChangeListener(this);
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.amelie_camille);
+        ckbx.setTypeface(typeface);
         checkBoxLayout.addView(ckbx);
         selectedCheckAllergy.add(element);
         System.out.println("Loaded " + loadedAllergies);
@@ -268,29 +272,6 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
     @Override
     public boolean onSupportNavigateUp() {
         vibrate();
-
-        /*final ProgressDialog dialog = new ProgressDialog(this);
-        //dialog.setMessage(getString(R.string.login_logging));
-        dialog.setMessage("SAVING...");
-        dialog.setCancelable(false);
-        dialog.show();
-
-        for(int i = 0; i < 1000; i++){
-            dialog.setProgress((i/10) * 0);
-        }*/
-
-        /*
-        ArrayList<String> allergiesSelected = new ArrayList<>();
-        for(int i = 0; i<selectedCheckAllergy.size(); i++){
-            CheckBox cb = checkBoxLayout.findViewWithTag(selectedCheckAllergy.get(i));
-            if(cb != null && cb.isChecked()) {
-                System.out.println(selectedCheckAllergy.get(i));
-                allergiesSelected.add(selectedCheckAllergy.get(i));
-            }
-
-        }
-        */
-
         urSave = new UrlConnectorUpdateAllergies();
         urSave.setAllergies(selectedCheckAllergy);
         urSave.execute();
