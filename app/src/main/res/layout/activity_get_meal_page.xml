@@ -11,13 +11,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="100dp"
-            android:layout_weight="4">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="4"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,29 +32,31 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/getameallabel"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:src="@drawable/getameallabel" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="@string/get_a_meal_preference_text"/>
+                    android:text="@string/get_a_meal_preference_text" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
+
                     <ImageView
                         android:id="@+id/nopref"
                         android:layout_width="wrap_content"
@@ -62,10 +65,12 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/getyourmealbtn1" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
+
                     <ImageView
                         android:id="@+id/threeing"
                         android:layout_width="wrap_content"
@@ -74,10 +79,12 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/boto3ing" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
+
                     <ImageView
                         android:id="@+id/fasttodo"
                         android:layout_width="wrap_content"
@@ -86,17 +93,33 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/boto20min" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
+
                     <ImageView
                         android:id="@+id/cocktail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/healthy" />
+                        android:src="@drawable/coctel" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/dessert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/postre" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
