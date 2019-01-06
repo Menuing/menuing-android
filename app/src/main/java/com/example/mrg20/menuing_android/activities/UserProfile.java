@@ -37,14 +37,12 @@ public class UserProfile extends GlobalActivity implements View.OnClickListener{
         Button allergies = (Button) findViewById(R.id.my_allergies);
         Button tastes = (Button) findViewById(R.id.my_tastes);
         Button termsAndConditions = (Button) findViewById(R.id.user_termsconditions);
-        Button saveProfile = (Button) findViewById(R.id.saveProfile);
         Button deleteProfile = (Button) findViewById(R.id.deleteProfile);
         Button logout = (Button) findViewById(R.id.logoutButton);
 
         allergies.setOnClickListener(this);
         tastes.setOnClickListener(this);
         termsAndConditions.setOnClickListener(this);
-        saveProfile.setOnClickListener(this);
         deleteProfile.setOnClickListener(this);
         if(logout!=null)
             logout.setOnClickListener(this);

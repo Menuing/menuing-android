@@ -58,6 +58,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/login_username"
+                        android:textSize="@dimen/normalText"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"/>
 
@@ -66,6 +67,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:fontFamily="sans-serif"
                         android:inputType="textEmailAddress"/>
 
                     <TextView
@@ -73,6 +75,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/login_password"
+                        android:textSize="@dimen/normalText"
                         android:layout_marginLeft="10dp"/>
 
                     <EditText
@@ -82,9 +85,6 @@
                         android:ems="10"
                         android:inputType="textPassword"/>
                 </LinearLayout>
-
-
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -99,6 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login_no_account"
+                        android:textSize="@dimen/normalText"
                         android:textColor="@color/colorAccent"
                         android:layout_marginRight="10dp"
                         android:background="@android:color/transparent"/>
