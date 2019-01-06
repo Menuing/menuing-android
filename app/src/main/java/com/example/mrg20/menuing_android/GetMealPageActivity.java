@@ -1,5 +1,6 @@
 package com.example.mrg20.menuing_android;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -15,10 +16,21 @@ import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 
 public class GetMealPageActivity extends GlobalActivity implements View.OnClickListener{
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_meal_page);
+
+        if(progress == null || !progress.getContext().equals(this)) {
+            progress = new ProgressDialog(this);
+            progress.setMessage(getString(R.string.loading));
+            //progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setIndeterminate(true);
+            progress.setProgress(0);
+            progress.setCancelable(false);
+        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -33,12 +45,14 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         healthy.setOnClickListener(this);
         threeIngredients.setOnClickListener(this);
         fastRecipe.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
         vibrate();
         Intent intent = null;
+        super.progress.show();
         switch(view.getId()) {
             case R.id.nopref:
                 intent = new Intent(GetMealPageActivity.this, MealDetails.class);
@@ -59,5 +73,11 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         }
         intent.putExtra("MODE", RECIPE);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progress.cancel();
     }
 }

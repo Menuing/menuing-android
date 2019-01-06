@@ -75,7 +75,7 @@ public class LoginActivity extends GlobalActivity implements View.OnClickListene
                     startActivity(intent);
                     finish();*/
                     final ProgressDialog dialog = new ProgressDialog(this);
-                    dialog.setMessage(getString(R.string.login_logging));
+                    dialog.setMessage(getString(R.string.loading));
                     dialog.setProgress(0);
                     dialog.setCancelable(false);
 
