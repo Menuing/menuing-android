@@ -65,4 +65,10 @@ public class GetMealPageActivity extends GlobalActivity implements View.OnClickL
         intent.putExtra("MODE", RECIPE);
         startActivity(intent);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        progress.cancel();
+    }
 }

@@ -65,10 +65,11 @@ public class GlobalActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         progress=new ProgressDialog(this);
-        progress.setMessage("Downloading Music");
+        progress.setMessage(getString(R.string.loading));
         //progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progress.setIndeterminate(true);
+        //progress.setIndeterminate(true);
         progress.setProgress(0);
+        progress.setCancelable(false);
         settings = getSharedPreferences(PREFS_NAME, 0);
 
         mAuth = FirebaseAuth.getInstance();

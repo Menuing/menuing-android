@@ -189,6 +189,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         if(!badConnection)
             fillFields();
 
+        progress.cancel();
     }
 
     @Override
