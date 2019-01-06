@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_gravity="top">
 
 
                 <ImageView
@@ -83,67 +84,74 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/Second"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_weight="1"
         >
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/second_dish_example"
-            style="@style/SmallText"/>
         <LinearLayout
+            android:id="@+id/Second"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_weight="1"
             >
-
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/second_dish_example"
+                style="@style/SmallText"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                >
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_height="wrap_content"
-                    android:layout_width="200dp"
-                    app:srcCompat="@drawable/segon_plat" />
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:layout_margin="10dp"
-                android:layout_gravity="right">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_alignParentLeft="true">
-                    <Button
-                        android:id="@+id/first_recipe2"
-                        android:layout_width="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/imageView6"
                         android:layout_height="wrap_content"
-                        style="@style/button_style"
-                        android:text="@string/get_recipe"
-                        android:layout_gravity="right"/>
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ratio_example"
-                        android:textSize="20sp"
-                        />
+                        android:layout_width="200dp"
+                        app:srcCompat="@drawable/segon_plat" />
+
                 </LinearLayout>
 
-            </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_margin="10dp"
+                    android:layout_gravity="right">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_alignParentLeft="true">
+                        <Button
+                            android:id="@+id/first_recipe2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/button_style"
+                            android:text="@string/get_recipe"
+                            android:layout_gravity="right"/>
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ratio_example"
+                            android:textSize="20sp"
+                            />
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
