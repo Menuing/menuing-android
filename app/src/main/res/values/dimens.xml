@@ -2,7 +2,7 @@
 <resources>
     <dimen name="largeText">60sp</dimen>
     <dimen name="normalText">30sp</dimen>
-    <dimen name="smallText">20sp</dimen>
+    <dimen name="smallText">15sp</dimen>
 
     <dimen name="smallButtonWidth">64dp</dimen>
     <dimen name="smallButtonHeight">32dp</dimen>

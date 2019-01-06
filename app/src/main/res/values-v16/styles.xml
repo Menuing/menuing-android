@@ -10,4 +10,11 @@
         <item name="android:textColor">@color/colorBigText</item>
         <item name="android:fontFamily">@font/amelie_camille</item>
     </style>
+
+    <style name="InstructionText">
+        <item name="android:textSize">@dimen/smallText</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
 </resources>
