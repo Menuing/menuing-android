@@ -76,6 +76,15 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tastes);
 
+        if(progress == null || !progress.getContext().equals(this)) {
+            progress = new ProgressDialog(this);
+            progress.setMessage(getString(R.string.loading));
+            //progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setIndeterminate(true);
+            progress.setProgress(0);
+            progress.setCancelable(false);
+        }
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -89,27 +98,6 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         tastesList = (ListView) findViewById(R.id.tastesScrollView);
         filterList("");
         tastesList.setOnItemClickListener(this);
-
-        /*
-        DatabaseHelper db = new DatabaseHelper(this);
-        Cursor sas = db.getData();
-        System.out.println(sas);
-        System.out.println("DATA:");
-
-        while (sas.moveToNext()) {
-            System.out.println("name " + sas.getString(1));
-            System.out.println("inst " + sas.getString(2));
-            System.out.println("proportions " + sas.getString(3));
-            System.out.println("cal " + sas.getString(4));
-            System.out.println("sodium " + sas.getString(5));
-            System.out.println("fat " + sas.getString(6));
-            System.out.println("protein " + sas.getString(7));
-            System.out.println("foto " + sas.getString(8));
-            System.out.println("averagePuntuation " + sas.getString(9));
-            System.out.println("__________________________");
-        }
-        */
-
 
     }
 
@@ -257,34 +245,17 @@ public class TastesActivity extends GlobalActivity implements AdapterView.OnItem
         }
     }
 
-    //DE MOMENT NO SERVEIX DE RES, AMB LA BD POT SERVIR
+
     @Override
     public boolean onSupportNavigateUp() {
         vibrate();
 
-        /*final ProgressDialog dialog = new ProgressDialog(this);
-        //dialog.setMessage(getString(R.string.login_logging));
-        dialog.setMessage("SAVING...");
-        dialog.setCancelable(false);
-        dialog.show();
-
-        for(int i = 0; i < 1000; i++){
-            dialog.setProgress((i/10) * 0);
-        }
-
-
-        ArrayList<String> tastesSelected = new ArrayList<>();
-        for (int i = 0; i < selectedCheckAllergy.size(); i++) {
-            CheckBox cb = checkBoxLayout.findViewWithTag(selectedCheckAllergy.get(i));
-            if (cb != null && cb.isChecked())
-                tastesSelected.add(selectedCheckAllergy.get(i));
-
-        }*/
+        progress.show();
 
         urSave = new UrlConnectorUpdateTastes();
         urSave.setTastes(new ArrayList<>(selectedCheckAllergy));
         urSave.execute();
-        while(!urSave.saved){if(urSave.saved)System.out.println(urSave.saved);}
+        //while(!urSave.saved){if(urSave.saved)System.out.println(urSave.saved);}
         urSave.cancel(true);
         finish();
         return true;

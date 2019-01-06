@@ -163,5 +163,7 @@
     <string name="dinner">Sopar</string>
 
     <!-- progress bar -->
-    <string name="loading">Carregant</string>
+    <string name="loading">Carregant...</string>
+    <string name="saving">Guardant...</string>
+
 </resources>
