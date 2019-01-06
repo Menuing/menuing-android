@@ -52,7 +52,6 @@ public class HistoryFrag extends Fragment implements AdapterView.OnItemClickList
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getContext(), R.layout.history_element_layout, c, from, to, 1);
         list.setAdapter(adapter);
         list.setOnItemClickListener(this);
-        list.setLongClickable(true);
         list.setOnItemLongClickListener(action);
         list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         list.setMultiChoiceModeListener(action);
