@@ -319,10 +319,10 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         url = new URL("http://" + ipserver + "/api/resources/recipes/getCocktail/?username=" + settings.getString("UserMail", ""));
                         break;
                     case DESSERT:
-                        url = new URL("http://" + ipserver + "/api/resources/recipes/getCocktail/?username=" + settings.getString("UserMail", ""));
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getDessert/?username=" + settings.getString("UserMail", ""));
                         break;
                     default:
-                        url = new URL("http://" + ipserver + "/api/resources/recipes/getDessert/?username=" + settings.getString("UserMail", ""));
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));
                         break;
                 }
                 System.out.println(url);
