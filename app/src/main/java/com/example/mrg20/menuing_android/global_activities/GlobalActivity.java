@@ -1,4 +1,5 @@
 package com.example.mrg20.menuing_android.global_activities;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,7 +42,7 @@ public class GlobalActivity extends AppCompatActivity {
 
     //Recordar de posar el port
 
-    protected String ipserver = "0bf3c6b6.ngrok.io";
+    protected String ipserver = "ea3ac014.ngrok.io";
 
     protected static final int BREAKFAST = 0;
     protected static final int LUNCH = 1;
@@ -52,16 +53,22 @@ public class GlobalActivity extends AppCompatActivity {
     protected static final int FAST_TO_DO = 5;
     protected static final int COCKTAIL = 6;
 
-    protected static final int RECIPE = 6;
-    protected static final int MEAL = 7;
+    protected static final int RECIPE = 7;
+    protected static final int MEAL = 8;
 
 
+
+    protected ProgressDialog progress = null;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        progress=new ProgressDialog(this);
+        progress.setMessage("Downloading Music");
+        //progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progress.setIndeterminate(true);
+        progress.setProgress(0);
         settings = getSharedPreferences(PREFS_NAME, 0);
 
         mAuth = FirebaseAuth.getInstance();

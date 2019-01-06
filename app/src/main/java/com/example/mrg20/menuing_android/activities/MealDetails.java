@@ -1,6 +1,7 @@
 package com.example.mrg20.menuing_android.activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -53,7 +54,10 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     public void onCreate(Bundle savedInstanceState) {
         String recipe1String = "";
         String recipe2String = "";
+
         super.onCreate(savedInstanceState);
+        progress.show();
+
         setContentView(R.layout.activity_meal_details);
         secondRecipeLayout=(LinearLayout)this.findViewById(R.id.Second);
         if (getIntent().getExtras() != null) {
@@ -64,10 +68,10 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             date = (Date)getIntent().getSerializableExtra("DAY");
         }
 
-        setContentView(R.layout.activity_meal_details);
         if (mode == RECIPE) {
             secondRecipeLayout.setVisibility(LinearLayout.GONE);
         }
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
@@ -184,6 +188,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
         if(!badConnection)
             fillFields();
+
     }
 
     @Override
@@ -433,6 +438,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         protected void onPostExecute(Void result) {
             loaded = true;
             super.onPostExecute(result);
+            progress.cancel();
         }
     }
 }
