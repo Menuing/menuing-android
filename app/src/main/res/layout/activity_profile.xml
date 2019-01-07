@@ -79,18 +79,18 @@
                     android:id="@+id/logoutButton"
                     android:layout_width="@dimen/buton_width"
                     android:layout_height="wrap_content"
-                    style="@style/profile_button_style"
+                    style="@style/button_delete_style"
                     android:text="@string/logout"
                     android:layout_alignParentLeft="true"/>
 
-                <Button
+                <!--<Button
                     android:id="@+id/deleteProfile"
                     android:layout_width="@dimen/buton_width"
                     android:layout_height="wrap_content"
                     android:text="@string/delete_profile"
                     android:textColor="@color/colorDelete"
                     style="@style/button_delete_style"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentRight="true"/>-->
 
             </RelativeLayout>
         </LinearLayout>

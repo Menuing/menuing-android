@@ -42,7 +42,7 @@ public class GlobalActivity extends AppCompatActivity {
 
     //Recordar de posar el port
 
-    protected String ipserver = "ea3ac014.ngrok.io";
+    protected String ipserver = "21415309.ngrok.io";
 
     protected static final int BREAKFAST = 0;
     protected static final int LUNCH = 1;
@@ -87,13 +87,21 @@ public class GlobalActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        logout();
     }
 
     public void logout(){
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("UserMail", "");
+        editor.commit();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+        mAuth.signOut();
+    }
+
+    protected void delete() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        user.delete();
         mAuth.signOut();
     }
 
@@ -232,4 +240,6 @@ public class GlobalActivity extends AppCompatActivity {
     public String getUserToken() {
         return userToken;
     }
+
+
 }
