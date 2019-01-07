@@ -29,6 +29,10 @@ public class LoginActivity extends GlobalActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if(!settings.getString("UserMail","").equals("")){
+            loginAction();
+        }
+
         Button createAc = (Button) findViewById(R.id.createAc);
         Button loginbtn = (Button) findViewById(R.id.login_btn);
         loginUsername = (EditText) findViewById(R.id.login_username);

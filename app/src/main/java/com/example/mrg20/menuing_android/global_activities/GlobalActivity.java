@@ -91,6 +91,9 @@ public class GlobalActivity extends AppCompatActivity {
     }
 
     public void logout(){
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("UserMail", "");
+        editor.commit();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
