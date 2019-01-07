@@ -62,6 +62,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:textSize="@dimen/normalText"
                         android:text="@string/register_email" />
 
                     <EditText
@@ -69,6 +70,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:fontFamily="sans-serif"
                         android:inputType="textPersonName" />
 
                     <TextView
@@ -76,6 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
+                        android:textSize="@dimen/normalText"
                         android:text="@string/login_password" />
 
                     <EditText
@@ -83,6 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
+                        android:fontFamily="sans-serif"
                         android:inputType="textPassword" />
 
                 </LinearLayout>
@@ -129,6 +133,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginBottom="20dp"
                         android:background="#ff9c60"
+                        style="@style/button_style"
                         android:text="@string/register_button_text" />
                 </LinearLayout>
 
