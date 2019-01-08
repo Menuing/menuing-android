@@ -35,7 +35,7 @@
                 android:id="@+id/dish_image"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                app:srcCompat="@drawable/primer_plat" />
+                app:srcCompat="@drawable/noimage" />
 
             <RatingBar
                 android:id="@+id/recipeRatingBar"
