@@ -159,9 +159,11 @@ public class WeeklyDietActivity extends GlobalActivity implements TableLayout.On
         ur.execute();
         while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
         JSONArray newDiet = ur.getDiet();
-        SharedPreferences.Editor editor = localSettings.edit();
-        editor.putString(mail+firstDayDate, newDiet.toString());
-        editor.commit();
+        if(!newDiet.toString().equals("[]")) {
+            SharedPreferences.Editor editor = localSettings.edit();
+            editor.putString(mail + firstDayDate, newDiet.toString());
+            editor.commit();
+        }
         return newDiet;
     }
 

@@ -76,7 +76,7 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
         TextView tv = findViewById(R.id.dish_detail_name);
         tv.setText(name);
         TextView ingredients = findViewById(R.id.ingredient1_detail);
-        ingredients.setText(proportions);
+        ingredients.setText(formatText(proportions));
         TextView instructions = findViewById(R.id.steps_recipe_detail);
         instructions.setText(guide);
 
@@ -121,8 +121,14 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
         ratingChanged = true;
     }
 
-
-
+    private String formatText(String text){
+        String result = "";
+        String[] parts = text.split(";");
+        for(int i = 0; i < parts.length; i++){
+            result = result + parts[i] + "\n";
+        }
+        return result;
+    }
 
     private class ConnectorUpdateRating extends AsyncTask<Void, Void, Void> {
 
