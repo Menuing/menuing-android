@@ -3,10 +3,13 @@ package com.example.mrg20.menuing_android.activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -57,6 +60,11 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
         TextView ingredients = findViewById(R.id.ingredient1_detail);
         TextView instructions = findViewById(R.id.steps_recipe_detail);
         recipeName = (String) tv.getText();
+
+        byte[] byteArray = getIntent().getByteArrayExtra("img");
+        Bitmap bitmap1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        ImageView img = (ImageView) findViewById(R.id.dish_image);
+        img.setImageBitmap(bitmap1);
 
         if(recipeName.length() >= 30){
             if(recipeName.length() >= 60)
