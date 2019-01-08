@@ -37,15 +37,13 @@ public class UserProfile extends GlobalActivity implements View.OnClickListener{
         Button allergies = (Button) findViewById(R.id.my_allergies);
         Button tastes = (Button) findViewById(R.id.my_tastes);
         Button termsAndConditions = (Button) findViewById(R.id.user_termsconditions);
-        Button saveProfile = (Button) findViewById(R.id.saveProfile);
-        Button deleteProfile = (Button) findViewById(R.id.deleteProfile);
+        //Button deleteProfile = (Button) findViewById(R.id.deleteProfile);
         Button logout = (Button) findViewById(R.id.logoutButton);
 
         allergies.setOnClickListener(this);
         tastes.setOnClickListener(this);
         termsAndConditions.setOnClickListener(this);
-        saveProfile.setOnClickListener(this);
-        deleteProfile.setOnClickListener(this);
+        //deleteProfile.setOnClickListener(this);
         if(logout!=null)
             logout.setOnClickListener(this);
     }
@@ -75,11 +73,12 @@ public class UserProfile extends GlobalActivity implements View.OnClickListener{
                 intent = new Intent(UserProfile.this, TastesActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.deleteProfile:
-                for(int i = 0; i < 5; i++){
-                    vibrate();
-                }
-                break;
+            /*case R.id.deleteProfile:
+                super.delete();
+                intent = new Intent(UserProfile.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;*/
             case R.id.logoutButton:
                 super.logout();
                 intent = new Intent(UserProfile.this, LoginActivity.class);

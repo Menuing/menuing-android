@@ -49,6 +49,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     int type;
     int mode;
     int num_recipes = 0;
+    byte[] img1;
+    byte[] img2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,8 +86,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
 
         DatabaseHelper db = new DatabaseHelper(this);
 
-        byte[] img1;
-        byte[] img2;
+
 
         try {
             if(recipe1String != null && !recipe1String.equals("")) {
@@ -218,11 +219,13 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 case R.id.first_recipe:
                     intent = new Intent(MealDetails.this, RecipeDetails.class);
                     intent.putExtra("recipe", recipe1.toString());
+                    intent.putExtra("img", img1);
                     startActivity(intent);
                     break;
                 case R.id.first_recipe2:
                     intent = new Intent(MealDetails.this, RecipeDetails.class);
                     intent.putExtra("recipe", recipe2.toString());
+                    intent.putExtra("img", img2);
                     startActivity(intent);
                     break;
             }
@@ -317,6 +320,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         break;
                     case COCKTAIL:
                         url = new URL("http://" + ipserver + "/api/resources/recipes/getCocktail/?username=" + settings.getString("UserMail", ""));
+                        break;
+                    case DESSERT:
+                        url = new URL("http://" + ipserver + "/api/resources/recipes/getDessert/?username=" + settings.getString("UserMail", ""));
                         break;
                     default:
                         url = new URL("http://" + ipserver + "/api/resources/recipes/getRandom/?username=" + settings.getString("UserMail", ""));

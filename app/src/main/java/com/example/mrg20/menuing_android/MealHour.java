@@ -46,6 +46,7 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        ImageView morning = (ImageView) findViewById(R.id.morning);
         ImageView day = (ImageView) findViewById(R.id.day);
         ImageView night = (ImageView) findViewById(R.id.night);
 
@@ -59,6 +60,7 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
             dinner = b.getString("dinner");
         }
 
+        morning.setOnClickListener(this);
         day.setOnClickListener(this);
         night.setOnClickListener(this);
     }
@@ -69,12 +71,12 @@ public class MealHour extends GlobalActivity implements View.OnClickListener{
         Intent intent = null;
         super.progress.show();
         switch(view.getId()) {
-            /*case R.id.morning: //TODO BOTONET
+            case R.id.morning:
                 intent = new Intent(MealHour.this, MealDetails.class);
                 intent.putExtra("TYPE", BREAKFAST);
-                intent.putExtra("MODE", MEAL);
+                intent.putExtra("MODE", RECIPE);
                 intent.putExtra("RECIPE1", breakfast);
-                break;            */
+                break;
             case R.id.day:
                 intent = new Intent(MealHour.this, MealDetails.class);
                 intent.putExtra("TYPE", LUNCH);

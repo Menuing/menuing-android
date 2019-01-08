@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.RecipeDetails"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="@dimen/margin">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,16 +29,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin">
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/dish_image"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
-                app:srcCompat="@drawable/primer_plat" />
+                app:srcCompat="@drawable/noimage" />
 
             <RatingBar
                 android:id="@+id/recipeRatingBar"
@@ -60,7 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Eggplants"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                app:fontFamily="sans-serif"/>
 
             <TextView
                 android:id="@+id/textView11"
@@ -75,7 +74,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                app:fontFamily="sans-serif"/>
 
         </LinearLayout>
 

@@ -23,7 +23,11 @@
 
     <style name="SmallText">
         <item name="android:textSize">@dimen/normalText</item>
-        <item name="android:textColor">@color/colorText</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="InstructionText">
+        <item name="android:textSize">@dimen/smallText</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 
@@ -37,16 +41,19 @@
     <style name="button_style">
         <item name="android:layout_width">70dp</item>
         <item name="android:layout_height">35dp</item>
+        <item name="android:textSize">@dimen/normalText</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:background">@color/colorButtonBackground</item>
     </style>
 
     <style name="profile_button_style">
+        <item name="android:textSize">@dimen/normalText</item>
         <item name="android:layout_width">200dp</item>
         <item name="android:background">@color/colorButtonBackground</item>
     </style>
 
     <style name="button_delete_style">
+        <item name="android:textSize">@dimen/normalText</item>
         <item name="android:layout_width">200dp</item>
         <item name="android:background">@color/colorButtonBackground</item>
     </style>
