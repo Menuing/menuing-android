@@ -1,5 +1,6 @@
 package com.example.mrg20.menuing_android;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -56,6 +58,7 @@ public class NutritionistChat extends GlobalActivity implements View.OnClickList
         sendButton.setOnClickListener(this);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View view) {
@@ -67,27 +70,31 @@ public class NutritionistChat extends GlobalActivity implements View.OnClickList
                 if(!(actualMsg==null || actualMsg.trim().equals(""))){
                 userMsg.setText("");
                 userMsg.clearFocus();
-                LinearLayout new_nut_msg = new LinearLayout(mainLayout.getContext());
+                RelativeLayout new_nut_msg = new RelativeLayout(mainLayout.getContext());
                 //new_nut_msg.setLayoutParams(nut_msg.getLayoutParams());
 
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(20, 20, 20, 20);
-
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(100, 20, 20, 20);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 new_nut_msg.setLayoutParams(layoutParams);
                 new_nut_msg.setBackground(ContextCompat.getDrawable(this, R.color.colorPrimaryDark));
-                new_nut_msg.setOrientation(LinearLayout.HORIZONTAL);
 
                 mainLayout.addView(new_nut_msg);
 
+                RelativeLayout.LayoutParams layoutParamstv = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                layoutParamstv.setMargins(100, 20, 20, 20);
+                    layoutParamstv.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 TextView tv = new TextView(new_nut_msg.getContext());
-                tv.setLayoutParams(layoutParams);
+                tv.setLayoutParams(layoutParamstv);
                 tv.setBackground(ContextCompat.getDrawable(this, android.R.color.transparent));
                 tv.setText(actualMsg);
                 new_nut_msg.addView(tv);
 
+                layoutParams.setMargins(20, 20, 100, 20);
                 LinearLayout new_nut_msg2 = new LinearLayout(mainLayout.getContext());
-
+                layoutParams.removeRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 new_nut_msg2.setLayoutParams(layoutParams);
                 new_nut_msg2.setBackground(ContextCompat.getDrawable(this, R.color.colorBigText));
                 new_nut_msg2.setOrientation(LinearLayout.HORIZONTAL);
