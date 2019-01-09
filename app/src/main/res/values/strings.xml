@@ -134,7 +134,8 @@
     <string name="shopping_list">My shopping list</string>
 
     <!--diets-->
-    <string name="see_meal">See week</string>
+    <string name="see_meal">See day</string>
+    <string name="see_week">See week</string>
     <string name="cancel">Cancel</string>
     <string name="select_option">Select an option</string>
 
@@ -167,4 +168,7 @@
     <string name="saving">Saving...</string>
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
+    <string name="send">Send</string>
+    <string name="hello">Hello! How are you?</string>
 </resources>
