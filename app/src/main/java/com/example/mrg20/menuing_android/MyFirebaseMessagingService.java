@@ -1,39 +1,47 @@
 package com.example.mrg20.menuing_android;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import com.example.mrg20.menuing_android.GetMealPageActivity;
+import org.json.JSONObject;
 
-
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
+    public static final String DEFAULT_CHANNEL_ID = "cat.eps.jgervas.messagingkk.DEFAULT";
+    public static final String DEFAULT_CHANNEL_NAME = "DEFAULT CHANNEL";
+    public static final int NOTIFICATION_ID = 1;
+    private String token;
+
+    @Override
+    public void onNewToken(String s) {
+        System.out.println("NEW_TOKEN:" + s);
+        this.token = s;
+        sendRegistrationTokenToServer(s);
+        super.onNewToken(s);
+    }
+
+    private void sendRegistrationTokenToServer(String s) {
+        UrlConnectorSubmitToken ucst = new UrlConnectorSubmitToken();
+        ucst.execute();
+    }
 
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // [START_EXCLUDE]
-        // There are two types of messages data messages and notification messages. Data messages are handled
-        // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
-        // traditionally used with GCM. Notification messages are only received here in onMessageReceived when the app
-        // is in the foreground. When the app is in the background an automatically generated notification is displayed.
-        // When the user taps on the notification they are returned to the app. Messages containing both notification
-        // and data payloads are treated as notification messages. The Firebase console always sends notification
-        // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
-        // [END_EXCLUDE]
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
@@ -65,17 +73,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String messageBody) {
-        Intent intent = new Intent(this, GetMealPageActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        String channelId = getString(R.string.default_notification_channel_id);
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-                        .setContentTitle("FCM Message")
+                new NotificationCompat.Builder(this, DEFAULT_CHANNEL_ID)
+                        .setSmallIcon(R.drawable.logo)
+                        .setContentTitle("Menuing Activity")
                         .setContentText(messageBody)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
@@ -84,27 +91,52 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+
+            // create android channel
+            NotificationChannel androidChannel = new
+                    NotificationChannel(DEFAULT_CHANNEL_ID,
+                    DEFAULT_CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(androidChannel);
+        }
+
+        notificationManager.notify(NOTIFICATION_ID , notificationBuilder.build());
     }
 
+    private class UrlConnectorSubmitToken extends AsyncTask<Void,Void,Void> {
 
-    @Override
-    public void onNewToken(String s) {
-        super.onNewToken(s);
-        System.out.println("NEW_TOKEN");
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                //CREATE CLIENT IN DB
+                URL url = new URL("http://85230b56.ngrok.io/api/resources/tokens/");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+
+                String jsonString = new JSONObject()
+                        .put("token", token)
+                        .toString();
+
+                OutputStream os = conn.getOutputStream();
+                os.write(jsonString.getBytes());
+                os.flush();
+                os.close();
+                System.out.println("TOKEN ENVIAT");
+                System.out.println("CONNECTION CODE: " + conn.getResponseCode());
+                conn.disconnect();
+            } catch (Exception e) {
+                System.out.println("Token could not be sended");
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
