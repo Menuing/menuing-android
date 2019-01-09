@@ -51,7 +51,7 @@ public class MonthlyDietActivity extends GlobalActivity implements CalendarView.
         vibrate();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         CharSequence []items = new CharSequence[2];
-        items[0] = getString(R.string.see_meal);
+        items[0] = getString(R.string.see_week);
         items[1] = getString(R.string.cancel);
 
         builder.setTitle(getString(R.string.select_option))
