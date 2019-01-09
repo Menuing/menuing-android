@@ -166,4 +166,6 @@
     <string name="loading">Carregant...</string>
     <string name="saving">Guardant...</string>
 
+    <string name="send">Enviar</string>
+    <string name="hello">Hola! Com estàs?</string>
 </resources>
