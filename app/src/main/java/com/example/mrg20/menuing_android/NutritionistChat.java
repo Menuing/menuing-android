@@ -26,6 +26,8 @@ public class NutritionistChat extends GlobalActivity implements View.OnClickList
     LinearLayout mainLayout;
     EditText userMsg;
     ScrollView scroll;
+    TextView title;
+
     int i = 0;
     String[] msgs = {"Hello, how are you?", "What do you need?",
             "OK, I recommend you drink more water and take a B12 pill once a day. They are sold in pharmacies.",
@@ -37,6 +39,7 @@ public class NutritionistChat extends GlobalActivity implements View.OnClickList
         setContentView(R.layout.activity_nutritionist_chat);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        String name = getIntent().getStringExtra("name");
 
 
         ActionBar actionBar = getSupportActionBar();
@@ -47,6 +50,8 @@ public class NutritionistChat extends GlobalActivity implements View.OnClickList
         mainLayout = findViewById(R.id.main_layout);
         userMsg = findViewById(R.id.user_msg);
         scroll = findViewById(R.id.Scroll);
+        title = findViewById(R.id.nutritionistsListTittle);
+        title.setText(name);
 
         sendButton.setOnClickListener(this);
     }

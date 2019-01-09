@@ -33,6 +33,12 @@ public class NutritionistsListActivity extends GlobalActivity implements View.On
         switch(view.getId()) {
             case R.id.chat:
                 intent = new Intent(NutritionistsListActivity.this, NutritionistChat.class);
+                intent.putExtra("name", "Georgia Jordan");
+                break;
+
+            case R.id.chat2:
+                intent = new Intent(NutritionistsListActivity.this, NutritionistChat.class);
+                intent.putExtra("name", "Malcom mix");
                 break;
         }
         startActivity(intent);
