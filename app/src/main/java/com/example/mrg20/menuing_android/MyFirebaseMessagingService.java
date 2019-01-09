@@ -110,7 +110,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         protected Void doInBackground(Void... params) {
             try {
                 //CREATE CLIENT IN DB
-                URL url = new URL("http://85230b56.ngrok.io/api/resources/tokens/");
+                URL url = new URL("http://47fe2b76.ngrok.io/api/resources/tokens/");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
