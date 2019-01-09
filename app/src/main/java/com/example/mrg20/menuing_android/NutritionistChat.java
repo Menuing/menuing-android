@@ -33,7 +33,8 @@ public class NutritionistChat extends GlobalActivity implements View.OnClickList
     int i = 0;
     String[] msgs = {"Hello, how are you?", "What do you need?",
             "OK, I recommend you drink more water and take a B12 pill once a day. They are sold in pharmacies.",
-            "Have a good week. Do you want to talk in 7 days to see how you are doing?"};
+            "Have a good week. Do you want to talk in 7 days to see how you are doing?",
+            "Bye!"};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
