@@ -23,7 +23,9 @@ public class NutritionistsListActivity extends GlobalActivity implements View.On
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         LinearLayout menu_photos = (LinearLayout)findViewById(R.id.chat);
+        LinearLayout menu_photos2 = (LinearLayout)findViewById(R.id.chat2);
         menu_photos.setOnClickListener(this);
+        menu_photos2.setOnClickListener(this);
     }
 
     @Override
