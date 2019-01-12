@@ -171,4 +171,35 @@
 
     <string name="send">Send</string>
     <string name="hello">Hello! How are you?</string>
+
+    <string name="menuing_premium">Start your Menuing Premium</string>
+    <string name="advantages">Avantatges</string>
+
+    <string name="bullted_advantages">
+        \n <li>Access to personalized weekly meal planning.</li>
+        \n <li>Access to personalized monthly meal planning.</li>
+        \n <li>Unlimited history.</li>
+    </string>
+
+
+    <string name="bullted_advantages_2">
+        \n <li>Only for € 4.99 per month!</li>
+    </string>
+
+    <string name="pay_instructions">Click on the next button to log in and pay with your PayPal account.</string>
+    <string name="accept">You authorize Menuing to automatically charge you each month, until you cancel your subscription. Give your consent to access your Menuing subscription immediately, and agree that it is only possible to make a refund within 14 days, as long as you have not accessed Menuing. </string>
+
+    <string name="pay">Accept and pay subscription</string>
+    <string name="be_premium">Become a premium user</string>
+
+    <string name="no_premium">You aren\'t yet a premium user ...</string>
+    <string name="cancel_premium">Cancel premium</string>
+
+    <string name="sure">Are you sure to cancel the subscription?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+
+
+
 </resources>

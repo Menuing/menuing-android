@@ -38,11 +38,14 @@ public class GlobalActivity extends AppCompatActivity {
 
     private String userToken;
     public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String PREFS_PREMIUM = "PremiumFile";
     public SharedPreferences settings;
+    public SharedPreferences premiumSettings;
+
 
     //Recordar de posar el port
 
-    protected String ipserver = "47fe2b76.ngrok.io";
+    protected String ipserver = "36607c7a.ngrok.io";
 
     protected static final int BREAKFAST = 0;
     protected static final int LUNCH = 1;
@@ -65,6 +68,7 @@ public class GlobalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         settings = getSharedPreferences(PREFS_NAME, 0);
+        premiumSettings = getSharedPreferences(PREFS_PREMIUM, 0);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -87,6 +91,18 @@ public class GlobalActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    public void pay(){
+        SharedPreferences.Editor editor = premiumSettings.edit();
+        editor.putString(settings.getString("UserMail",""), "");
+        editor.commit();
+    }
+
+    public void deletePrime(){
+        SharedPreferences.Editor editor = premiumSettings.edit();
+        editor.remove(settings.getString("UserMail",""));
+        editor.apply();
     }
 
     public void logout(){

@@ -54,6 +54,7 @@
         <activity android:name=".MealByIngredients" android:screenOrientation="portrait"/>
         <activity android:name=".MealByMoney" android:screenOrientation="portrait"/>
         <activity android:name=".activities.mealsHistory.HistoryMealDetail" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.PaymentActivity" android:screenOrientation="portrait"/>
 
         <service
             android:name=".MyFirebaseMessagingService"
