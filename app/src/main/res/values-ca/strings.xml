@@ -191,6 +191,6 @@
     <string name="pay_instructions">Feu clic al botó següent per iniciar sessió i pagar amb el vostre compte de PayPal.</string>
 
     <string name="accept">Autoritzes a Menuing a cobrar automàticament cada mes, fins que cancells teva subscripció. Dónes el teu consentiment per accedir a la teva subscripció de Menuing immediatament, i acceptes que només sigui possible fer una devolució en un termini de 14 dies, sempre que no hagis accedit a Menuin.</string>
-    <string name="pay">Pagar subscripció</string>
+    <string name="pay">Acceptar i pagar subscripció</string>
 
 </resources>

@@ -38,7 +38,10 @@ public class GlobalActivity extends AppCompatActivity {
 
     private String userToken;
     public static final String PREFS_NAME = "MyPrefsFile";
+    public static final String PREFS_PREMIUM = "PremiumFile";
     public SharedPreferences settings;
+    public SharedPreferences premiumSettings;
+
 
     //Recordar de posar el port
 
@@ -65,6 +68,7 @@ public class GlobalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         settings = getSharedPreferences(PREFS_NAME, 0);
+        premiumSettings = getSharedPreferences(PREFS_PREMIUM, 0);
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -87,6 +91,12 @@ public class GlobalActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    public void pay(){
+        SharedPreferences.Editor editor = premiumSettings.edit();
+        editor.putString(settings.getString("UserMail",""), "");
+        editor.commit();
     }
 
     public void logout(){
