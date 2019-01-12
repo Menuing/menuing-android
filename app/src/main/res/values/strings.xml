@@ -190,6 +190,10 @@
     <string name="accept">You authorize Menuing to automatically charge you each month, until you cancel your subscription. Give your consent to access your Menuing subscription immediately, and agree that it is only possible to make a refund within 14 days, as long as you have not accessed Menuing. </string>
 
     <string name="pay">Accept and pay subscription</string>
+    <string name="be_premium">Become a premium user</string>
+
+    <string name="no_premium">You aren\'t yet a premium user ...</string>
+
 
 
 

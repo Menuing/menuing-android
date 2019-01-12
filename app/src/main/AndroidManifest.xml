@@ -28,7 +28,7 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
 
-        <activity android:name=".activities.PaymentActivity" android:screenOrientation="portrait">
+        <activity android:name=".LoginActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,6 +54,7 @@
         <activity android:name=".MealByIngredients" android:screenOrientation="portrait"/>
         <activity android:name=".MealByMoney" android:screenOrientation="portrait"/>
         <activity android:name=".activities.mealsHistory.HistoryMealDetail" android:screenOrientation="portrait"/>
+        <activity android:name=".activities.PaymentActivity" android:screenOrientation="portrait"/>
 
         <service
             android:name=".MyFirebaseMessagingService"

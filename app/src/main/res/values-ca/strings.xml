@@ -193,4 +193,8 @@
     <string name="accept">Autoritzes a Menuing a cobrar automàticament cada mes, fins que cancells teva subscripció. Dónes el teu consentiment per accedir a la teva subscripció de Menuing immediatament, i acceptes que només sigui possible fer una devolució en un termini de 14 dies, sempre que no hagis accedit a Menuin.</string>
     <string name="pay">Acceptar i pagar subscripció</string>
 
+
+    <string name="be_premium">Convertir-me en usuari premium</string>
+    <string name="no_premium">Encara no ets usuari premium...</string>
+
 </resources>
