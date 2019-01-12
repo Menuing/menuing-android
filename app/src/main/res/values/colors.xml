@@ -7,6 +7,7 @@
     <color name="colorText">#292929</color>
     <color name="colorBackground">#FFBC93</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorGrey">#939393</color>
     <color name="colorButtonBackground">#ff9c60</color>
     <color name="colorDelete">#ff222d</color>
     <color name="colorScrollList">#ffac79</color>

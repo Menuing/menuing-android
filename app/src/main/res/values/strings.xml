@@ -181,4 +181,16 @@
         \n <li>Unlimited history.</li>
     </string>
 
+
+    <string name="bullted_advantages_2">
+        \n <li>Only for € 4.99 per month!</li>
+    </string>
+
+    <string name="pay_instructions">Click on the next button to log in and pay with your PayPal account.</string>
+    <string name="accept">You authorize Menuing to automatically charge you each month, until you cancel your subscription. Give your consent to access your Menuing subscription immediately, and agree that it is only possible to make a refund within 14 days, as long as you have not accessed Menuing. </string>
+
+    <string name="pay">Pay subscription</string>
+
+
+
 </resources>

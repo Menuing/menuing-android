@@ -10,6 +10,7 @@ import com.example.mrg20.menuing_android.global_activities.GlobalActivity;
 public class PaymentActivity extends GlobalActivity {
 
     TextView advantagesList;
+    TextView advantagesList2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,8 @@ public class PaymentActivity extends GlobalActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         advantagesList = findViewById(R.id.advantages_list);
+        advantagesList2 = findViewById(R.id.advantages_list2);
         advantagesList.setText(R.string.bullted_advantages);
+        advantagesList2.setText(R.string.bullted_advantages_2);
     }
 }

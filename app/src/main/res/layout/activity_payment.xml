@@ -26,7 +26,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin">
+        android:layout_marginLeft="@dimen/margin"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/advantages_list"
@@ -34,6 +35,44 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             style="@style/SmallText"/>
+
+        <TextView
+            android:id="@+id/advantages_list2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            style="@style/SmallText"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pay_instructions"
+        style="@style/SmallText"/>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:fontFamily="sans-serif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorGrey"
+        android:textSize="@dimen/smallText"
+        android:text="@string/accept" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pay"
+        style="@style/button_style"/>
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="61dp"
+        android:layout_height="41dp"
+        app:srcCompat="@drawable/paypal" />
+
 
 </LinearLayout>
