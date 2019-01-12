@@ -173,4 +173,14 @@
 
     <string name="send">Enviar</string>
     <string name="hello">Hola! Com estàs?</string>
+
+    <string name="menuing_premium">Comença el teu Menuing Premium</string>
+    <string name="advantages">Advantages</string>
+
+    <string name="bullted_advantages">
+        \n <li>Accedir a planificació d\'àpats personalitzats setmanals.</li>
+        \n <li>Accedir a planificació d\'àpats personalitzats mensuals.</li>
+        \n <li>Historial il·limitat.</li>
+    </string>
+
 </resources>

@@ -95,30 +95,6 @@ public class AllergiesActivity extends GlobalActivity implements AdapterView.OnI
         filterList("");
         allergiesList.setOnItemClickListener(this);
 
-
-        /*
-        //TEST DATABASE
-        DatabaseHelper h = new DatabaseHelper(this);
-        JSONObject asdf = new JSONObject();
-        try {
-            asdf.put("name","\na");
-            asdf.put("instructions","\nb");
-            asdf.put("proportions","\nc");
-            asdf.put("calories","\nd");
-            asdf.put("sodium","\ne");
-            asdf.put("fat","\nf");
-            asdf.put("protein","\ng");
-            asdf.put("urlPhoto","\nh");
-            asdf.put("averagePuntuation","\ni");
-
-        }catch (Exception e){
-            System.out.println("Pou posan coses al json");
-        }
-        System.out.println("PARAPAPAPAA");
-
-        boolean insert = h.addData(asdf);
-        System.out.println("INSERT ? " + insert);
-        */
     }
 
 

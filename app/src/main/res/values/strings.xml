@@ -171,4 +171,14 @@
 
     <string name="send">Send</string>
     <string name="hello">Hello! How are you?</string>
+
+    <string name="menuing_premium">Start your Menuing Premium</string>
+    <string name="advantages">Avantatges</string>
+
+    <string name="bullted_advantages">
+        \n <li>Access to personalized weekly meal planning.</li>
+        \n <li>Access to personalized monthly meal planning.</li>
+        \n <li>Unlimited history.</li>
+    </string>
+
 </resources>
