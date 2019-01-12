@@ -99,6 +99,12 @@ public class GlobalActivity extends AppCompatActivity {
         editor.commit();
     }
 
+    public void deletePrime(){
+        SharedPreferences.Editor editor = premiumSettings.edit();
+        editor.remove(settings.getString("UserMail",""));
+        editor.apply();
+    }
+
     public void logout(){
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("UserMail", "");

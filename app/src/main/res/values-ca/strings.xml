@@ -196,5 +196,10 @@
 
     <string name="be_premium">Convertir-me en usuari premium</string>
     <string name="no_premium">Encara no ets usuari premium...</string>
+    <string name="cancel_premium">Cancel·lar premium</string>
+
+    <string name="sure">Estàs segur de cancel·lar la subscripció?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
 
 </resources>

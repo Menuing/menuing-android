@@ -193,6 +193,11 @@
     <string name="be_premium">Become a premium user</string>
 
     <string name="no_premium">You aren\'t yet a premium user ...</string>
+    <string name="cancel_premium">Cancel premium</string>
+
+    <string name="sure">Are you sure to cancel the subscription?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 
