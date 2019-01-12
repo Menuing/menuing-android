@@ -62,7 +62,17 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
         recipeName = (String) tv.getText();
 
         byte[] byteArray = getIntent().getByteArrayExtra("img");
-        Bitmap bitmap1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        if(byteArray.length>800000){
+            opts.inSampleSize = 6;
+        }else if(byteArray.length>400000){
+            opts.inSampleSize = 4;
+        }else if(byteArray.length>150000){
+            opts.inSampleSize = 2;
+        }else{
+            opts.inSampleSize = 1;
+        }
+        Bitmap bitmap1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, opts);
         ImageView img = (ImageView) findViewById(R.id.dish_image);
         img.setImageBitmap(bitmap1);
 

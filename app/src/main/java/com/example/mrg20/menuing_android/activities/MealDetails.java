@@ -129,7 +129,18 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         } else {
             try {
                 img1 = ur.img;
-                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1.length);
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                if(img1.length>800000){
+                    opts.inSampleSize = 6;
+                }else if(img1.length>400000) {
+                    opts.inSampleSize = 4;
+                }else if(img1.length>150000){
+                    opts.inSampleSize = 2;
+                }else{
+                    opts.inSampleSize = 1;
+                }
+
+                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1.length, opts);
                 ImageView img = (ImageView) findViewById(R.id.imageView5);
                 img.setImageBitmap(bitmap1);
             } catch (Exception e) {
@@ -172,7 +183,17 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             }else{
                 try {
                     img2 = ur.img;
-                    Bitmap bitmap2 = BitmapFactory.decodeByteArray(img2, 0, img2 .length);
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    if(img1.length>800000){
+                        opts.inSampleSize = 6;
+                    }else if(img1.length>400000){
+                        opts.inSampleSize = 4;
+                    }else if(img1.length>150000){
+                        opts.inSampleSize = 2;
+                    }else{
+                        opts.inSampleSize = 1;
+                    }
+                    Bitmap bitmap2 = BitmapFactory.decodeByteArray(img2, 0, img2.length, opts);
                     ImageView img= (ImageView) findViewById(R.id.imageView6);
                     img.setImageBitmap(bitmap2);
                 }catch (Exception e){
