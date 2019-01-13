@@ -92,7 +92,7 @@ public class UserProfile extends GlobalActivity implements View.OnClickListener{
                                 if(which==0){
                                     deletePrime();
                                     Intent intentPopup = new Intent(UserProfile.this, UserProfile.class);
-                                    intentPopup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    intentPopup.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intentPopup);
                                 }
                             }
