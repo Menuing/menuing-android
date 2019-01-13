@@ -101,18 +101,21 @@
                             android:id="@+id/nut2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="@dimen/normalText"
                             android:background="@android:color/transparent"
                             android:text="@string/nuti_name2" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="@dimen/normalText"
                             android:background="@android:color/transparent"
                             android:text="@string/nuti_desc2" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="@dimen/normalText"
                             android:background="@android:color/transparent"
                             android:text="@string/nuti_oferta2" />
                     </LinearLayout>
