@@ -130,7 +130,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                     opts.inSampleSize = 6;
                 } else if (img1.length > 400000) {
                     opts.inSampleSize = 4;
-                } else if (img1.length > 150000) {
+                } else if (img1.length > 200000) {
                     opts.inSampleSize = 2;
                 } else {
                     opts.inSampleSize = 1;
@@ -139,6 +139,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                 Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1.length, opts);
                 ImageView img = (ImageView) findViewById(R.id.imageView5);
                 img.setImageBitmap(bitmap1);
+                img.setMinimumWidth(200);
             }
 
             if(recipe1 != null)
@@ -182,7 +183,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                             opts.inSampleSize = 6;
                         }else if(img1.length>400000){
                             opts.inSampleSize = 4;
-                        }else if(img1.length>150000){
+                        }else if(img1.length>200000){
                             opts.inSampleSize = 2;
                         }else{
                             opts.inSampleSize = 1;
@@ -190,6 +191,7 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         Bitmap bitmap2 = BitmapFactory.decodeByteArray(img2, 0, img2.length, opts);
                         ImageView img= (ImageView) findViewById(R.id.imageView6);
                         img.setImageBitmap(bitmap2);
+                        img.setMinimumWidth(200);
                     }catch (Exception e){
                         System.out.println("IMG 2 ERROR " + e);
                     }
