@@ -1,12 +1,16 @@
 package com.example.mrg20.menuing_android;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.mrg20.menuing_android.activities.PaymentActivity;
+import com.example.mrg20.menuing_android.activities.WeeklyDietActivity;
 import com.example.mrg20.menuing_android.activities.mealsHistory.CheckMealsActivity;
 import com.example.mrg20.menuing_android.activities.UserProfile;
 import com.example.mrg20.menuing_android.global_activities.GlobalActivity;

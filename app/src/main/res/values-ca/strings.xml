@@ -134,7 +134,9 @@
     <string name="shopping_list">La meva llista de la compra</string>
 
     <!--diets-->
-    <string name="see_meal">Veure setmana</string>
+    <string name="see_meal">Veure dia</string>
+    <string name="see_week">Veure setmana</string>
+
     <string name="cancel">Cancel·lar</string>
     <string name="select_option">Seleccciona una opció</string>
 
@@ -166,5 +168,38 @@
     <string name="loading">Carregant...</string>
     <string name="saving">Guardant...</string>
 
+
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+
+    <string name="send">Enviar</string>
+    <string name="hello">Hola! Com estàs?</string>
+
+    <string name="menuing_premium">Comença el teu Menuing Premium</string>
+    <string name="advantages">Advantages</string>
+
+    <string name="bullted_advantages">
+        \n <li>Accedir a planificació d\'àpats personalitzats setmanals.</li>
+        \n <li>Accedir a planificació d\'àpats personalitzats mensuals.</li>
+        \n <li>Historial il·limitat.</li>
+    </string>
+
+    <string name="bullted_advantages_2">
+        \n <li>Només per 4.99€ al mes!</li>
+    </string>
+
+
+    <string name="pay_instructions">Feu clic al botó següent per iniciar sessió i pagar amb el vostre compte de PayPal.</string>
+
+    <string name="accept">Autoritzes a Menuing a cobrar automàticament cada mes, fins que cancells teva subscripció. Dónes el teu consentiment per accedir a la teva subscripció de Menuing immediatament, i acceptes que només sigui possible fer una devolució en un termini de 14 dies, sempre que no hagis accedit a Menuin.</string>
+    <string name="pay">Acceptar i pagar subscripció</string>
+
+
+    <string name="be_premium">Convertir-me en usuari premium</string>
+    <string name="no_premium">Encara no ets usuari premium...</string>
+    <string name="cancel_premium">Cancel·lar premium</string>
+
+    <string name="sure">Estàs segur de cancel·lar la subscripció?</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+
 </resources>

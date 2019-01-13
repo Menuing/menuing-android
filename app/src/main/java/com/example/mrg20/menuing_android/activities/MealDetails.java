@@ -95,9 +95,6 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             if(recipe2String != null && !recipe2String.equals("")) {
                 recipe2 = new JSONObject(recipe2String);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
 
             ur = new UrlConnectorGetRecipes();
@@ -105,51 +102,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
             while (!ur.loaded) {
                 if (ur.loaded) System.out.println(ur.loaded);
             }
-        if(recipe1 == null) {
-            recipe1 = ur.getRecipe();
-        }
-        if (ur.connection == false) {
-            badConnection = true;
-            System.out.println("NO CONNECTION");
-            AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new AlertDialog.Builder(MealDetails.this, android.R.style.Theme_Material_Dialog_Alert);
-            } else {
-                builder = new AlertDialog.Builder(MealDetails.this);
-            }
-            builder.setTitle(R.string.err_no_connection_label)
-                    .setMessage(R.string.err_no_connection)
-                    .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(MealDetails.this, MainPageActivity.class);
-                            startActivity(intent);
-                        }
-                    })
-                    .show();
-        } else {
-            try {
-                img1 = ur.img;
-                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1.length);
-                ImageView img = (ImageView) findViewById(R.id.imageView5);
-                img.setImageBitmap(bitmap1);
-            } catch (Exception e) {
-                System.out.println("IMG 1 ERROR " + e);
-            }
-        }
-
-        if(recipe1 != null)
-            db.addData(recipe1);
-
-        if(ur.connection && mode == MEAL) {
-            ur.cancel(true);
-
-            ur = new UrlConnectorGetRecipes();
-            ur.execute();
-            while (!ur.loaded) {
-                if (ur.loaded) System.out.println(ur.loaded);
-            }
-            if(recipe2 == null) {
-                recipe2 = ur.getRecipe();
+            if(recipe1 == null) {
+                recipe1 = ur.getRecipe();
             }
             if (ur.connection == false) {
                 badConnection = true;
@@ -169,28 +123,109 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                             }
                         })
                         .show();
-            }else{
-                try {
-                    img2 = ur.img;
-                    Bitmap bitmap2 = BitmapFactory.decodeByteArray(img2, 0, img2 .length);
-                    ImageView img= (ImageView) findViewById(R.id.imageView6);
-                    img.setImageBitmap(bitmap2);
-                }catch (Exception e){
-                    System.out.println("IMG 2 ERROR " + e);
+            } else {
+                img1 = ur.img;
+                BitmapFactory.Options opts = new BitmapFactory.Options();
+                if (img1.length > 800000) {
+                    opts.inSampleSize = 6;
+                } else if (img1.length > 400000) {
+                    opts.inSampleSize = 4;
+                } else if (img1.length > 200000) {
+                    opts.inSampleSize = 2;
+                } else {
+                    opts.inSampleSize = 1;
                 }
 
+                Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1.length, opts);
+                ImageView img = (ImageView) findViewById(R.id.imageView5);
+                img.setImageBitmap(bitmap1);
+                img.setMinimumWidth(200);
             }
 
-            if(recipe2 != null)
-                db.addData(recipe2);
+            if(recipe1 != null)
+                db.addData(recipe1);
 
-            ur.cancel(true);
+            if(ur.connection && mode == MEAL) {
+                ur.cancel(true);
+
+                ur = new UrlConnectorGetRecipes();
+                ur.execute();
+                while (!ur.loaded) {
+                    if (ur.loaded) System.out.println(ur.loaded);
+                }
+                if(recipe2 == null) {
+                    recipe2 = ur.getRecipe();
+                }
+                if (ur.connection == false) {
+                    badConnection = true;
+                    System.out.println("NO CONNECTION");
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(MealDetails.this, android.R.style.Theme_Material_Dialog_Alert);
+                    } else {
+                        builder = new AlertDialog.Builder(MealDetails.this);
+                    }
+                    builder.setTitle(R.string.err_no_connection_label)
+                            .setMessage(R.string.err_no_connection)
+                            .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(MealDetails.this, MainPageActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                            })
+                            .show();
+                }else{
+                    try {
+                        img2 = ur.img;
+                        BitmapFactory.Options opts = new BitmapFactory.Options();
+                        if(img1.length>800000){
+                            opts.inSampleSize = 6;
+                        }else if(img1.length>400000){
+                            opts.inSampleSize = 4;
+                        }else if(img1.length>200000){
+                            opts.inSampleSize = 2;
+                        }else{
+                            opts.inSampleSize = 1;
+                        }
+                        Bitmap bitmap2 = BitmapFactory.decodeByteArray(img2, 0, img2.length, opts);
+                        ImageView img= (ImageView) findViewById(R.id.imageView6);
+                        img.setImageBitmap(bitmap2);
+                        img.setMinimumWidth(200);
+                    }catch (Exception e){
+                        System.out.println("IMG 2 ERROR " + e);
+                    }
+
+                }
+
+                if(recipe2 != null)
+                    db.addData(recipe2);
+
+                ur.cancel(true);
+            }
+
+            if(!badConnection)
+                fillFields();
+
+            progress.cancel();
+        } catch (Exception e) {
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(MealDetails.this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(MealDetails.this);
+            }
+            builder.setTitle(R.string.err_no_connection_label)
+                    .setMessage(R.string.err_no_connection)
+                    .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(MealDetails.this, MainPageActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                    })
+                    .show();
         }
-
-        if(!badConnection)
-            fillFields();
-
-        progress.cancel();
     }
 
     @Override

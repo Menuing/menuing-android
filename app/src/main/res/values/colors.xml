@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FFBC93</color>
-    <color name="colorPrimaryDark">#DF9C73</color>
+    <color name="colorPrimaryDark">#df9c73</color>
     <color name="colorAccent">#7a2dff</color>
     <color name="colorBigText">#62527e</color>
     <color name="colorText">#292929</color>
     <color name="colorBackground">#FFBC93</color>
-    <color name="colorWhite">#FFF</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGrey">#939393</color>
     <color name="colorButtonBackground">#ff9c60</color>
     <color name="colorDelete">#ff222d</color>
     <color name="colorScrollList">#ffac79</color>

@@ -25,132 +25,96 @@
         <ScrollView
             android:id="@+id/ScrollView01"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@android:color/transparent"
                 android:orientation="vertical"
-                android:visibility="visible"
-                android:background="@android:color/transparent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp"
-                    android:background="@android:color/transparent">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher"
-                        android:background="@mipmap/ic_launcher"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="@android:color/transparent"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/nuti_name1"
-                            android:background="@android:color/transparent"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/nuti_desc1"
-                            android:background="@android:color/transparent"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/nuti_oferta1"
-                            android:background="@android:color/transparent"/>
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
+                android:visibility="visible">
 
                 <LinearLayout
                     android:id="@+id/chat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_margin="10dp"
                     android:background="@android:color/transparent"
-                    >
+                    android:orientation="horizontal">
+
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher"
-                        android:background="@mipmap/ic_launcher"/>
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/nut2"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@android:color/transparent"
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nut1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:text="@string/nuti_name1" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nuti_name2"
-                            android:background="@android:color/transparent"/>
+                            android:background="@android:color/transparent"
+                            android:text="@string/nuti_desc1" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nuti_desc2"
-                            android:background="@android:color/transparent"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/nuti_oferta2"
-                            android:background="@android:color/transparent"/>
+                            android:background="@android:color/transparent"
+                            android:text="@string/nuti_oferta1" />
                     </LinearLayout>
-
-
                 </LinearLayout>
-
                 <LinearLayout
+                    android:id="@+id/chat2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_margin="10dp"
-                    android:background="@android:color/transparent">
+                    android:background="@android:color/transparent"
+                    android:orientation="horizontal">
+
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher"
-                        android:background="@mipmap/ic_launcher"/>
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/malconmix" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@android:color/transparent"
                         android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nut2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:text="@string/nuti_name2" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nuti_name3"
-                            android:background="@android:color/transparent"/>
+                            android:background="@android:color/transparent"
+                            android:text="@string/nuti_desc2" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nuti_desc3"
-                            android:background="@android:color/transparent"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/nuti_oferta3"
-                            android:background="@android:color/transparent"/>
+                            android:background="@android:color/transparent"
+                            android:text="@string/nuti_oferta2" />
                     </LinearLayout>
-
-
                 </LinearLayout>
-
             </LinearLayout>
         </ScrollView>
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
