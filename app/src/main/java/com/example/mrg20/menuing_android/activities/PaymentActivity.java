@@ -41,6 +41,7 @@ public class PaymentActivity extends GlobalActivity implements View.OnClickListe
         if (v.getId() == R.id.pay){
             pay();
             Intent intent = new Intent(PaymentActivity.this, MainPageActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }

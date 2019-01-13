@@ -104,7 +104,17 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
         urimage.execute();
         while (!urimage.loaded){if(urimage.loaded) System.out.println("imageLoaded");}
         if(urimage.imageOK){
-            Bitmap bitmap1 = BitmapFactory.decodeByteArray(urimage.img, 0, urimage.img.length);
+            BitmapFactory.Options opts = new BitmapFactory.Options();
+            if(urimage.img.length>800000){
+                opts.inSampleSize = 6;
+            }else if(urimage.img.length>400000){
+                opts.inSampleSize = 4;
+            }else if(urimage.img.length>150000){
+                opts.inSampleSize = 2;
+            }else{
+                opts.inSampleSize = 1;
+            }
+            Bitmap bitmap1 = BitmapFactory.decodeByteArray(urimage.img, 0, urimage.img.length, opts);
             ImageView img = (ImageView) findViewById(R.id.dish_image);
             img.setImageBitmap(bitmap1);
         }

@@ -60,7 +60,6 @@ public class MealScheduleActivity extends GlobalActivity implements View.OnClick
                                 public void onClick(DialogInterface dialog, int which) {
                                     if(which==0){
                                         Intent intentPopup = new Intent(MealScheduleActivity.this, PaymentActivity.class);
-                                        intentPopup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intentPopup);
                                     }
                                 }
