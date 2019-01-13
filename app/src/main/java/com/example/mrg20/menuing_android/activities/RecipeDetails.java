@@ -89,6 +89,7 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
             ur = new RecipeDetails.UrlConnectorUpdateRating();
             ur.execute();
 
+
             ratingBar = findViewById(R.id.recipeRatingBar);
             while (!ur.loaded) {
                 if (ur.loaded) System.out.println(ur.loaded);
