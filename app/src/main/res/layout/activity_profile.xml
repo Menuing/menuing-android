@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:text="@string/info_email"
-                    android:textSize="@dimen/smallText" />
+                    android:textSize="@dimen/normalText" />
 
 
                 <EditText
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
                     android:hint="@string/email_proba"
-                    android:textSize="@dimen/smallText"
+                    android:textSize="@dimen/normalText"
                     android:layout_marginLeft="@dimen/fab_margin"/>
             </LinearLayout>
 

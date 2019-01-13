@@ -59,17 +59,20 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
+                            android:textSize="@dimen/normalText"
                             android:text="@string/nuti_name1" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="@dimen/normalText"
                             android:background="@android:color/transparent"
                             android:text="@string/nuti_desc1" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textSize="@dimen/normalText"
                             android:background="@android:color/transparent"
                             android:text="@string/nuti_oferta1" />
                     </LinearLayout>
