@@ -41,9 +41,10 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
 
     ConnectorUpdateRating cur;
     UrlConnectorGetImage urimage;
-
+    DatabaseHelper db;
     boolean ratingChanged = false;
     int recipeId;
+    int sqliteId;
 
     RatingBar ratingBar;
     int id;
@@ -64,15 +65,24 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
             startActivity(in);
         }
 
-        DatabaseHelper db = new DatabaseHelper(this);
-        Cursor cursor = db.getRecipeByID(id+1);
-        cursor.moveToNext();
+        db = new DatabaseHelper(this);
+        Cursor cursor = db.getData();
+        int i = 0;
+        while(cursor.moveToNext()){
+            if(id == i) {
+                break;
+            }
+            i++;
+        }
+
         String name = cursor.getString(1);
         String proportions = cursor.getString(3);
         String guide = cursor.getString(2);
         String rating = cursor.getString(9);
+        String myrating = cursor.getString(11);
         recipeId = Integer.parseInt(cursor.getString(10));
-
+        sqliteId = Integer.parseInt(cursor.getString(0));
+        System.out.println("MY RATING DE LA RECIPE " + myrating + " " + name);
         TextView tv = findViewById(R.id.dish_detail_name);
         tv.setText(name);
         TextView ingredients = findViewById(R.id.ingredient1_detail);
@@ -92,17 +102,19 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
         }
 
         float ratingFloat = Float.parseFloat(rating);
-        System.out.println("rting: " + (int)ratingFloat);
+        System.out.println("rating: " + (int)ratingFloat);
         ratingBar = (RatingBar) findViewById(R.id.recipeRatingBar);
         ratingBar.setMax(5);
         ratingBar.setNumStars((int) ratingFloat);
-        ratingBar.setRating(ratingFloat);
+        if(myrating != null)
+            ratingBar.setRating(Float.parseFloat(myrating));
         ratingBar.setOnRatingBarChangeListener(this);
 
         urimage = new UrlConnectorGetImage();
         urimage.recipename = name;
         urimage.execute();
         while (!urimage.loaded){if(urimage.loaded) System.out.println("imageLoaded");}
+
         if(urimage.imageOK){
             BitmapFactory.Options opts = new BitmapFactory.Options();
             if(urimage.img.length>800000){
@@ -115,6 +127,7 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
                 opts.inSampleSize = 1;
             }
             Bitmap bitmap1 = BitmapFactory.decodeByteArray(urimage.img, 0, urimage.img.length, opts);
+
             ImageView img = (ImageView) findViewById(R.id.dish_image);
             img.setImageBitmap(bitmap1);
         }
@@ -123,6 +136,8 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
     @Override
     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
         vibrate();
+        db.updateRate(Float.toString(v), sqliteId);
+
         cur = new ConnectorUpdateRating();
         cur.recipeRating = v;
         cur.recipeId = recipeId;

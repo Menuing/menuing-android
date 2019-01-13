@@ -46,8 +46,6 @@ public class CheckMealsActivity extends GlobalActivity implements View.OnClickLi
             addElementToList(cursor);
         }
 
-
-
         arrayAdapter = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
@@ -67,6 +65,7 @@ public class CheckMealsActivity extends GlobalActivity implements View.OnClickLi
           }
 
         );
+        db.close();
     }
 
     @Override
@@ -76,7 +75,7 @@ public class CheckMealsActivity extends GlobalActivity implements View.OnClickLi
 
 
     private void addElementToList(Cursor cursor){
-        historicReceptes.add(cursor.getString(0) + ": " + cursor.getString(1) + " " + cursor.getString(9) + "/5.0");
+        historicReceptes.add(cursor.getString(1) + " " + cursor.getString(9) + "/5.0");
     }
 
 }

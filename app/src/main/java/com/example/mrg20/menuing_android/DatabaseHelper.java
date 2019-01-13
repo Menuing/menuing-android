@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -25,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL8 = "urlPhoto";
     private static final String COL9 = "averagePuntuation";
     private static final String COL10 = "idrecipe";
+    private static final String COL11 = "yourRating";
 
 
 
@@ -45,7 +47,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COL7 +" TEXT, " +
                 COL8 +" TEXT, " +
                 COL9 +" TEXT, " +
-                COL10 +" TEXT)";
+                COL10 +" TEXT, " +
+                COL11 +" TEXT)";
 
         db.execSQL(createTable);
         System.out.println("DATABASE CREATED");
@@ -65,8 +68,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void deleteFirstRow(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+
+        if(cursor.moveToFirst()) {
+            String rowId = cursor.getString(0);
+            db.delete(TABLE_NAME, "ID" + "=?",  new String[]{rowId});
+        }
+    }
+
+    public long getNumOfRecipes(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        return count;
+    }
+
     public boolean addData(JSONObject item) {
         SQLiteDatabase db = this.getWritableDatabase();
+
+        if(getNumOfRecipes() >= 20) {
+            deleteFirstRow();
+            System.out.println("DELETING FIRST ROW");
+        }
+
         ContentValues contentValues = new ContentValues();
         try {
             contentValues.put(COL1, item.getString(COL1));
@@ -91,6 +116,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (result == -1) {
             return false;
         } else {
+            System.out.println("OK ADDING");
             return true;
         }
     }
@@ -107,7 +133,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
+     * ID IS THE POSITION IN THE LIST FROM 0 TO 19
      * @param id recipe id
      * @return
      */
@@ -130,6 +156,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "deleteName: query: " + query);
         Log.d(TAG, "deleteName: Deleting from database.");
         db.execSQL(query);
+    }
+
+    public void updateRate(String rate, int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        try {
+            contentValues.put(COL11, rate);
+        }catch (Exception e){
+            System.out.println("FAILED UPDATING");
+            return;
+        }
+
+        db.update(TABLE_NAME, contentValues, "ID="+id, null);
     }
 
 }
