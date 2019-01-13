@@ -40,59 +40,96 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_details);
+        try {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_recipe_details);
 
-        if (getIntent().getExtras() != null) {
-            try {
-                String s = getIntent().getStringExtra("recipe");
-                recipe = new JSONObject(s);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if (getIntent().getExtras() != null) {
+                try {
+                    String s = getIntent().getStringExtra("recipe");
+                    recipe = new JSONObject(s);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
 
-        TextView tv = findViewById(R.id.dish_detail_name);
-        TextView ingredients = findViewById(R.id.ingredient1_detail);
-        TextView instructions = findViewById(R.id.steps_recipe_detail);
-        recipeName = (String) tv.getText();
+            TextView tv = findViewById(R.id.dish_detail_name);
+            TextView ingredients = findViewById(R.id.ingredient1_detail);
+            TextView instructions = findViewById(R.id.steps_recipe_detail);
+            recipeName = (String) tv.getText();
 
-        byte[] byteArray = getIntent().getByteArrayExtra("img");
-        BitmapFactory.Options opts = new BitmapFactory.Options();
-        if(byteArray.length>800000){
-            opts.inSampleSize = 6;
-        }else if(byteArray.length>400000){
-            opts.inSampleSize = 4;
-        }else if(byteArray.length>150000){
-            opts.inSampleSize = 2;
-        }else{
-            opts.inSampleSize = 1;
-        }
-        Bitmap bitmap1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, opts);
-        ImageView img = (ImageView) findViewById(R.id.dish_image);
-        img.setImageBitmap(bitmap1);
+            byte[] byteArray = getIntent().getByteArrayExtra("img");
+            BitmapFactory.Options opts = new BitmapFactory.Options();
+            if (byteArray.length > 800000) {
+                opts.inSampleSize = 6;
+            } else if (byteArray.length > 400000) {
+                opts.inSampleSize = 4;
+            } else if (byteArray.length > 150000) {
+                opts.inSampleSize = 2;
+            } else {
+                opts.inSampleSize = 1;
+            }
+            Bitmap bitmap1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, opts);
+            ImageView img = (ImageView) findViewById(R.id.dish_image);
+            img.setImageBitmap(bitmap1);
 
-        if(recipeName.length() >= 30){
-            if(recipeName.length() >= 60)
-                tv.setTextSize(15);
-            else
-                tv.setTextSize(20);
-        }else{
-            tv.setTextSize(25);
-        }
-        boolean badConnection = false;
-        ur = new RecipeDetails.UrlConnectorUpdateRating();
-        ur.execute();
+            if (recipeName.length() >= 30) {
+                if (recipeName.length() >= 60)
+                    tv.setTextSize(15);
+                else
+                    tv.setTextSize(20);
+            } else {
+                tv.setTextSize(25);
+            }
+            boolean badConnection = false;
+            ur = new RecipeDetails.UrlConnectorUpdateRating();
+            ur.execute();
 
-        ratingBar = findViewById(R.id.recipeRatingBar);
-        while(!ur.loaded){if(ur.loaded)System.out.println(ur.loaded);}
-        if(ur.connection == false){
-            badConnection = true;
-            System.out.println("NO CONNECTION");
+            ratingBar = findViewById(R.id.recipeRatingBar);
+            while (!ur.loaded) {
+                if (ur.loaded) System.out.println(ur.loaded);
+            }
+            if (ur.connection == false) {
+                badConnection = true;
+                System.out.println("NO CONNECTION");
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(RecipeDetails.this, android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(RecipeDetails.this);
+                }
+                builder.setTitle(R.string.err_no_connection_label)
+                        .setMessage(R.string.err_no_connection)
+                        .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(RecipeDetails.this, MainPageActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .show();
+            }
+            ur.cancel(true);
+
+            if (!badConnection) {
+                try {
+                    if (recipe != null) {
+                        tv.setText(recipe.getString("name"));
+                        String textToFormat = recipe.getString("proportions");
+                        ingredients.setText(formatText(textToFormat));
+                        instructions.setText(recipe.getString("instructions"));
+                        ratingBar.setRating((float) recipe.getDouble("puntuation"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                ratingBar.setOnRatingBarChangeListener(this);
+            }
+        }catch(Exception e){
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 builder = new AlertDialog.Builder(RecipeDetails.this, android.R.style.Theme_Material_Dialog_Alert);
@@ -104,28 +141,13 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
                     .setPositiveButton(R.string.err_no_connection_btn, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(RecipeDetails.this, MainPageActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         }
                     })
                     .show();
         }
-        ur.cancel(true);
 
-        if(!badConnection) {
-            try {
-                if (recipe != null) {
-                    tv.setText(recipe.getString("name"));
-                    String textToFormat = recipe.getString("proportions");
-                    ingredients.setText(formatText(textToFormat));
-                    instructions.setText(recipe.getString("instructions"));
-                    ratingBar.setRating((float) recipe.getDouble("puntuation"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            ratingBar.setOnRatingBarChangeListener(this);
-        }
     }
 
     @Override
