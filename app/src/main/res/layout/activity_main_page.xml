@@ -15,8 +15,15 @@
         <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_gravity="right">
+
+            <ImageView
+                android:id="@+id/profile_help"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="4"
+                app:srcCompat="@drawable/help" />
 
             <ImageView
                 android:id="@+id/profile_logo"

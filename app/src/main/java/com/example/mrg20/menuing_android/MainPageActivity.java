@@ -1,5 +1,6 @@
 package com.example.mrg20.menuing_android;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +29,9 @@ public class MainPageActivity extends GlobalActivity implements View.OnClickList
         Button nutri = (Button) findViewById(R.id.imageView3);
         Button historic = (Button) findViewById(R.id.imageView4);
         ImageView profile = (ImageView) findViewById(R.id.profile_logo);
+        ImageView help = (ImageView) findViewById(R.id.profile_help);
 
+        help.setOnClickListener(this);
         profile.setOnClickListener(this);
         getAMeal.setOnClickListener(this);
         checkMeals.setOnClickListener(this);
@@ -41,6 +44,9 @@ public class MainPageActivity extends GlobalActivity implements View.OnClickList
         vibrate();
         Intent intent = null;
         switch(view.getId()) {
+            case R.id.profile_help:
+                intent = new Intent(MainPageActivity.this, HelpActivity.class);
+                break;
             case R.id.profile_logo:
                 intent = new Intent(MainPageActivity.this, UserProfile.class);
                 break;
