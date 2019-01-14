@@ -11,7 +11,7 @@
     <string name="register_email">Email</string>
     <string name="register_terms_conditions">Terms and Conditions</string>
     <string name="register_terms_accept">Accept</string>
-    <string name="login_logging">Logging...</string>
+    <string name="login_logging">Loading...</string>
     <string name="user_registered">User registered</string>
     <string name="user_leged">LOGGED SUCCESSFULLY</string>
 

@@ -11,7 +11,7 @@
     <string name="register_email">Email</string>
     <string name="register_terms_conditions">Termes i condicions</string>
     <string name="register_terms_accept">Acceptar</string>
-    <string name="login_logging">Logging...</string>
+    <string name="login_logging">Carregant...</string>
     <string name="user_registered">Usuari registrat correctament</string>
     <string name="logout">Logout</string>
     <string name="user_leged">Loguejat correctament</string>
