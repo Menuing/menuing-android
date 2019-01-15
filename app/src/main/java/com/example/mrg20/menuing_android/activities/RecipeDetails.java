@@ -64,22 +64,24 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
             recipeName = (String) tv.getText();
 
             byte[] byteArray = getIntent().getByteArrayExtra("img");
-            try {
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                if (byteArray.length > 800000) {
-                    opts.inSampleSize = 6;
-                } else if (byteArray.length > 400000) {
-                    opts.inSampleSize = 4;
-                } else if (byteArray.length > 150000) {
-                    opts.inSampleSize = 2;
-                } else {
-                    opts.inSampleSize = 1;
+            if(byteArray!=null) {
+                try {
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    if (byteArray.length > 800000) {
+                        opts.inSampleSize = 6;
+                    } else if (byteArray.length > 400000) {
+                        opts.inSampleSize = 4;
+                    } else if (byteArray.length > 150000) {
+                        opts.inSampleSize = 2;
+                    } else {
+                        opts.inSampleSize = 1;
+                    }
+                    bitmap1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, opts);
+                    ImageView img = (ImageView) findViewById(R.id.dish_image);
+                    img.setImageBitmap(bitmap1);
+                } catch (Exception e) {
+                    System.out.println("IMG 2 ERROR " + e);
                 }
-                bitmap1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, opts);
-                ImageView img = (ImageView) findViewById(R.id.dish_image);
-                img.setImageBitmap(bitmap1);
-            }catch (Exception e){
-                System.out.println("IMG 2 ERROR " + e);
             }
             if (recipeName.length() >= 30) {
                 if (recipeName.length() >= 60)

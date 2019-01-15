@@ -126,9 +126,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         })
                         .show();
             } else {
+                img1 = ur.img;
                 if(img1!=null){
                     try {
-                        img1 = ur.img;
                         BitmapFactory.Options opts = new BitmapFactory.Options();
                         if (img1.length > 800000) {
                             opts.inSampleSize = 6;
@@ -185,9 +185,9 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                             })
                             .show();
                 }else{
+                    img2 = ur.img;
                     if(img2 != null) {
                         try {
-                            img2 = ur.img;
                             BitmapFactory.Options opts = new BitmapFactory.Options();
                             if (img1.length > 800000) {
                                 opts.inSampleSize = 6;
