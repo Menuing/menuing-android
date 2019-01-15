@@ -51,6 +51,8 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
     int num_recipes = 0;
     byte[] img1;
     byte[] img2;
+    Bitmap bitmap1;
+    Bitmap bitmap2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,25 +126,28 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                         })
                         .show();
             } else {
-                try {
-                    img1 = ur.img;
-                    BitmapFactory.Options opts = new BitmapFactory.Options();
-                    if (img1.length > 800000) {
-                        opts.inSampleSize = 6;
-                    } else if (img1.length > 400000) {
-                        opts.inSampleSize = 4;
-                    } else if (img1.length > 200000) {
-                        opts.inSampleSize = 2;
-                    } else {
-                        opts.inSampleSize = 1;
-                    }
+                if(img1!=null){
+                    try {
+                        img1 = ur.img;
+                        BitmapFactory.Options opts = new BitmapFactory.Options();
+                        if (img1.length > 800000) {
+                            opts.inSampleSize = 6;
+                        } else if (img1.length > 400000) {
+                            opts.inSampleSize = 4;
+                        } else if (img1.length > 200000) {
+                            opts.inSampleSize = 2;
+                        } else {
+                            opts.inSampleSize = 1;
+                        }
 
-                    Bitmap bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1.length, opts);
-                    ImageView img = (ImageView) findViewById(R.id.imageView5);
-                    img.setImageBitmap(bitmap1);
-                    img.setMinimumWidth(200);
-                }catch (Exception e){
-                    System.out.println("IMG 2 ERROR " + e);
+                        bitmap1 = BitmapFactory.decodeByteArray(img1, 0, img1.length, opts);
+                        ImageView img = (ImageView) findViewById(R.id.imageView5);
+                        img.setImageBitmap(bitmap1);
+                        img.setMinimumWidth(200);
+                    }catch (Exception e) {
+                        System.out.println("IMG 2 ERROR " + e);
+
+                    }
                 }
             }
 
@@ -180,26 +185,27 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
                             })
                             .show();
                 }else{
-                    try {
-                        img2 = ur.img;
-                        BitmapFactory.Options opts = new BitmapFactory.Options();
-                        if(img1.length>800000){
-                            opts.inSampleSize = 6;
-                        }else if(img1.length>400000){
-                            opts.inSampleSize = 4;
-                        }else if(img1.length>200000){
-                            opts.inSampleSize = 2;
-                        }else{
-                            opts.inSampleSize = 1;
+                    if(img2 != null) {
+                        try {
+                            img2 = ur.img;
+                            BitmapFactory.Options opts = new BitmapFactory.Options();
+                            if (img1.length > 800000) {
+                                opts.inSampleSize = 6;
+                            } else if (img1.length > 400000) {
+                                opts.inSampleSize = 4;
+                            } else if (img1.length > 200000) {
+                                opts.inSampleSize = 2;
+                            } else {
+                                opts.inSampleSize = 1;
+                            }
+                            bitmap2 = BitmapFactory.decodeByteArray(img2, 0, img2.length, opts);
+                            ImageView img = (ImageView) findViewById(R.id.imageView6);
+                            img.setImageBitmap(bitmap2);
+                            img.setMinimumWidth(200);
+                        } catch (Exception e) {
+                            System.out.println("IMG 2 ERROR " + e);
                         }
-                        Bitmap bitmap2 = BitmapFactory.decodeByteArray(img2, 0, img2.length, opts);
-                        ImageView img= (ImageView) findViewById(R.id.imageView6);
-                        img.setImageBitmap(bitmap2);
-                        img.setMinimumWidth(200);
-                    }catch (Exception e){
-                        System.out.println("IMG 2 ERROR " + e);
                     }
-
                 }
 
                 if(recipe2 != null)
@@ -245,6 +251,10 @@ public class MealDetails extends GlobalActivity implements View.OnClickListener 
         if(ur != null && !ur.isCancelled()) {
             ur.cancel(true);
         }
+        if(bitmap1!=null)
+        bitmap1.recycle();
+        if(bitmap2!=null)
+        bitmap2.recycle();
         super.onDestroy();
     }
 

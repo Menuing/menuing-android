@@ -37,6 +37,7 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
 
     RatingBar ratingBar;
     JSONObject recipe;
+    Bitmap bitmap1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
                 } else {
                     opts.inSampleSize = 1;
                 }
-                Bitmap bitmap1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, opts);
+                bitmap1 = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length, opts);
                 ImageView img = (ImageView) findViewById(R.id.dish_image);
                 img.setImageBitmap(bitmap1);
             }catch (Exception e){
@@ -167,6 +168,8 @@ public class RecipeDetails extends GlobalActivity implements RatingBar.OnRatingB
         if(!ur.isCancelled()) {
             ur.cancel(true);
         }
+        if(bitmap1!=null)
+        bitmap1.recycle();
         super.onDestroy();
     }
 

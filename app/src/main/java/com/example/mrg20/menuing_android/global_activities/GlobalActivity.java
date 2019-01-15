@@ -45,7 +45,7 @@ public class GlobalActivity extends AppCompatActivity {
 
     //Recordar de posar el port
 
-    protected String ipserver = "ec5199ce.ngrok.io";
+    protected String ipserver = "6547d2f5.ngrok.io";
 
 
     protected static final int BREAKFAST = 0;

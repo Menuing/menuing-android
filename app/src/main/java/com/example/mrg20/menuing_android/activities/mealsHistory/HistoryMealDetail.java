@@ -39,6 +39,8 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
 
     String recipeName;
 
+    Bitmap bitmap1;
+
     ConnectorUpdateRating cur;
     UrlConnectorGetImage urimage;
     DatabaseHelper db;
@@ -48,6 +50,14 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
 
     RatingBar ratingBar;
     int id;
+
+    @Override
+    protected void onDestroy() {
+        if(bitmap1!=null)
+            bitmap1.recycle();
+        super.onDestroy();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,23 +126,26 @@ public class HistoryMealDetail extends GlobalActivity implements RatingBar.OnRat
         while (!urimage.loaded){if(urimage.loaded) System.out.println("imageLoaded");}
 
         if(urimage.imageOK){
-            try{
-                BitmapFactory.Options opts = new BitmapFactory.Options();
-                if(urimage.img.length>800000){
-                    opts.inSampleSize = 6;
-                }else if(urimage.img.length>400000){
-                    opts.inSampleSize = 4;
-                }else if(urimage.img.length>150000){
-                    opts.inSampleSize = 2;
-                }else{
-                    opts.inSampleSize = 1;
-                }
-                Bitmap bitmap1 = BitmapFactory.decodeByteArray(urimage.img, 0, urimage.img.length, opts);
+            if(urimage!= null && urimage.img!=null) {
+                try {
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    if (urimage.img.length > 800000) {
+                        opts.inSampleSize = 6;
+                    } else if (urimage.img.length > 400000) {
+                        opts.inSampleSize = 4;
+                    } else if (urimage.img.length > 200000) {
+                        opts.inSampleSize = 2;
+                    } else {
+                        opts.inSampleSize = 1;
+                    }
 
-                ImageView img = (ImageView) findViewById(R.id.dish_image);
-                img.setImageBitmap(bitmap1);
-            }catch (Exception e){
-                System.out.println("IMG 2 ERROR " + e);
+                    bitmap1 = BitmapFactory.decodeByteArray(urimage.img, 0, urimage.img.length, opts);
+
+                    ImageView img = (ImageView) findViewById(R.id.dish_image);
+                    img.setImageBitmap(bitmap1);
+                } catch (Exception e) {
+                    System.out.println("IMG 2 ERROR " + e);
+                }
             }
         }
     }
